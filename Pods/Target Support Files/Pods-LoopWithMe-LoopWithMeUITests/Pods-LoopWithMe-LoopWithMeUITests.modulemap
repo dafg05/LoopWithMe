@@ -1,0 +1,6 @@
+framework module Pods_LoopWithMe_LoopWithMeUITests {
+  umbrella header "Pods-LoopWithMe-LoopWithMeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
