@@ -20,6 +20,7 @@
 		299C22DC2878833E0022D102 /* LoopWithMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22DB2878833E0022D102 /* LoopWithMeTests.m */; };
 		299C22E62878833E0022D102 /* LoopWithMeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22E52878833E0022D102 /* LoopWithMeUITests.m */; };
 		299C22E82878833E0022D102 /* LoopWithMeUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22E72878833E0022D102 /* LoopWithMeUITestsLaunchTests.m */; };
+		299C22F728788CB60022D102 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 299C22F628788CB60022D102 /* Keys.plist */; };
 		2FDE26B5A4C00C5AC58F16AE /* Pods_LoopWithMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D091F9520F96FEB40B60FF51 /* Pods_LoopWithMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		299C22E12878833E0022D102 /* LoopWithMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoopWithMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		299C22E52878833E0022D102 /* LoopWithMeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopWithMeUITests.m; sourceTree = "<group>"; };
 		299C22E72878833E0022D102 /* LoopWithMeUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopWithMeUITestsLaunchTests.m; sourceTree = "<group>"; };
+		299C22F628788CB60022D102 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		2DE70749BCD390CAE652195C /* Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMe-LoopWithMeUITests/Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7804621FBB2682853659D880 /* Pods-LoopWithMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.release.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,7 +110,6 @@
 				06624472343DC8FC72E1C4EC /* Pods-LoopWithMeTests.debug.xcconfig */,
 				7804621FBB2682853659D880 /* Pods-LoopWithMeTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -125,6 +126,7 @@
 		299C22B02878833D0022D102 = {
 			isa = PBXGroup;
 			children = (
+				299C22F628788CB60022D102 /* Keys.plist */,
 				299C22BB2878833D0022D102 /* LoopWithMe */,
 				299C22DA2878833E0022D102 /* LoopWithMeTests */,
 				299C22E42878833E0022D102 /* LoopWithMeUITests */,
@@ -288,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				299C22F728788CB60022D102 /* Keys.plist in Resources */,
 				299C22CF2878833E0022D102 /* LaunchScreen.storyboard in Resources */,
 				299C22CC2878833E0022D102 /* Assets.xcassets in Resources */,
 				299C22C72878833D0022D102 /* Main.storyboard in Resources */,
