@@ -21,6 +21,10 @@
 		299C22E62878833E0022D102 /* LoopWithMeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22E52878833E0022D102 /* LoopWithMeUITests.m */; };
 		299C22E82878833E0022D102 /* LoopWithMeUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22E72878833E0022D102 /* LoopWithMeUITestsLaunchTests.m */; };
 		299C22F728788CB60022D102 /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 299C22F628788CB60022D102 /* Keys.plist */; };
+		299C22FA287B40160022D102 /* Loop.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22F9287B40160022D102 /* Loop.m */; };
+		299C22FE287B45A80022D102 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22FD287B45A80022D102 /* Track.m */; };
+		299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C2300287B49380022D102 /* TempoAssistSettings.m */; };
+		299C2304287B4AAA0022D102 /* TimeSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C2303287B4AAA0022D102 /* TimeSignature.m */; };
 		2FDE26B5A4C00C5AC58F16AE /* Pods_LoopWithMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D091F9520F96FEB40B60FF51 /* Pods_LoopWithMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,6 +67,14 @@
 		299C22E52878833E0022D102 /* LoopWithMeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopWithMeUITests.m; sourceTree = "<group>"; };
 		299C22E72878833E0022D102 /* LoopWithMeUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopWithMeUITestsLaunchTests.m; sourceTree = "<group>"; };
 		299C22F628788CB60022D102 /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		299C22F8287B40160022D102 /* Loop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Loop.h; sourceTree = "<group>"; };
+		299C22F9287B40160022D102 /* Loop.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Loop.m; sourceTree = "<group>"; };
+		299C22FC287B45A80022D102 /* Track.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Track.h; path = LoopWithMe/Models/Track.h; sourceTree = "<group>"; };
+		299C22FD287B45A80022D102 /* Track.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Track.m; path = LoopWithMe/Models/Track.m; sourceTree = "<group>"; };
+		299C22FF287B49380022D102 /* TempoAssistSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TempoAssistSettings.h; path = LoopWithMe/TempoAssistSettings.h; sourceTree = "<group>"; };
+		299C2300287B49380022D102 /* TempoAssistSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TempoAssistSettings.m; path = LoopWithMe/TempoAssistSettings.m; sourceTree = "<group>"; };
+		299C2302287B4AAA0022D102 /* TimeSignature.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeSignature.h; sourceTree = "<group>"; };
+		299C2303287B4AAA0022D102 /* TimeSignature.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeSignature.m; sourceTree = "<group>"; };
 		2DE70749BCD390CAE652195C /* Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMe-LoopWithMeUITests/Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7804621FBB2682853659D880 /* Pods-LoopWithMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.release.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +161,7 @@
 		299C22BB2878833D0022D102 /* LoopWithMe */ = {
 			isa = PBXGroup;
 			children = (
+				299C22FB287B451A0022D102 /* Models */,
 				299C22BC2878833D0022D102 /* AppDelegate.h */,
 				299C22BD2878833D0022D102 /* AppDelegate.m */,
 				299C22BF2878833D0022D102 /* SceneDelegate.h */,
@@ -180,6 +193,22 @@
 				299C22E72878833E0022D102 /* LoopWithMeUITestsLaunchTests.m */,
 			);
 			path = LoopWithMeUITests;
+			sourceTree = "<group>";
+		};
+		299C22FB287B451A0022D102 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				299C22F8287B40160022D102 /* Loop.h */,
+				299C22F9287B40160022D102 /* Loop.m */,
+				299C22FC287B45A80022D102 /* Track.h */,
+				299C22FD287B45A80022D102 /* Track.m */,
+				299C22FF287B49380022D102 /* TempoAssistSettings.h */,
+				299C2300287B49380022D102 /* TempoAssistSettings.m */,
+				299C2302287B4AAA0022D102 /* TimeSignature.h */,
+				299C2303287B4AAA0022D102 /* TimeSignature.m */,
+			);
+			name = Models;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,9 +450,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				299C22FE287B45A80022D102 /* Track.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
 				299C22C42878833D0022D102 /* ViewController.m in Sources */,
 				299C22BE2878833D0022D102 /* AppDelegate.m in Sources */,
+				299C22FA287B40160022D102 /* Loop.m in Sources */,
+				299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */,
+				299C2304287B4AAA0022D102 /* TimeSignature.m in Sources */,
 				299C22C12878833D0022D102 /* SceneDelegate.m in Sources */,
 				299C22CA2878833D0022D102 /* LoopWithMe.xcdatamodeld in Sources */,
 			);
