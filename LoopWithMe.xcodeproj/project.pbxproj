@@ -9,9 +9,13 @@
 /* Begin PBXBuildFile section */
 		05D110E6F0521463910A88F6 /* Pods_LoopWithMe_LoopWithMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */; };
 		1F95AB038BD28820930E6E98 /* Pods_LoopWithMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */; };
+		29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C72287B6B8C0004D8D1 /* LoginVC.m */; };
+		29958C76287B6BCC0004D8D1 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C75287B6BCC0004D8D1 /* SignUpVC.m */; };
+		29958C79287BA1EF0004D8D1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C78287BA1EF0004D8D1 /* RecordingVC.m */; };
+		29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C7B287BA2120004D8D1 /* LoopStackVC.m */; };
+		29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C7E287BA25C0004D8D1 /* ShareVC.m */; };
 		299C22BE2878833D0022D102 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22BD2878833D0022D102 /* AppDelegate.m */; };
 		299C22C12878833D0022D102 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22C02878833D0022D102 /* SceneDelegate.m */; };
-		299C22C42878833D0022D102 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22C32878833D0022D102 /* ViewController.m */; };
 		299C22C72878833D0022D102 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 299C22C52878833D0022D102 /* Main.storyboard */; };
 		299C22CA2878833D0022D102 /* LoopWithMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 299C22C82878833D0022D102 /* LoopWithMe.xcdatamodeld */; };
 		299C22CC2878833E0022D102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 299C22CB2878833E0022D102 /* Assets.xcassets */; };
@@ -48,13 +52,21 @@
 /* Begin PBXFileReference section */
 		06624472343DC8FC72E1C4EC /* Pods-LoopWithMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMe_LoopWithMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29958C71287B6B8C0004D8D1 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
+		29958C72287B6B8C0004D8D1 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		29958C74287B6BCC0004D8D1 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
+		29958C75287B6BCC0004D8D1 /* SignUpVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpVC.m; sourceTree = "<group>"; };
+		29958C77287BA1EF0004D8D1 /* RecordingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingVC.h; sourceTree = "<group>"; };
+		29958C78287BA1EF0004D8D1 /* RecordingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingVC.m; sourceTree = "<group>"; };
+		29958C7A287BA2120004D8D1 /* LoopStackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopStackVC.h; sourceTree = "<group>"; };
+		29958C7B287BA2120004D8D1 /* LoopStackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopStackVC.m; sourceTree = "<group>"; };
+		29958C7D287BA25C0004D8D1 /* ShareVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareVC.h; sourceTree = "<group>"; };
+		29958C7E287BA25C0004D8D1 /* ShareVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShareVC.m; sourceTree = "<group>"; };
 		299C22B92878833D0022D102 /* LoopWithMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoopWithMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		299C22BC2878833D0022D102 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		299C22BD2878833D0022D102 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		299C22BF2878833D0022D102 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		299C22C02878833D0022D102 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		299C22C22878833D0022D102 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		299C22C32878833D0022D102 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		299C22C62878833D0022D102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		299C22C92878833D0022D102 /* LoopWithMe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LoopWithMe.xcdatamodel; sourceTree = "<group>"; };
 		299C22CB2878833E0022D102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -135,6 +147,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		29958C70287B6B490004D8D1 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				29958C71287B6B8C0004D8D1 /* LoginVC.h */,
+				29958C72287B6B8C0004D8D1 /* LoginVC.m */,
+				29958C74287B6BCC0004D8D1 /* SignUpVC.h */,
+				29958C75287B6BCC0004D8D1 /* SignUpVC.m */,
+				29958C77287BA1EF0004D8D1 /* RecordingVC.h */,
+				29958C78287BA1EF0004D8D1 /* RecordingVC.m */,
+				29958C7A287BA2120004D8D1 /* LoopStackVC.h */,
+				29958C7B287BA2120004D8D1 /* LoopStackVC.m */,
+				29958C7D287BA25C0004D8D1 /* ShareVC.h */,
+				29958C7E287BA25C0004D8D1 /* ShareVC.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		299C22B02878833D0022D102 = {
 			isa = PBXGroup;
 			children = (
@@ -161,13 +190,12 @@
 		299C22BB2878833D0022D102 /* LoopWithMe */ = {
 			isa = PBXGroup;
 			children = (
+				29958C70287B6B490004D8D1 /* ViewControllers */,
 				299C22FB287B451A0022D102 /* Models */,
 				299C22BC2878833D0022D102 /* AppDelegate.h */,
 				299C22BD2878833D0022D102 /* AppDelegate.m */,
 				299C22BF2878833D0022D102 /* SceneDelegate.h */,
 				299C22C02878833D0022D102 /* SceneDelegate.m */,
-				299C22C22878833D0022D102 /* ViewController.h */,
-				299C22C32878833D0022D102 /* ViewController.m */,
 				299C22C52878833D0022D102 /* Main.storyboard */,
 				299C22CB2878833E0022D102 /* Assets.xcassets */,
 				299C22CD2878833E0022D102 /* LaunchScreen.storyboard */,
@@ -451,14 +479,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				299C22FE287B45A80022D102 /* Track.m in Sources */,
+				29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
-				299C22C42878833D0022D102 /* ViewController.m in Sources */,
+				29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */,
+				29958C76287B6BCC0004D8D1 /* SignUpVC.m in Sources */,
+				29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */,
 				299C22BE2878833D0022D102 /* AppDelegate.m in Sources */,
 				299C22FA287B40160022D102 /* Loop.m in Sources */,
 				299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */,
 				299C2304287B4AAA0022D102 /* Track.m in Sources */,
 				299C22C12878833D0022D102 /* SceneDelegate.m in Sources */,
 				299C22CA2878833D0022D102 /* LoopWithMe.xcdatamodeld in Sources */,
+				29958C79287BA1EF0004D8D1 /* RecordingVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
