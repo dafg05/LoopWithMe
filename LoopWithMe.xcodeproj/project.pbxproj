@@ -29,6 +29,7 @@
 		299C22FE287B45A80022D102 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22FD287B45A80022D102 /* Track.m */; };
 		299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C2300287B49380022D102 /* TempoAssistSettings.m */; };
 		299C2304287B4AAA0022D102 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C2303287B4AAA0022D102 /* Track.m */; };
+		29F2C4C8287CA49800861B7B /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2C4C7287CA49800861B7B /* ProfileVC.m */; };
 		2FDE26B5A4C00C5AC58F16AE /* Pods_LoopWithMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D091F9520F96FEB40B60FF51 /* Pods_LoopWithMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,8 @@
 		299C2300287B49380022D102 /* TempoAssistSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TempoAssistSettings.m; path = LoopWithMe/Models/TempoAssistSettings.m; sourceTree = "<group>"; };
 		299C2302287B4AAA0022D102 /* Track.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Track.h; path = LoopWithMe/Models/Track.h; sourceTree = "<group>"; };
 		299C2303287B4AAA0022D102 /* Track.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Track.m; path = LoopWithMe/Models/Track.m; sourceTree = "<group>"; };
+		29F2C4C6287CA49800861B7B /* ProfileVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
+		29F2C4C7287CA49800861B7B /* ProfileVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
 		2DE70749BCD390CAE652195C /* Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMe-LoopWithMeUITests/Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7804621FBB2682853659D880 /* Pods-LoopWithMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.release.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +163,8 @@
 				29958C7B287BA2120004D8D1 /* LoopStackVC.m */,
 				29958C7D287BA25C0004D8D1 /* ShareVC.h */,
 				29958C7E287BA25C0004D8D1 /* ShareVC.m */,
+				29F2C4C6287CA49800861B7B /* ProfileVC.h */,
+				29F2C4C7287CA49800861B7B /* ProfileVC.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29F2C4C8287CA49800861B7B /* ProfileVC.m in Sources */,
 				299C22FE287B45A80022D102 /* Track.m in Sources */,
 				29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
@@ -664,6 +670,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3XRLMZ2LJQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LoopWithMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -691,6 +698,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3XRLMZ2LJQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LoopWithMe/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

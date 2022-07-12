@@ -24,6 +24,7 @@
         configuration.server = @"https://parseapi.back4app.com";
     }];
     [Parse initializeWithConfiguration:config];
+    
     return YES;
 }
 
