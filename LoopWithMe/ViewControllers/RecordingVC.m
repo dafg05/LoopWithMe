@@ -26,8 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.audioPlayer.delegate = self;
     [self recordingUnavailableUI];
+    self.timerLabel.text = @"00:00";
     self.playStopButton.enabled = NO;
     [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
     [self.playStopButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
@@ -99,6 +99,7 @@
     if (self.audioRecorder.recording){
         [self finishRecording:YES];
     } else{
+        self.timerLabel.text = @"00:00";
         [self startRecording];
     }
     
@@ -118,6 +119,8 @@
 - (void)startRecording{
     // deallocate audioPlayer in case this is a re-recording
     self.audioPlayer = nil;
+    self.playStopButton.enabled = NO;
+    [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
     @try {
         [self.audioRecorder record];
         [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
@@ -129,18 +132,19 @@
 
 -(void)updateTimerLabel{
     if(self.audioRecorder.recording){
-        float minutes = floor(self.audioRecorder.currentTime/60);
-        float seconds = self.audioRecorder.currentTime - (minutes * 60);
-
-        NSString *time = [[NSString alloc]
-                                    initWithFormat:@"%0.0f:%0.0f",
-                                    minutes, seconds];
-        self.timerLabel.text = time;
+        NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
+        formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
+        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+        self.timerLabel.text = [formatter stringFromTimeInterval:self.audioRecorder.currentTime];
+        
     }
 }
 
 - (void)finishRecording:(BOOL)success{
     [self.audioRecorder stop];
+    if (self.recordingTimer){
+        [self.recordingTimer invalidate];
+    }
     if (success){
         [self.recordButton setTitle:@"Re-record" forState:UIControlStateNormal];
         // only initialize audioplayer once we're done recording
@@ -157,6 +161,7 @@
 //    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     NSURL *audioFileUrl = [self getRecordingFileUrl];
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileUrl error:nil];
+    self.audioPlayer.delegate = self;
     self.playStopButton.enabled = YES;
 }
 
@@ -166,6 +171,7 @@
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     NSLog(@"should be here");
+    NSLog(@"Here");
     [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
 }
 

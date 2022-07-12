@@ -224,28 +224,29 @@
                                     <action selector="didTapRecord:" destination="MnC-97-ftA" eventType="touchUpInside" id="Vfs-5Y-4to"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfc-fM-A7g">
-                                <rect key="frame" x="55" y="124" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="play"/>
-                                <connections>
-                                    <action selector="didTapPlayStop:" destination="MnC-97-ftA" eventType="touchUpInside" id="X1p-0G-KQl"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-qP-zGb">
                                 <rect key="frame" x="152.5" y="711.5" width="109.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfc-fM-A7g">
+                                <rect key="frame" x="181.5" y="660.5" width="51" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="play"/>
+                                <connections>
+                                    <action selector="didTapPlayStop:" destination="MnC-97-ftA" eventType="touchUpInside" id="X1p-0G-KQl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wRO-SS-Zya"/>
                         <color key="backgroundColor" name="recording screen color"/>
                         <constraints>
                             <constraint firstItem="0kb-p5-Re8" firstAttribute="centerX" secondItem="b0L-qP-zGb" secondAttribute="centerX" id="DfC-WZ-0p1"/>
                             <constraint firstItem="0kb-p5-Re8" firstAttribute="top" secondItem="b0L-qP-zGb" secondAttribute="bottom" constant="20" id="PdE-Re-SqC"/>
+                            <constraint firstItem="b0L-qP-zGb" firstAttribute="centerX" secondItem="lfc-fM-A7g" secondAttribute="centerX" id="ojc-Gp-b1J"/>
                             <constraint firstItem="0kb-p5-Re8" firstAttribute="centerX" secondItem="TNV-rQ-T6h" secondAttribute="centerX" id="qzr-x1-Dnr"/>
+                            <constraint firstItem="b0L-qP-zGb" firstAttribute="top" secondItem="lfc-fM-A7g" secondAttribute="bottom" constant="20" id="xaF-xz-7Gv"/>
                             <constraint firstItem="wRO-SS-Zya" firstAttribute="bottom" secondItem="0kb-p5-Re8" secondAttribute="bottom" constant="60" id="ze2-tL-h2T"/>
                         </constraints>
                     </view>
@@ -471,16 +472,16 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="custom secondary bg color">
-            <color red="0.07118654715579284" green="0.071060841241622152" blue="0.079038826806060669" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.071000002324581146" green="0.071000002324581146" blue="0.079000003635883331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="custom text color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="recording screen color">
-            <color red="0.12416860148357184" green="0.20126770354798842" blue="0.26709564346255676" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.12399999797344208" green="0.20100000500679016" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="text field color">
-            <color red="0.16860275584045192" green="0.16895236215916526" blue="0.19036798224848483" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.16899999976158142" green="0.16899999976158142" blue="0.18999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
