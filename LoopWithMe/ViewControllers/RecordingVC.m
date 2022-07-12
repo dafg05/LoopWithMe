@@ -13,8 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property AVAudioSession *recordingSession;
 @property AVAudioRecorder *audioRecorder;
-@property (weak, nonatomic) IBOutlet UILabel *warningLabel;
-@property BOOL recordingAvailable;
+@property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 
 @end
 
@@ -24,11 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.recordingAvailable = NO;
+    [self recordingUnavailableUI];
     self.recordingSession = [AVAudioSession sharedInstance];
-    self.warningLabel.text = @"";
-    [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateNormal];
-    [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
     @try {
         NSError *__autoreleasing *setCategoryError = nil;
         NSError *__autoreleasing *setActiveError = nil;
@@ -37,34 +33,55 @@
         [self.recordingSession requestRecordPermission:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (granted){
-//                    [self loadRecordingUI];
                     NSLog(@"Permissions granted");
-                    self.recordingAvailable = YES;
-                    [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
-                    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+                    [self recordingAvailableUI];
+                    [self setUpRecorder];
                 } else{
-                    self.warningLabel.text = @"Make sure to enable recording via microphone in your System Settings.";
+                    [self recordingAlert:@"Make sure to enable recording via microphone on your System Settings."];
                 }
             });
         }];
     } @catch (NSException *exception) {
-        NSLog(@"An error occurred setting up a recording session: %@", exception.name);
+        [self recordingAlert:[NSString stringWithFormat:@"An exception occurred while setting up recording: %@", exception.name]];
     }
 }
+
+-(void) recordingAlert:(NSString *)message{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alertController addAction:actionOk];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void) recordingUnavailableUI{
+    self.recordButton.enabled = NO;
+    [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
+}
+
+-(void) recordingAvailableUI{
+    self.recordButton.enabled = YES;
+    [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
+    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+}
+
 
 - (IBAction)didTapRecord:(id)sender {
-    if (self.recordingAvailable){
-        if (self.audioRecorder){
-            [self finishRecording:YES];
-        } else{
-            [self startRecording];
-        }
+    if (self.audioRecorder.recording){
+        [self finishRecording:YES];
+    } else{
+        [self startRecording];
     }
+    
 }
 
-- (void)startRecording{
+- (void)setUpRecorder{
     NSURL *audioFileUrl = [self getRecordingFileUrl];
-    // Set recording settings
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
     [recordSettings setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
@@ -72,28 +89,28 @@
     [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMedium] forKey:AVEncoderAudioQualityKey];
     
     NSError *__autoreleasing *initRecorderError = nil;
-    // Initialize audioRecorder
     self.audioRecorder = [[AVAudioRecorder alloc] initWithURL:audioFileUrl settings:recordSettings error:initRecorderError];
     if (initRecorderError){
         NSLog(@"Error when initializing audiorecorder");
     }
-    else{
-        @try {
-            self.audioRecorder.delegate = self;
-            [self.audioRecorder record];
-            [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
-        } @catch (NSException *exception) {
-            [self finishRecording:NO];
-        }
+    self.audioRecorder.delegate = self;
+}
+
+- (void)startRecording{
+    @try {
+        [self.audioRecorder record];
+        [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
+    } @catch (NSException *exception) {
+        [self finishRecording:NO];
     }
 }
 
 - (void)finishRecording:(BOOL)success{
     [self.audioRecorder stop];
-    self.audioRecorder = nil;
     if (success){
         [self.recordButton setTitle:@"Re-record" forState:UIControlStateNormal];
     }else{
+        [self recordingAlert:@"An error occurred while recording, try again"];
         [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
     }
 }
@@ -108,8 +125,8 @@
     NSString *soundFilePath = [NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER];
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     
-    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-    [player play];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+    [self.audioPlayer play];
 }
 
 - (NSURL *)getRecordingFileUrl{
