@@ -8,7 +8,7 @@
 #import "RecordingVC.h"
 #import "AVFoundation/AVFAudio.h"
 
-@interface RecordingVC () <AVAudioRecorderDelegate>
+@interface RecordingVC () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
@@ -16,6 +16,7 @@
 @property AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 @property (strong, nonatomic) NSTimer *recordingTimer;
+@property (weak, nonatomic) IBOutlet UIButton *playStopButton;
 
 @end
 
@@ -25,7 +26,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.audioPlayer.delegate = self;
     [self recordingUnavailableUI];
+    self.playStopButton.enabled = NO;
+    [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
+    [self.playStopButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
+    
     self.recordingSession = [AVAudioSession sharedInstance];
     @try {
         NSError *__autoreleasing *setCategoryError = nil;
@@ -98,7 +104,20 @@
     
 }
 
+- (IBAction)didTapPlayStop:(id)sender {
+    if (self.audioPlayer.playing){
+        [self.audioPlayer stop];
+        [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
+    }
+    else{
+        [self.audioPlayer play];
+        [self.playStopButton setTitle:@"Stop" forState:UIControlStateNormal];
+    }
+}
+
 - (void)startRecording{
+    // deallocate audioPlayer in case this is a re-recording
+    self.audioPlayer = nil;
     @try {
         [self.audioRecorder record];
         [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
@@ -124,29 +143,32 @@
     [self.audioRecorder stop];
     if (success){
         [self.recordButton setTitle:@"Re-record" forState:UIControlStateNormal];
+        // only initialize audioplayer once we're done recording
+        [self initializeAudioPlayer];
     }else{
         [self recordingAlert:@"An error occurred while recording, try again"];
         [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
     }
 }
 
-- (IBAction)didTapPlay:(id)sender {
-    // TODO: only show up when audio has already been recorded
-    [self playAudio];
-}
 
--(void) playAudio{
-    // TODO: Either fix bug, or switch to AVAudioEngine
-    NSString *soundFilePath = [NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER];
-    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
-    
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-    [self.audioPlayer play];
+-(void) initializeAudioPlayer{
+//    NSString *soundFilePath = [NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER];
+//    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+    NSURL *audioFileUrl = [self getRecordingFileUrl];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:audioFileUrl error:nil];
+    self.playStopButton.enabled = YES;
 }
 
 - (NSURL *)getRecordingFileUrl{
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    NSLog(@"should be here");
+    [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
+}
+
 
 /*
 #pragma mark - Navigation

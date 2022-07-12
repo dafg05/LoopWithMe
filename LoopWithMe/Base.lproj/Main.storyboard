@@ -230,7 +230,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="play"/>
                                 <connections>
-                                    <action selector="didTapPlay:" destination="MnC-97-ftA" eventType="touchUpInside" id="3RR-SX-Kmo"/>
+                                    <action selector="didTapPlayStop:" destination="MnC-97-ftA" eventType="touchUpInside" id="X1p-0G-KQl"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-qP-zGb">
@@ -251,6 +251,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EFv-tC-gH7"/>
                     <connections>
+                        <outlet property="playStopButton" destination="lfc-fM-A7g" id="10Z-R4-Xep"/>
                         <outlet property="recordButton" destination="0kb-p5-Re8" id="mci-da-9rU"/>
                         <outlet property="timerLabel" destination="b0L-qP-zGb" id="VI4-9f-NVH"/>
                         <segue destination="xyn-lb-lQU" kind="presentation" id="Je5-fr-oUg"/>
