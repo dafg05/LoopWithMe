@@ -11,9 +11,11 @@
 @interface RecordingVC () <AVAudioRecorderDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property AVAudioSession *recordingSession;
 @property AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+@property (strong, nonatomic) NSTimer *recordingTimer;
 
 @end
 
@@ -70,16 +72,6 @@
     [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
 }
 
-
-- (IBAction)didTapRecord:(id)sender {
-    if (self.audioRecorder.recording){
-        [self finishRecording:YES];
-    } else{
-        [self startRecording];
-    }
-    
-}
-
 - (void)setUpRecorder{
     NSURL *audioFileUrl = [self getRecordingFileUrl];
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
@@ -96,12 +88,35 @@
     self.audioRecorder.delegate = self;
 }
 
+
+- (IBAction)didTapRecord:(id)sender {
+    if (self.audioRecorder.recording){
+        [self finishRecording:YES];
+    } else{
+        [self startRecording];
+    }
+    
+}
+
 - (void)startRecording{
     @try {
         [self.audioRecorder record];
         [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
+        self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTimerLabel) userInfo:nil repeats:YES];
     } @catch (NSException *exception) {
         [self finishRecording:NO];
+    }
+}
+
+-(void)updateTimerLabel{
+    if(self.audioRecorder.recording){
+        float minutes = floor(self.audioRecorder.currentTime/60);
+        float seconds = self.audioRecorder.currentTime - (minutes * 60);
+
+        NSString *time = [[NSString alloc]
+                                    initWithFormat:@"%0.0f:%0.0f",
+                                    minutes, seconds];
+        self.timerLabel.text = time;
     }
 }
 
