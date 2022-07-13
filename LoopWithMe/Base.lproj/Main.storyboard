@@ -12,7 +12,7 @@
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="BYZ-38-t0r" customClass="LoginVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,7 +38,7 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="lsu-fK-Hur">
                                         <rect key="frame" x="10" y="44" width="334" height="30"/>
-                                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                        <color key="backgroundColor" name="text field color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="KLU-0g-UDK"/>
                                         </constraints>
@@ -48,7 +48,7 @@
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6eu-vm-EkJ">
                                         <rect key="frame" x="10" y="98" width="334" height="30"/>
-                                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                        <color key="backgroundColor" name="text field color"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="WH5-2u-bsa"/>
                                         </constraints>
@@ -129,18 +129,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New Loop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NtG-OF-ZKg">
-                                <rect key="frame" x="169" y="119" width="77" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Loop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NtG-OF-ZKg">
+                                <rect key="frame" x="30" y="74" width="354" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apo-9z-Og5">
-                                <rect key="frame" x="168" y="721" width="70" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apo-9z-Og5">
+                                <rect key="frame" x="146" y="752" width="122" height="31"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Record"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Start recording"/>
                                 <connections>
                                     <segue destination="MnC-97-ftA" kind="show" id="vgg-yX-9hG"/>
                                 </connections>
@@ -148,6 +146,13 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="A0W-CQ-gJc"/>
                         <color key="backgroundColor" name="custom background color"/>
+                        <constraints>
+                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="apo-9z-Og5" secondAttribute="bottom" constant="30" id="EEb-Pk-HVf"/>
+                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="NtG-OF-ZKg" secondAttribute="trailing" constant="30" id="KPP-kN-ioU"/>
+                            <constraint firstItem="NtG-OF-ZKg" firstAttribute="top" secondItem="A0W-CQ-gJc" secondAttribute="top" constant="30" id="cwd-Eg-bUP"/>
+                            <constraint firstItem="apo-9z-Og5" firstAttribute="centerX" secondItem="wyY-lH-W7N" secondAttribute="centerX" id="jDY-pq-MKo"/>
+                            <constraint firstItem="NtG-OF-ZKg" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="rT1-fU-Mhr"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="New Loop" id="00S-f2-tOA"/>
                 </viewController>
@@ -203,38 +208,64 @@
             </objects>
             <point key="canvasLocation" x="1135" y="2289"/>
         </scene>
-        <!--View Controller-->
+        <!--RecordingVC-->
         <scene sceneID="YDb-Uz-6Y1">
             <objects>
-                <viewController id="MnC-97-ftA" sceneMemberID="viewController">
+                <viewController id="MnC-97-ftA" customClass="RecordingVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TNV-rQ-T6h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recording" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSR-Wo-GcE">
-                                <rect key="frame" x="168" y="207" width="78" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-p5-Re8">
+                                <rect key="frame" x="172" y="751" width="70" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Record"/>
+                                <connections>
+                                    <action selector="didTapRecord:" destination="MnC-97-ftA" eventType="touchUpInside" id="Vfs-5Y-4to"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-qP-zGb">
+                                <rect key="frame" x="152.5" y="711.5" width="109.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfc-fM-A7g">
+                                <rect key="frame" x="181.5" y="660.5" width="51" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="play"/>
+                                <connections>
+                                    <action selector="didTapPlayStop:" destination="MnC-97-ftA" eventType="touchUpInside" id="X1p-0G-KQl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wRO-SS-Zya"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="recording screen color"/>
+                        <constraints>
+                            <constraint firstItem="0kb-p5-Re8" firstAttribute="centerX" secondItem="b0L-qP-zGb" secondAttribute="centerX" id="DfC-WZ-0p1"/>
+                            <constraint firstItem="0kb-p5-Re8" firstAttribute="top" secondItem="b0L-qP-zGb" secondAttribute="bottom" constant="20" id="PdE-Re-SqC"/>
+                            <constraint firstItem="b0L-qP-zGb" firstAttribute="centerX" secondItem="lfc-fM-A7g" secondAttribute="centerX" id="ojc-Gp-b1J"/>
+                            <constraint firstItem="0kb-p5-Re8" firstAttribute="centerX" secondItem="TNV-rQ-T6h" secondAttribute="centerX" id="qzr-x1-Dnr"/>
+                            <constraint firstItem="b0L-qP-zGb" firstAttribute="top" secondItem="lfc-fM-A7g" secondAttribute="bottom" constant="20" id="xaF-xz-7Gv"/>
+                            <constraint firstItem="wRO-SS-Zya" firstAttribute="bottom" secondItem="0kb-p5-Re8" secondAttribute="bottom" constant="60" id="ze2-tL-h2T"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="EFv-tC-gH7"/>
                     <connections>
+                        <outlet property="playStopButton" destination="lfc-fM-A7g" id="10Z-R4-Xep"/>
+                        <outlet property="recordButton" destination="0kb-p5-Re8" id="mci-da-9rU"/>
+                        <outlet property="timerLabel" destination="b0L-qP-zGb" id="VI4-9f-NVH"/>
                         <segue destination="xyn-lb-lQU" kind="presentation" id="Je5-fr-oUg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2di-eB-Grl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2032" y="1558"/>
+            <point key="canvasLocation" x="2030" y="1557"/>
         </scene>
         <!--Profile-->
         <scene sceneID="1Dc-bn-RsD">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="eTt-g7-Sd2" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="eTt-g7-Sd2" customClass="ProfileVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tNa-yQ-gt7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -246,9 +277,21 @@
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebK-Sx-fbn">
+                                <rect key="frame" x="311" y="44" width="73" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Log out"/>
+                                <connections>
+                                    <action selector="didTapLogout:" destination="eTt-g7-Sd2" eventType="touchUpInside" id="CWs-U2-Tos"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vbu-y6-FeG"/>
                         <color key="backgroundColor" name="custom background color"/>
+                        <constraints>
+                            <constraint firstItem="vbu-y6-FeG" firstAttribute="trailing" secondItem="ebK-Sx-fbn" secondAttribute="trailing" constant="30" id="g8K-wg-Hog"/>
+                            <constraint firstItem="ebK-Sx-fbn" firstAttribute="top" secondItem="vbu-y6-FeG" secondAttribute="top" id="uza-vl-Yfa"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="Lbf-5W-vqK"/>
                 </viewController>
@@ -284,7 +327,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="svO-Tk-nbf">
             <objects>
-                <tabBarController modalPresentationStyle="fullScreen" id="5B4-gt-GPl" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarVC" modalPresentationStyle="fullScreen" id="5B4-gt-GPl" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="iY9-7i-QdW"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="K73-3h-hOl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -320,35 +363,35 @@
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your name" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="GSx-Wl-LDv">
                                         <rect key="frame" x="0.0" y="0.0" width="354" height="34"/>
-                                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                        <color key="backgroundColor" name="text field color"/>
                                         <color key="textColor" name="custom text color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="3yC-qg-RHH">
                                         <rect key="frame" x="0.0" y="59" width="354" height="34"/>
-                                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                        <color key="backgroundColor" name="text field color"/>
                                         <color key="textColor" name="custom text color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a7N-9x-htX">
                                         <rect key="frame" x="0.0" y="118" width="354" height="34"/>
-                                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                        <color key="backgroundColor" name="text field color"/>
                                         <color key="textColor" name="custom text color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="I0a-jN-yqA">
                                         <rect key="frame" x="0.0" y="177" width="354" height="34"/>
-                                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                        <color key="backgroundColor" name="text field color"/>
                                         <color key="textColor" name="custom text color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="m7H-jL-wb6">
                                         <rect key="frame" x="0.0" y="236" width="354" height="34"/>
-                                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                        <color key="backgroundColor" name="text field color"/>
                                         <color key="textColor" name="custom text color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
@@ -371,7 +414,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WYp-u6-60E"/>
-                        <color key="backgroundColor" red="0.066666666666666666" green="0.066666666666666666" blue="0.066666666666666666" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="custom secondary bg color"/>
                         <constraints>
                             <constraint firstItem="gul-BJ-3Ke" firstAttribute="centerX" secondItem="aHm-mL-aNI" secondAttribute="centerX" id="5gZ-lA-N4y"/>
                             <constraint firstItem="FAB-9n-67g" firstAttribute="leading" secondItem="WYp-u6-60E" secondAttribute="leading" constant="30" id="BME-9C-9ym"/>
@@ -428,12 +471,18 @@
         <namedColor name="custom background color">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <namedColor name="custom secondary bg color">
+            <color red="0.071000002324581146" green="0.071000002324581146" blue="0.079000003635883331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="custom text color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <namedColor name="recording screen color">
+            <color red="0.12399999797344208" green="0.20100000500679016" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="text field color">
+            <color red="0.16899999976158142" green="0.16899999976158142" blue="0.18999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
