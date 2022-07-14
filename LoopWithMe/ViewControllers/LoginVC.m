@@ -19,12 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.errorLabel.text = @"";
-    // Set up custom placeholders
-    self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
-    self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
-    self.usernameField.delegate = self;
-    self.passwordField.delegate = self;
+    [self setUpTextFields];
 }
 
 - (IBAction)didTapLogin:(id)sender {
@@ -38,7 +33,7 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
-            // TODO: remove hardcoding
+            // NOTE: hard coded
             if ([error.localizedDescription isEqualToString:@"username/email is required."]){
                 self.errorLabel.text = @"username is required.";
             }
@@ -57,6 +52,15 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void) setUpTextFields{
+    self.errorLabel.text = @"";
+    // Set up custom placeholders
+    self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+    self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+    self.usernameField.delegate = self;
+    self.passwordField.delegate = self;
 }
 
 /*
