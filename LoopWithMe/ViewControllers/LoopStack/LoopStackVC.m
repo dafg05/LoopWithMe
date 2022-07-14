@@ -6,9 +6,11 @@
 //
 
 #import "LoopStackVC.h"
+#import "LoopTrackCell.h"
 
-@interface LoopStackVC ()
+@interface LoopStackVC () <UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
+@property (weak, nonatomic) IBOutlet UITableView *trackTableView;
 
 @end
 
@@ -16,7 +18,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.trackTableView.dataSource = self;
     self.loopNameLabel.text = self.loop.name;
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    LoopTrackCell *cell = [self.trackTableView dequeueReusableCellWithIdentifier:
+                           @"LoopTrackCell"];
+    cell.track = self.loop.tracks[indexPath.row];
+    cell.trackNumberLabel.text = [NSString stringWithFormat:@"Track %lu", indexPath.row + 1];
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.loop.tracks count];
 }
 
 /*
@@ -28,5 +43,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
 
 @end

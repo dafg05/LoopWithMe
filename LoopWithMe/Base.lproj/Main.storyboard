@@ -244,43 +244,87 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Id-z2-ITc">
+                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4W-Xb-cPS">
+                                        <rect key="frame" x="20" y="34.5" width="60" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="1cI-FX-q1e"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="v5Q-3v-qOE">
+                                        <rect key="frame" x="100" y="25.5" width="99.5" height="49"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LoopName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTT-DU-zxp">
+                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <color key="textColor" name="custom background color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Mix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdd-wE-7ay">
+                                                <rect key="frame" x="0.0" y="31" width="53.5" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="pink lace"/>
+                                <constraints>
+                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="leading" secondItem="W4W-Xb-cPS" secondAttribute="trailing" constant="20" id="UeN-Oj-3cI"/>
+                                    <constraint firstAttribute="height" constant="100" id="XTf-d9-adS"/>
+                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="eqU-gI-1rm"/>
+                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="leading" secondItem="8Id-z2-ITc" secondAttribute="leading" constant="20" id="kMB-U3-fmo"/>
+                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="pXY-9v-apf"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aly-L4-KOE">
                                 <rect key="frame" x="0.0" y="88" width="414" height="674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="separatorColor" name="custom background color"/>
-                                <color key="sectionIndexBackgroundColor" name="custom secondary bg color"/>
+                                <color key="separatorColor" systemColor="systemGray5Color"/>
+                                <color key="sectionIndexBackgroundColor" systemColor="systemGray4Color"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="gTu-c5-Yht">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoopTrackCell" id="gTu-c5-Yht" customClass="LoopTrackCell">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gTu-c5-Yht" id="BJE-Fh-Aiw">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUy-VK-EfY">
+                                                    <rect key="frame" x="20" y="6.5" width="51" height="31"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDB-93-5Vg">
+                                                    <rect key="frame" x="91" y="13" width="99.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YUy-VK-EfY" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="0fl-SZ-d6n"/>
+                                                <constraint firstItem="YUy-VK-EfY" firstAttribute="leading" secondItem="BJE-Fh-Aiw" secondAttribute="leading" constant="20" id="Vnr-PY-42E"/>
+                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="leading" secondItem="YUy-VK-EfY" secondAttribute="trailing" constant="20" id="fya-FD-Bz8"/>
+                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="qaj-dx-N9S"/>
+                                            </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <color key="backgroundColor" name="light blue"/>
+                                        <connections>
+                                            <outlet property="playStopButton" destination="YUy-VK-EfY" id="qa3-yg-Nfl"/>
+                                            <outlet property="trackNumberLabel" destination="gDB-93-5Vg" id="w7K-Sm-pII"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Id-z2-ITc">
-                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LoopName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTT-DU-zxp">
-                                        <rect key="frame" x="165.5" y="39.5" width="83" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="PTT-DU-zxp" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="1dD-az-QUp"/>
-                                    <constraint firstAttribute="height" constant="100" id="XTf-d9-adS"/>
-                                    <constraint firstItem="PTT-DU-zxp" firstAttribute="centerX" secondItem="8Id-z2-ITc" secondAttribute="centerX" id="eJQ-t1-vZZ"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="llw-qx-Tz1"/>
-                        <color key="backgroundColor" name="custom background color"/>
+                        <color key="backgroundColor" systemColor="systemGrayColor"/>
                         <constraints>
                             <constraint firstItem="8Id-z2-ITc" firstAttribute="top" secondItem="aly-L4-KOE" secondAttribute="bottom" id="1uf-lH-D42"/>
                             <constraint firstItem="aly-L4-KOE" firstAttribute="leading" secondItem="llw-qx-Tz1" secondAttribute="leading" id="Gbr-sX-RX2"/>
@@ -294,6 +338,7 @@
                     <navigationItem key="navigationItem" id="0gm-cW-h0w"/>
                     <connections>
                         <outlet property="loopNameLabel" destination="PTT-DU-zxp" id="RF9-F6-Or1"/>
+                        <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RxC-Nn-5mE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -645,6 +690,12 @@
         <namedColor name="custom text color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="light blue">
+            <color red="0.56133063946282546" green="1" blue="0.92978539390966697" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="pink lace">
+            <color red="0.92156862745098034" green="0.83921568627450982" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="recording screen color">
             <color red="0.12399999797344208" green="0.20100000500679016" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -654,11 +705,17 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
