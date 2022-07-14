@@ -334,7 +334,13 @@
                             <constraint firstItem="8Id-z2-ITc" firstAttribute="leading" secondItem="llw-qx-Tz1" secondAttribute="leading" id="zcA-DF-EBX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="0gm-cW-h0w"/>
+                    <navigationItem key="navigationItem" id="0gm-cW-h0w">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="6QL-8c-6np">
+                            <connections>
+                                <action selector="didTapCancel:" destination="xyn-lb-lQU" id="HYp-SB-3jo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="loopNameLabel" destination="PTT-DU-zxp" id="RF9-F6-Or1"/>
                         <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>

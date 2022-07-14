@@ -33,6 +33,9 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.loop.tracks count];
 }
+- (IBAction)didTapCancel:(id)sender {
+    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation
