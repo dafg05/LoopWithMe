@@ -14,10 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LoopTrackCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *trackNumberLabel;
-@property (weak, nonatomic) IBOutlet UIButton *playStopButton;
 @property (strong, nonatomic) Track *track;
+@property (weak, nonatomic) id<LoopTrackCellDelegate> delegate;
 
--(void) didTapPlayStop;
+@end
+
+@protocol LoopTrackCellDelegate
+
+- (void) playStopTrack;
 
 @end
 

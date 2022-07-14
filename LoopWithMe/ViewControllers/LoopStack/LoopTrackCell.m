@@ -13,9 +13,8 @@
     [super awakeFromNib];
     // Initialization code
 }
-
-- (void) didTapPlayStop{
-    
+- (IBAction)didTapPlayStopTrack:(id)sender {
+    [self.delegate playStopTrack];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

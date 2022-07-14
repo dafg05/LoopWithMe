@@ -193,9 +193,6 @@
     NSData *audioData = [NSData dataWithContentsOfURL:audioFilePFUrl
                                 options:NSDataReadingMappedIfSafe
                                 error:&dataError];
-    if (dataError){
-        NSLog(@"Error getting data from url: %@", dataError.localizedDescription);
-    }
     Track *track = [Track new];
     track.audioFilePF = [PFFileObject fileObjectWithData:audioData];
     track.composer = [PFUser currentUser];
@@ -208,7 +205,8 @@
     NSURL *myUrl = [self getRecordingFileUrl];
     PFFileObject *file = self.loop.tracks[0].audioFilePF;
     NSData *audioData = [file getData];
-    [audioData writeToURL:myUrl atomically:YES];
+    BOOL success = [audioData writeToURL:myUrl atomically:YES];
+    if (!success) NSLog (@"OHHH SHITTTTT");
     NSError *playingError = nil;
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:myUrl error:&playingError];
     if (playingError){
