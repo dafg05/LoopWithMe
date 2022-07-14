@@ -335,9 +335,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0gm-cW-h0w">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="6QL-8c-6np">
+                        <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="6QL-8c-6np">
                             <connections>
-                                <action selector="didTapCancel:" destination="xyn-lb-lQU" id="HYp-SB-3jo"/>
+                                <action selector="didTapBack:" destination="xyn-lb-lQU" id="CeV-ZS-vqm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
