@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *caption;
-@property (nonatomic, strong) NSArray<Track *> *tracks;
+@property (nonatomic, strong) NSMutableArray<Track *> *tracks;
 @property (nonatomic, strong) Loop *parentLoop;
-@property (nonatomic, strong) NSArray<Loop *> *childrenLoops;
+@property (nonatomic, strong) NSMutableArray<Loop *> *childrenLoops;
 @property (nonatomic, strong) PFUser *postAuthor;
 @property (nonatomic, strong) TempoAssistSettings *taSettings;
 

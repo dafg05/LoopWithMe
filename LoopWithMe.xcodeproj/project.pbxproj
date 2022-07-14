@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		05D110E6F0521463910A88F6 /* Pods_LoopWithMe_LoopWithMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */; };
 		1F95AB038BD28820930E6E98 /* Pods_LoopWithMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */; };
+		298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */; };
+		298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F8287F4465001CB7D8 /* NewLoopVC.m */; };
 		29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C72287B6B8C0004D8D1 /* LoginVC.m */; };
 		29958C76287B6BCC0004D8D1 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C75287B6BCC0004D8D1 /* SignUpVC.m */; };
 		29958C79287BA1EF0004D8D1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C78287BA1EF0004D8D1 /* RecordingVC.m */; };
@@ -53,6 +55,10 @@
 /* Begin PBXFileReference section */
 		06624472343DC8FC72E1C4EC /* Pods-LoopWithMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMe_LoopWithMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		298421F4287F3D1C001CB7D8 /* LoopTrackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopTrackCell.h; sourceTree = "<group>"; };
+		298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopTrackCell.m; sourceTree = "<group>"; };
+		298421F7287F4465001CB7D8 /* NewLoopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLoopVC.h; sourceTree = "<group>"; };
+		298421F8287F4465001CB7D8 /* NewLoopVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewLoopVC.m; sourceTree = "<group>"; };
 		29958C71287B6B8C0004D8D1 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		29958C72287B6B8C0004D8D1 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		29958C74287B6BCC0004D8D1 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
@@ -150,21 +156,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		298421F3287F3CDC001CB7D8 /* LoopStack */ = {
+			isa = PBXGroup;
+			children = (
+				29958C7A287BA2120004D8D1 /* LoopStackVC.h */,
+				29958C7B287BA2120004D8D1 /* LoopStackVC.m */,
+				298421F4287F3D1C001CB7D8 /* LoopTrackCell.h */,
+				298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */,
+			);
+			path = LoopStack;
+			sourceTree = "<group>";
+		};
 		29958C70287B6B490004D8D1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				298421F3287F3CDC001CB7D8 /* LoopStack */,
 				29958C71287B6B8C0004D8D1 /* LoginVC.h */,
 				29958C72287B6B8C0004D8D1 /* LoginVC.m */,
 				29958C74287B6BCC0004D8D1 /* SignUpVC.h */,
 				29958C75287B6BCC0004D8D1 /* SignUpVC.m */,
 				29958C77287BA1EF0004D8D1 /* RecordingVC.h */,
 				29958C78287BA1EF0004D8D1 /* RecordingVC.m */,
-				29958C7A287BA2120004D8D1 /* LoopStackVC.h */,
-				29958C7B287BA2120004D8D1 /* LoopStackVC.m */,
 				29958C7D287BA25C0004D8D1 /* ShareVC.h */,
 				29958C7E287BA25C0004D8D1 /* ShareVC.m */,
 				29F2C4C6287CA49800861B7B /* ProfileVC.h */,
 				29F2C4C7287CA49800861B7B /* ProfileVC.m */,
+				298421F7287F4465001CB7D8 /* NewLoopVC.h */,
+				298421F8287F4465001CB7D8 /* NewLoopVC.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -485,6 +503,8 @@
 			files = (
 				29F2C4C8287CA49800861B7B /* ProfileVC.m in Sources */,
 				299C22FE287B45A80022D102 /* Track.m in Sources */,
+				298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */,
+				298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */,
 				29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
 				29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */,
