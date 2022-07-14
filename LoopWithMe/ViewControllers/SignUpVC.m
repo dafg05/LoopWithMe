@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *confirmPWField;
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
-
+@property NSArray *fieldsArray;
 
 @end
 
@@ -25,24 +25,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.errorLabel.text = @"";
-    // Set up custom placeholders
-    self.givenNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter your name" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
-    self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
-    self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
-    self.confirmPWField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
-    self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
-    
-    self.givenNameField.delegate = self;
-    self.usernameField.delegate = self;
-    self.passwordField.delegate = self;
-    self.confirmPWField.delegate = self;
-    self.emailField.delegate = self;
+    self.fieldsArray = @[self.usernameField, self.passwordField, self.givenNameField, self.confirmPWField, self.emailField];
+    for (UITextField *textField in self.fieldsArray){
+        textField.delegate = self;
+    }
+    [self setUpTextFieldsPlaceholders];
 }
 
 - (IBAction)didTapSignUp:(id)sender {
     [self registerUser];
 }
-
 
 - (void)registerUser {
     
@@ -50,7 +42,7 @@
         self.errorLabel.text = @"One or more fields are empty.";
         return;
     }
-        
+    
     if (![self.passwordField.text isEqualToString:self.confirmPWField.text]){
         NSLog(@"Passwords don't match!");
         self.errorLabel.text = @"Passwords don't match.";
@@ -76,18 +68,27 @@
 }
 
 - (BOOL) checkForEmptyFields{
-    BOOL givenNameEmpty = ([self.givenNameField.text isEqualToString:@""]) ? TRUE : FALSE;
-    BOOL usernameEmpty = ([self.usernameField.text isEqualToString:@""]) ? TRUE : FALSE;
-    BOOL emailEmpty = ([self.emailField.text isEqualToString:@""]) ? TRUE : FALSE;
-    BOOL passwordEmpty = ([self.passwordField.text isEqualToString:@""]) ? TRUE : FALSE;
-    BOOL confirmPWEmpty = ([self.confirmPWField.text isEqualToString:@""]) ? TRUE : FALSE;
-    
-    return (givenNameEmpty || usernameEmpty || emailEmpty || passwordEmpty || confirmPWEmpty);
+    for (UITextField *textField in self.fieldsArray){
+        if ([textField.text isEqualToString:@""] || textField.text == nil){
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)setUpTextFieldsPlaceholders{
+    // Note: writing a for loop to do this would require setting up a dictionary with the keys being NSValues of the text fields, and the elements being the placeholder strings
+    // This would be just as cumbersome, if not more than the current implementation
+    self.givenNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter your name" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+    self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+    self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+    self.confirmPWField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+    self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
 }
 
 /*
