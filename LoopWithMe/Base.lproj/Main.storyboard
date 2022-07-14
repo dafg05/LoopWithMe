@@ -506,7 +506,13 @@
                             <constraint firstItem="rA0-bC-DsC" firstAttribute="top" secondItem="FAB-9n-67g" secondAttribute="bottom" constant="10" id="gRg-WG-BTE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="BTb-hP-mEk"/>
+                    <navigationItem key="navigationItem" id="BTb-hP-mEk">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="VvY-8Q-ChV">
+                            <connections>
+                                <action selector="didTapCancel:" destination="pgj-se-zd5" id="Tdf-Mt-87j"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="confirmPWField" destination="m7H-jL-wb6" id="SkW-Su-PQD"/>
                         <outlet property="emailField" destination="a7N-9x-htX" id="283-E7-egk"/>
@@ -579,7 +585,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="EnP-5J-a4i"/>
+        <segue reference="4nK-ou-Kj7"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="360" height="360"/>
