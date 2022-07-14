@@ -20,10 +20,13 @@
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if (PFUser.currentUser) {
         // Persist user
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+    }
+    else{
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
     }
 }
 
@@ -63,5 +66,8 @@
     [(AppDelegate *)UIApplication.sharedApplication.delegate saveContext];
 }
 
+- (void) changeRootViewController:(UIViewController *) vc{
+    self.window.rootViewController = vc;
+}
 
 @end

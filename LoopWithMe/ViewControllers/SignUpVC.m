@@ -7,6 +7,7 @@
 
 #import "SignUpVC.h"
 #import "Parse/Parse.h"
+#import "SceneDelegate.h"
 
 @interface SignUpVC () <UITextFieldDelegate>
 
@@ -62,7 +63,7 @@
             self.errorLabel.text = error.localizedDescription;
         } else {
             NSLog(@"User registered successfully");
-            [self performSegueWithIdentifier:@"SignUpSegue" sender:nil];
+            [self segue];
         }
     }];
 }
@@ -93,6 +94,15 @@
     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
     self.confirmPWField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
     self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+}
+
+- (void) segue{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+    SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
+    [sceneDelegate changeRootViewController:mainTBC];
+    
+    // TODO: animation
 }
 
 /*

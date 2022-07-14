@@ -7,6 +7,7 @@
 
 #import "LoginVC.h"
 #import "Parse/Parse.h"
+#import "SceneDelegate.h"
 
 @interface LoginVC () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
@@ -46,8 +47,10 @@
             
         } else {
             NSLog(@"User logged in successfully");
-            
-            [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+            SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
+            [sceneDelegate changeRootViewController:mainTBC];
         }
     }];
 }
@@ -66,6 +69,14 @@
     self.passwordField.delegate = self;
 }
 
+- (void) segue{
+    
+    // TODO: animation
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+    SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
+    [sceneDelegate changeRootViewController:mainTBC];
+}
 /*
 #pragma mark - Navigation
 
