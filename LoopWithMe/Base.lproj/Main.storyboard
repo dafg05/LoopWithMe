@@ -369,10 +369,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lb-on-cOR">
-                                <rect key="frame" x="183" y="98" width="49" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2lb-on-cOR">
+                                <rect key="frame" x="30" y="74" width="88" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -384,12 +383,22 @@
                                     <action selector="didTapLogout:" destination="eTt-g7-Sd2" eventType="touchUpInside" id="CWs-U2-Tos"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To be implemented..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaf-H5-MKY">
+                                <rect key="frame" x="30" y="140" width="144" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" name="custom text color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vbu-y6-FeG"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
+                            <constraint firstItem="yaf-H5-MKY" firstAttribute="top" secondItem="2lb-on-cOR" secondAttribute="bottom" constant="30" id="Vo7-md-0sR"/>
                             <constraint firstItem="vbu-y6-FeG" firstAttribute="trailing" secondItem="ebK-Sx-fbn" secondAttribute="trailing" constant="30" id="g8K-wg-Hog"/>
+                            <constraint firstItem="yaf-H5-MKY" firstAttribute="leading" secondItem="2lb-on-cOR" secondAttribute="leading" id="lpv-ob-vWP"/>
+                            <constraint firstItem="2lb-on-cOR" firstAttribute="top" secondItem="vbu-y6-FeG" secondAttribute="top" constant="30" id="uFw-nx-KGd"/>
                             <constraint firstItem="ebK-Sx-fbn" firstAttribute="top" secondItem="vbu-y6-FeG" secondAttribute="top" id="uza-vl-Yfa"/>
+                            <constraint firstItem="2lb-on-cOR" firstAttribute="leading" secondItem="vbu-y6-FeG" secondAttribute="leading" constant="30" id="xGF-UN-2F6"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="Lbf-5W-vqK"/>
@@ -406,9 +415,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z08-ro-lZv">
-                                <rect key="frame" x="165" y="165" width="84" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z08-ro-lZv">
+                                <rect key="frame" x="30" y="74" width="148" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                <color key="textColor" name="custom text color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To be implemented..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIf-rp-iPd">
+                                <rect key="frame" x="30" y="140" width="160" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
@@ -416,6 +430,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0tD-d6-m2V"/>
                         <color key="backgroundColor" name="custom background color"/>
+                        <constraints>
+                            <constraint firstItem="YIf-rp-iPd" firstAttribute="top" secondItem="z08-ro-lZv" secondAttribute="bottom" constant="30" id="CG3-7q-rCV"/>
+                            <constraint firstItem="z08-ro-lZv" firstAttribute="top" secondItem="0tD-d6-m2V" secondAttribute="top" constant="30" id="E28-R2-Dxs"/>
+                            <constraint firstItem="YIf-rp-iPd" firstAttribute="leading" secondItem="z08-ro-lZv" secondAttribute="leading" id="Iwu-ca-gWf"/>
+                            <constraint firstItem="z08-ro-lZv" firstAttribute="leading" secondItem="0tD-d6-m2V" secondAttribute="leading" constant="30" id="YEO-Rj-iDT"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="ihu-85-siA"/>
                 </viewController>
