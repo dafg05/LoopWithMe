@@ -8,6 +8,7 @@
 #import "LoopStackVC.h"
 
 @interface LoopStackVC ()
+@property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
 
 @end
 
@@ -15,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.loopNameLabel.text = self.loop.name;
 }
 
 /*

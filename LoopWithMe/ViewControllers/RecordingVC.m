@@ -10,6 +10,7 @@
 #import "Loop.h"
 #import "Track.h"
 #import "Parse/Parse.h"
+#import "LoopStack/LoopStackVC.h"
 
 @interface RecordingVC () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
@@ -86,7 +87,6 @@
 }
 
 - (void)setUpRecorder{
-    NSURL *audioFileUrl = [self getRecordingFileUrl];
     self.audioFileUrl = [self getRecordingFileUrl];
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
@@ -166,10 +166,6 @@
 }
 
 - (void) initializeAudioPlayer{
-//    NSString *soundFilePath = [NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER];
-//    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
-//    NSURL *audioFileUrl = [self getRecordingFileUrl];
-//    self.audioFileUrl = nil;
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
@@ -185,15 +181,14 @@
 }
 
 - (IBAction)didTapDone:(id)sender {
-    NSLog(@"Uncomment [self testPFFilePlayback] in setUpLoopData");
     [self setUpLoopData];
+    [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
 }
 
 -(void) setUpLoopData{
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     NSError *dataError = nil;
     NSURL *audioFilePFUrl = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.audioFileUrl.absoluteString]];
-    NSLog(@"url string: %@", audioFilePFUrl.absoluteString);
     
     NSData *audioData = [NSData dataWithContentsOfURL:audioFilePFUrl
                                 options:NSDataReadingMappedIfSafe
@@ -203,13 +198,6 @@
     }
     Track *track = [Track new];
     track.audioFilePF = [PFFileObject fileObjectWithData:audioData];
-    if ([track.audioFilePF getData] == nil){
-        NSLog(@"fukcc");
-    }
-    else{
-        NSLog(@"all good");
-    }
-    NSLog (@"weh: %@", track.audioFilePF.url);
     track.composer = [PFUser currentUser];
     self.loop.tracks = [NSMutableArray new];
     [self.loop.tracks addObject:track];
@@ -220,13 +208,11 @@
     NSURL *myUrl = [self getRecordingFileUrl];
     PFFileObject *file = self.loop.tracks[0].audioFilePF;
     NSData *audioData = [file getData];
-    BOOL success = [audioData writeToURL:myUrl atomically:YES];
-    if (!success) NSLog(@"WHHHHEEEEEEEEEE");
+    [audioData writeToURL:myUrl atomically:YES];
     NSError *playingError = nil;
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:myUrl error:&playingError];
     if (playingError){
-        NSLog(@"playing error %@", playingError.localizedDescription);
-        // playing error The operation couldn’t be completed. (OSStatus error -10875.)
+        NSLog(@"playing error: %@", playingError.localizedDescription);
     }
     [self.audioPlayer play];
 }
@@ -236,14 +222,14 @@
 
 
 
-/*
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+    LoopStackVC *vc = (LoopStackVC *)navController.topViewController;
+    vc.loop = self.loop;
 }
-*/
+
 
 @end

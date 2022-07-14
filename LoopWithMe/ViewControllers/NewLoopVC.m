@@ -15,7 +15,6 @@
 @property (strong, nonatomic) Loop *loop;
 @property (weak, nonatomic) IBOutlet UILabel *nameErrorLabel;
 
-
 @end
 
 @implementation NewLoopVC

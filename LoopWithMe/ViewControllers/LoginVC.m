@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -23,6 +24,8 @@
 }
 
 - (IBAction)didTapLogin:(id)sender {
+    // spinner not showing up
+//    [self.spinner startAnimating];
     [self loginUser];
 }
 
