@@ -9,7 +9,7 @@
 #import "Loop.h"
 #import "RecordingVC.h"
 
-@interface NewLoopVC ()
+@interface NewLoopVC () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *loopNameField;
 @property (strong, nonatomic) Loop *loop;
@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.nameErrorLabel.text = @"";
+    self.loopNameField.delegate = self;
 }
 
 - (IBAction)didTapStartRecording:(id)sender {
@@ -35,6 +36,11 @@
         [self performSegueWithIdentifier:@"NewLoopRecordingSegue" sender:nil];
     }
     
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 

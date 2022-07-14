@@ -8,7 +8,7 @@
 #import "LoginVC.h"
 #import "Parse/Parse.h"
 
-@interface LoginVC ()
+@interface LoginVC () <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
@@ -23,6 +23,8 @@
     // Set up custom placeholders
     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
+    self.usernameField.delegate = self;
+    self.passwordField.delegate = self;
 }
 
 - (IBAction)didTapLogin:(id)sender {
@@ -50,6 +52,11 @@
             [self performSegueWithIdentifier:@"LoginSegue" sender:nil];
         }
     }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 /*

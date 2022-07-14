@@ -8,7 +8,7 @@
 #import "SignUpVC.h"
 #import "Parse/Parse.h"
 
-@interface SignUpVC ()
+@interface SignUpVC () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *givenNameField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -32,6 +32,11 @@
     self.confirmPWField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Confirm password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
     self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
     
+    self.givenNameField.delegate = self;
+    self.usernameField.delegate = self;
+    self.passwordField.delegate = self;
+    self.confirmPWField.delegate = self;
+    self.emailField.delegate = self;
 }
 
 - (IBAction)didTapSignUp:(id)sender {
@@ -78,6 +83,11 @@
     BOOL confirmPWEmpty = ([self.confirmPWField.text isEqualToString:@""]) ? TRUE : FALSE;
     
     return (givenNameEmpty || usernameEmpty || emailEmpty || passwordEmpty || confirmPWEmpty);
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 /*
