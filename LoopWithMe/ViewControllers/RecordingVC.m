@@ -32,8 +32,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"loop name: %@", self.loop.name);
-    self.loop.tracks = [NSMutableArray new];
+    [self setUpRecording];
+}
+
+-(void) setUpRecording{
+    if (self.loop.tracks == nil){
+        self.loop.tracks = [NSMutableArray new];
+    }
     [self recordingUnavailableUI];
     self.timerLabel.text = @"00:00";
     self.playStopButton.enabled = NO;

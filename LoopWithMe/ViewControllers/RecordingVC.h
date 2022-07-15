@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) Loop *loop;
 
+-(void) setUpRecording;
+
 @end
 
 NS_ASSUME_NONNULL_END

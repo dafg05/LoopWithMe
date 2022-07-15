@@ -117,31 +117,19 @@
 - (IBAction)didTapPlayStopMix:(id)sender{
     // TODO: implement start stop functionality
     [self startMix];
-//    if ([self.audioEngine isRunning]){
-//        [self.audioEngine stop];
-//    }
-//    else{
-//        [self startMix];
-//    }
 }
 
 - (void)playStopTrack:(Track *) track{
+    // TODO: implement start stop functionality
     NSURL *fileUrl = [self.trackUrlDict objectForKey:[NSValue valueWithNonretainedObject:track]];
     [self startTrack:fileUrl];
-
-//    if ([self.audioEngine isRunning]){
-//        [self.audioEngine stop];
-//    }
-//    else{
-//        NSURL *fileUrl = [self.trackUrlDict objectForKey:[NSValue valueWithNonretainedObject:track]];
-//        [self startTrack:fileUrl];
-//    }
 }
 - (IBAction)didTapAddTrack:(id)sender {
     [self.audioEngine stop];
     UINavigationController *navController = (UINavigationController *) [self presentingViewController];
     RecordingVC *vc = (RecordingVC *) navController.topViewController;
     vc.loop = self.loop;
+    [vc setUpRecording];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
