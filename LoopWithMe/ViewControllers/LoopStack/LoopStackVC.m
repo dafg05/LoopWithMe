@@ -9,6 +9,7 @@
 #import "LoopTrackCell.h"
 #import "AVFoundation/AVFAudio.h"
 #import "RecordingVC.h"
+#import "PlayStopButton.h"
 
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
@@ -16,6 +17,9 @@
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
 @property (strong, nonatomic) NSMutableDictionary* trackUrlDict;
+@property (weak, nonatomic) IBOutlet PlayStopButton* playMixButton;
+@property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
+@property BOOL mixPlayedLast;
 
 @end
 
@@ -27,9 +31,17 @@
     [super viewDidLoad];
     self.trackTableView.dataSource = self;
     self.loopNameLabel.text = self.loop.name;
+    [self.playMixButton initWithColor:[UIColor blackColor]];
+    [self.playMixButton UIPlay];
+    [self.stopMixButton initWithColor:[UIColor blackColor]];
+    [self.stopMixButton UIStop];
     self.trackUrlDict = [NSMutableDictionary new];
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
+}
+
+- (IBAction)didTapBack:(id)sender {
+    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -37,8 +49,9 @@
                            @"LoopTrackCell"];
     cell.track = self.loop.tracks[indexPath.row];
     cell.delegate = self;
+    [cell.playTrackButton initWithColor:[UIColor blackColor]];
+    [cell.playTrackButton UIPlay];
     int trackNumber = (int) indexPath.row + 1;
-    
     // TODO: figure out a better naming scheme for files
     cell.trackNumberLabel.text = [NSString stringWithFormat:@"Track %d", trackNumber];
     NSData *audioData = [cell.track.audioFilePF getData];
@@ -49,7 +62,6 @@
     else {
         NSValue *trackKey = [NSValue valueWithNonretainedObject:cell.track];
         [self.trackUrlDict setObject:cellUrl forKey:trackKey];
-        NSLog(@"At least this is working");
     }
     return cell;
 }
@@ -60,11 +72,6 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.loop.tracks count];
-}
-
-
-- (IBAction)didTapBack:(id)sender {
-    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) startMix{
@@ -114,16 +121,19 @@
     }
 }
 
-- (IBAction)didTapPlayStopMix:(id)sender{
-    // TODO: implement start stop functionality
+- (IBAction)didTapPlayMix:(id)sender{
     [self startMix];
 }
 
-- (void)playStopTrack:(Track *) track{
-    // TODO: implement start stop functionality
+- (IBAction)didTapStopMix:(id)sender{
+    [self.audioEngine stop];
+}
+
+- (void)playTrack:(Track *) track{
     NSURL *fileUrl = [self.trackUrlDict objectForKey:[NSValue valueWithNonretainedObject:track]];
     [self startTrack:fileUrl];
 }
+
 - (IBAction)didTapAddTrack:(id)sender {
     [self.audioEngine stop];
     UINavigationController *navController = (UINavigationController *) [self presentingViewController];
@@ -132,15 +142,5 @@
     [vc setUpRecording];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -31,7 +31,7 @@
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     [self setUpRecording];
 }
@@ -42,19 +42,19 @@
     }
     [self recordingUnavailableUI];
     self.timerLabel.text = @"00:00";
-    [self.playStopButton initializeDisabled];
+    [self.playStopButton initWithColor:[UIColor systemGray2Color]];
+    [self.playStopButton disable];
     self.doneButton.enabled = NO;
     
     self.recordingSession = [AVAudioSession sharedInstance];
     @try {
-        NSError *__autoreleasing *setCategoryError = nil;
-        NSError *__autoreleasing *setActiveError = nil;
-        [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:setCategoryError];
-        [self.recordingSession setActive:YES error:setActiveError];
+        NSError *setCategoryError = nil;
+        NSError *setActiveError = nil;
+        [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
+        [self.recordingSession setActive:YES error:&setActiveError];
         [self.recordingSession requestRecordPermission:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (granted){
-                    NSLog(@"Permissions granted");
                     [self recordingAvailableUI];
                     [self setUpRecorder];
                 } else{
@@ -67,28 +67,17 @@
     }
 }
 
--(void) recordingAlert:(NSString *)message{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:nil];
-    [alertController addAction:actionOk];
-    [self presentViewController:alertController animated:YES completion:nil];
+-(void) recordingAvailableUI{
+    self.recordButton.enabled = YES;
+    [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
+    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
 }
 
 -(void) recordingUnavailableUI{
     self.recordButton.enabled = NO;
     [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
     [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
-}
-
--(void) recordingAvailableUI{
-    self.recordButton.enabled = YES;
-    [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
-    [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
-    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
 }
 
 - (void)setUpRecorder{
@@ -99,8 +88,8 @@
     [recordSettings setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
     [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMedium] forKey:AVEncoderAudioQualityKey];
     
-    NSError *__autoreleasing *initRecorderError = nil;
-    self.audioRecorder = [[AVAudioRecorder alloc] initWithURL:self.audioFileUrl settings:recordSettings error:initRecorderError];
+    NSError  *initRecorderError = nil;
+    self.audioRecorder = [[AVAudioRecorder alloc] initWithURL:self.audioFileUrl settings:recordSettings error:&initRecorderError];
     if (initRecorderError){
         NSLog(@"Error when initializing audiorecorder");
     }
@@ -116,7 +105,6 @@
         self.timerLabel.text = @"00:00";
         [self startRecording];
     }
-    
 }
 
 - (IBAction)didTapPlayStop:(id)sender {
@@ -143,15 +131,6 @@
     }
 }
 
--(void)updateTimerLabel{
-    if(self.audioRecorder.recording){
-        NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
-        formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
-        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
-        self.timerLabel.text = [formatter stringFromTimeInterval:self.audioRecorder.currentTime];
-    }
-}
-
 - (void)finishRecording:(BOOL)success{
     [self.audioRecorder stop];
     if (self.recordingTimer){
@@ -173,10 +152,6 @@
     self.audioPlayer.delegate = self;
     self.playStopButton.enabled = YES;
     [self.playStopButton UIPlay];
-}
-
-- (NSURL *)getRecordingFileUrl{
-    return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
@@ -201,6 +176,30 @@
     track.audioFilePF = [PFFileObject fileObjectWithData:audioData];
     track.composer = [PFUser currentUser];
     [self.loop.tracks addObject:track];
+}
+
+- (NSURL *)getRecordingFileUrl{
+    return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
+}
+
+- (void)updateTimerLabel{
+    if(self.audioRecorder.recording){
+        NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
+        formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
+        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+        self.timerLabel.text = [formatter stringFromTimeInterval:self.audioRecorder.currentTime];
+    }
+}
+
+-(void) recordingAlert:(NSString *)message{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alertController addAction:actionOk];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Navigation

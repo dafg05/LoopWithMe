@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Track.h"
+#import "PlayStopButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,12 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *trackNumberLabel;
 @property (strong, nonatomic) Track *track;
 @property (weak, nonatomic) id<LoopTrackCellDelegate> delegate;
+@property (weak, nonatomic) IBOutlet PlayStopButton *playTrackButton;
 
 @end
 
 @protocol LoopTrackCellDelegate
 
-- (void) playStopTrack:(Track *)track;
+- (void) playTrack:(Track *)track;
 
 @end
 

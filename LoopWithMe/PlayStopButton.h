@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlayStopButton : UIButton
 
-- (void) initializeDisabled;
+- (void) initWithColor:(UIColor *) color;
 
 - (void) UIStop;
 

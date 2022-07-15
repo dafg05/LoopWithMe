@@ -17,10 +17,9 @@
 }
 */
 
-- (void) initializeDisabled{
+- (void) initWithColor:(UIColor *)color{
+    [self setTintColor:color];
     [self setTitle:@"" forState:UIControlStateNormal];
-    self.adjustsImageWhenDisabled = NO;
-    [self disable];
 }
 
 -(void) UIPlay{

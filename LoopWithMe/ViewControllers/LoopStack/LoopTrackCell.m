@@ -11,16 +11,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 - (IBAction)didTapPlayStopTrack:(id)sender {
-    [self.delegate playStopTrack:self.track];
+    [self.delegate playTrack:self.track];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end
