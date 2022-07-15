@@ -8,6 +8,7 @@
 #import "LoopStackVC.h"
 #import "LoopTrackCell.h"
 #import "AVFoundation/AVFAudio.h"
+#import "RecordingVC.h"
 
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
@@ -135,6 +136,13 @@
 //        NSURL *fileUrl = [self.trackUrlDict objectForKey:[NSValue valueWithNonretainedObject:track]];
 //        [self startTrack:fileUrl];
 //    }
+}
+- (IBAction)didTapAddTrack:(id)sender {
+    [self.audioEngine stop];
+    UINavigationController *navController = (UINavigationController *) [self presentingViewController];
+    RecordingVC *vc = (RecordingVC *) navController.topViewController;
+    vc.loop = self.loop;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 /*

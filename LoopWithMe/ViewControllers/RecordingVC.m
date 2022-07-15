@@ -33,6 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"loop name: %@", self.loop.name);
+    self.loop.tracks = [NSMutableArray new];
     [self recordingUnavailableUI];
     self.timerLabel.text = @"00:00";
     self.playStopButton.enabled = NO;
@@ -104,6 +105,7 @@
 
 
 - (IBAction)didTapRecord:(id)sender {
+    NSLog(@"%lu", (unsigned long)[self.loop.tracks count]);
     if (self.audioRecorder.recording){
         [self finishRecording:YES];
     } else{
@@ -197,7 +199,6 @@
     Track *track = [Track new];
     track.audioFilePF = [PFFileObject fileObjectWithData:audioData];
     track.composer = [PFUser currentUser];
-    self.loop.tracks = [NSMutableArray new];
     [self.loop.tracks addObject:track];
 //    [self testPFFilePlayback];
 }
