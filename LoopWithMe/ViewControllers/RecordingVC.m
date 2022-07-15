@@ -181,6 +181,7 @@
 }
 
 - (IBAction)didTapDone:(id)sender {
+    [self.audioPlayer stop];
     [self setUpLoopData];
     [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
 }

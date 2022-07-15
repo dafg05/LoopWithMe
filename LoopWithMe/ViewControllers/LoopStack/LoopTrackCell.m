@@ -14,7 +14,7 @@
     // Initialization code
 }
 - (IBAction)didTapPlayStopTrack:(id)sender {
-    [self.delegate playStopTrack];
+    [self.delegate playStopTrack:self.track];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

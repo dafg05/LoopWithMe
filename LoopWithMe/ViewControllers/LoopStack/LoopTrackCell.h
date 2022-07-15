@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LoopTrackCellDelegate
 
-- (void) playStopTrack;
+- (void) playStopTrack:(Track *)track;
 
 @end
 

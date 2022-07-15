@@ -14,7 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *trackTableView;
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
-@property (strong, nonatomic) NSMutableArray *fileUrlArray;
+@property (strong, nonatomic) NSMutableDictionary* trackUrlDict;
 
 @end
 
@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.trackTableView.dataSource = self;
     self.loopNameLabel.text = self.loop.name;
-    self.fileUrlArray = [NSMutableArray new];
+    self.trackUrlDict = [NSMutableDictionary new];
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
 }
@@ -35,15 +35,19 @@
     LoopTrackCell *cell = [self.trackTableView dequeueReusableCellWithIdentifier:
                            @"LoopTrackCell"];
     cell.track = self.loop.tracks[indexPath.row];
-    // Note: no zero indexing for tracks
-    cell.trackNumberLabel.text = [NSString stringWithFormat:@"Track %lu", indexPath.row + 1];
+    cell.delegate = self;
+    int trackNumber = (int) indexPath.row + 1;
+    
+    // TODO: figure out a better naming scheme for files
+    cell.trackNumberLabel.text = [NSString stringWithFormat:@"Track %d", trackNumber];
     NSData *audioData = [cell.track.audioFilePF getData];
-    NSURL *cellUrl = [self getRecordingFileUrl:(indexPath.row + 1)];
+    NSURL *cellUrl = [self getRecordingFileUrl: trackNumber];
     NSError *writingError = nil;
     [audioData writeToURL:cellUrl options:NSDataWritingAtomic error:&writingError];
-    if (writingError != nil) NSLog(writingError.localizedDescription);
+    if (writingError != nil) NSLog(@"%@", writingError.localizedDescription);
     else {
-        [self.fileUrlArray addObject:cellUrl];
+        NSValue *trackKey = [NSValue valueWithNonretainedObject:cell.track];
+        [self.trackUrlDict setObject:cellUrl forKey:trackKey];
         NSLog(@"At least this is working");
     }
     return cell;
@@ -63,7 +67,7 @@
 }
 
 -(void) startMix{
-
+    [self.audioEngine stop];
     [self.audioEngine attachNode:self.mixerNode];
     [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
 
@@ -71,9 +75,10 @@
     [self.audioEngine startAndReturnError:&startError];
 
     if (startError != nil){
-        NSLog(startError.localizedDescription);
+        NSLog(@"%@", startError.localizedDescription);
     }else{
-        for (NSURL *fileUrl in self.fileUrlArray){
+        for (id key in self.trackUrlDict){
+            NSURL *fileUrl = [self.trackUrlDict objectForKey:key];
             AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
             [self.audioEngine attachNode:playerNode];
             NSError *readingError = NULL;
@@ -85,15 +90,51 @@
     }
 }
 
-- (IBAction)didTapPlayStopMix:(id)sender{
+- (void) startTrack:(NSURL *) fileUrl{
     [self.audioEngine stop];
-    if (![self.audioEngine isRunning]){
-        [self startMix];
+    NSError *creationError = NULL;
+    AVAudioFile *file = [[AVAudioFile alloc] initForReading:fileUrl.absoluteURL error:&creationError];
+    if (creationError != nil){
+        NSLog(@"Error initializing AVAudioFile when playing track");
+    }
+    else{
+        AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
+        [self.audioEngine attachNode:playerNode];
+        [self.audioEngine connect:playerNode to:self.audioEngine.outputNode format:file.processingFormat];
+        NSError *startError = NULL;
+        [self.audioEngine startAndReturnError:&startError];
+        [playerNode scheduleFile:file atTime:nil completionHandler:nil];
+        if (startError != nil){
+            NSLog(@"%@", startError.localizedDescription);
+        }
+        else{
+            [playerNode play];
+        }
     }
 }
 
-- (void)playStopTrack{
-    
+- (IBAction)didTapPlayStopMix:(id)sender{
+    // TODO: implement start stop functionality
+    [self startMix];
+//    if ([self.audioEngine isRunning]){
+//        [self.audioEngine stop];
+//    }
+//    else{
+//        [self startMix];
+//    }
+}
+
+- (void)playStopTrack:(Track *) track{
+    NSURL *fileUrl = [self.trackUrlDict objectForKey:[NSValue valueWithNonretainedObject:track]];
+    [self startTrack:fileUrl];
+
+//    if ([self.audioEngine isRunning]){
+//        [self.audioEngine stop];
+//    }
+//    else{
+//        NSURL *fileUrl = [self.trackUrlDict objectForKey:[NSValue valueWithNonretainedObject:track]];
+//        [self startTrack:fileUrl];
+//    }
 }
 
 /*
