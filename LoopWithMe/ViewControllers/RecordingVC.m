@@ -11,6 +11,7 @@
 #import "Track.h"
 #import "Parse/Parse.h"
 #import "LoopStack/LoopStackVC.h"
+#import "PlayStopButton.h"
 
 @interface RecordingVC () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
 
@@ -20,7 +21,7 @@
 @property AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 @property (strong, nonatomic) NSTimer *recordingTimer;
-@property (weak, nonatomic) IBOutlet UIButton *playStopButton;
+@property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (strong, nonatomic) NSURL *audioFileUrl;
 
@@ -41,10 +42,8 @@
     }
     [self recordingUnavailableUI];
     self.timerLabel.text = @"00:00";
-    self.playStopButton.enabled = NO;
+    [self.playStopButton initializeDisabled];
     self.doneButton.enabled = NO;
-    [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
-    [self.playStopButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
     
     self.recordingSession = [AVAudioSession sharedInstance];
     @try {
@@ -97,7 +96,7 @@
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
     [recordSettings setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
-    [recordSettings setValue:[NSNumber numberWithInt: 1] forKey:AVNumberOfChannelsKey];
+    [recordSettings setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
     [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMedium] forKey:AVEncoderAudioQualityKey];
     
     NSError *__autoreleasing *initRecorderError = nil;
@@ -123,20 +122,18 @@
 - (IBAction)didTapPlayStop:(id)sender {
     if (self.audioPlayer.playing){
         [self.audioPlayer stop];
-        [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
+        [self.playStopButton UIPlay];
     }
     else{
         [self.audioPlayer play];
-        [self.playStopButton setTitle:@"Stop" forState:UIControlStateNormal];
+        [self.playStopButton UIStop];
     }
 }
 
 - (void)startRecording{
-    // deallocate audioPlayer in case this is a re-recording
     self.audioPlayer = nil;
-    self.playStopButton.enabled = NO;
     self.doneButton.enabled = NO;
-    [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
+    [self.playStopButton disable];
     @try {
         [self.audioRecorder record];
         [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
@@ -152,7 +149,6 @@
         formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
         formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
         self.timerLabel.text = [formatter stringFromTimeInterval:self.audioRecorder.currentTime];
-        
     }
 }
 
@@ -163,7 +159,6 @@
     }
     if (success){
         [self.recordButton setTitle:@"Re-record" forState:UIControlStateNormal];
-        // only initialize audioplayer once we're done recording
         [self initializeAudioPlayer];
         self.doneButton.enabled = YES;
     }else{
@@ -177,6 +172,7 @@
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
     self.playStopButton.enabled = YES;
+    [self.playStopButton UIPlay];
 }
 
 - (NSURL *)getRecordingFileUrl{
@@ -184,7 +180,7 @@
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
-    [self.playStopButton setTitle:@"Play" forState:UIControlStateNormal];
+    [self.playStopButton UIPlay];
 }
 
 - (IBAction)didTapDone:(id)sender {
@@ -205,28 +201,7 @@
     track.audioFilePF = [PFFileObject fileObjectWithData:audioData];
     track.composer = [PFUser currentUser];
     [self.loop.tracks addObject:track];
-//    [self testPFFilePlayback];
 }
-
-- (void) testPFFilePlayback{
-    NSURL *myUrl = [self getRecordingFileUrl];
-    PFFileObject *file = self.loop.tracks[0].audioFilePF;
-    NSData *audioData = [file getData];
-    BOOL success = [audioData writeToURL:myUrl atomically:YES];
-    if (!success) NSLog (@"OHHH SHITTTTT");
-    NSError *playingError = nil;
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:myUrl error:&playingError];
-    if (playingError){
-        NSLog(@"playing error: %@", playingError.localizedDescription);
-    }
-    [self.audioPlayer play];
-}
-
-
-
-
-
-
 
 #pragma mark - Navigation
 
