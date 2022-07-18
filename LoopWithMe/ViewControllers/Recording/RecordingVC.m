@@ -10,7 +10,7 @@
 #import "Loop.h"
 #import "Track.h"
 #import "Parse/Parse.h"
-#import "LoopStack/LoopStackVC.h"
+#import "LoopStackVC.h"
 #import "PlayStopButton.h"
 
 @interface RecordingVC () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
