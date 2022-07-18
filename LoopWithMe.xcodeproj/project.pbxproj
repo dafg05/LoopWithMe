@@ -31,6 +31,7 @@
 		299C22FE287B45A80022D102 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22FD287B45A80022D102 /* Track.m */; };
 		299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C2300287B49380022D102 /* TempoAssistSettings.m */; };
 		299C2304287B4AAA0022D102 /* Track.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C2303287B4AAA0022D102 /* Track.m */; };
+		29A376FF28821CA90075D518 /* TrackFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A376FE28821CA90075D518 /* TrackFileManager.m */; };
 		29F2C4C8287CA49800861B7B /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2C4C7287CA49800861B7B /* ProfileVC.m */; };
 		29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F8CE052881E32900E85780 /* PlayStopButton.m */; };
 		2FDE26B5A4C00C5AC58F16AE /* Pods_LoopWithMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D091F9520F96FEB40B60FF51 /* Pods_LoopWithMe.framework */; };
@@ -95,6 +96,8 @@
 		299C2300287B49380022D102 /* TempoAssistSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TempoAssistSettings.m; path = LoopWithMe/Models/TempoAssistSettings.m; sourceTree = "<group>"; };
 		299C2302287B4AAA0022D102 /* Track.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Track.h; path = LoopWithMe/Models/Track.h; sourceTree = "<group>"; };
 		299C2303287B4AAA0022D102 /* Track.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Track.m; path = LoopWithMe/Models/Track.m; sourceTree = "<group>"; };
+		29A376FD28821CA90075D518 /* TrackFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackFileManager.h; sourceTree = "<group>"; };
+		29A376FE28821CA90075D518 /* TrackFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackFileManager.m; sourceTree = "<group>"; };
 		29F2C4C6287CA49800861B7B /* ProfileVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
 		29F2C4C7287CA49800861B7B /* ProfileVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
 		29F8CE042881E32900E85780 /* PlayStopButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayStopButton.h; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 				29958C7B287BA2120004D8D1 /* LoopStackVC.m */,
 				298421F4287F3D1C001CB7D8 /* LoopTrackCell.h */,
 				298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */,
+				29A376FD28821CA90075D518 /* TrackFileManager.h */,
+				29A376FE28821CA90075D518 /* TrackFileManager.m */,
 			);
 			path = LoopStack;
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 				299C22FA287B40160022D102 /* Loop.m in Sources */,
 				299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */,
 				299C2304287B4AAA0022D102 /* Track.m in Sources */,
+				29A376FF28821CA90075D518 /* TrackFileManager.m in Sources */,
 				299C22C12878833D0022D102 /* SceneDelegate.m in Sources */,
 				299C22CA2878833D0022D102 /* LoopWithMe.xcdatamodeld in Sources */,
 				29958C79287BA1EF0004D8D1 /* RecordingVC.m in Sources */,

@@ -12,8 +12,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
 }
-- (IBAction)didTapPlayStopTrack:(id)sender {
-    [self.delegate playTrack:self.track];
+- (IBAction)didTapPlayTrack:(id)sender {
+    [self.delegate playTrack:self.trackAudioUrl];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

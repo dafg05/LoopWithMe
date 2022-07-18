@@ -18,12 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Track *track;
 @property (weak, nonatomic) id<LoopTrackCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet PlayStopButton *playTrackButton;
+@property (strong, nonatomic) NSURL *trackAudioUrl;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 
 @end
 
 @protocol LoopTrackCellDelegate
 
-- (void) playTrack:(Track *)track;
+- (void) playTrack:(NSURL *) trackUrl;
 
 @end
 

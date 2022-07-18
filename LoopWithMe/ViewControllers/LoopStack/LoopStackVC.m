@@ -10,22 +10,26 @@
 #import "AVFoundation/AVFAudio.h"
 #import "RecordingVC.h"
 #import "PlayStopButton.h"
+#import "TrackFileManager.h"
 
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *trackTableView;
+@property (weak, nonatomic) IBOutlet PlayStopButton *playMixButton;
+@property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
-@property (strong, nonatomic) NSMutableDictionary* trackUrlDict;
-@property (weak, nonatomic) IBOutlet PlayStopButton* playMixButton;
-@property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
 @property BOOL mixPlayedLast;
+@property (strong, nonatomic) TrackFileManager *fileManager;
+
+
 
 @end
 
 @implementation LoopStackVC
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
+#define MAX_NUM_TRACKS 8
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,9 +39,9 @@
     [self.playMixButton UIPlay];
     [self.stopMixButton initWithColor:[UIColor blackColor]];
     [self.stopMixButton UIStop];
-    self.trackUrlDict = [NSMutableDictionary new];
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
+    self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
 }
 
 - (IBAction)didTapBack:(id)sender {
@@ -51,18 +55,9 @@
     cell.delegate = self;
     [cell.playTrackButton initWithColor:[UIColor blackColor]];
     [cell.playTrackButton UIPlay];
-    int trackNumber = (int) indexPath.row + 1;
-    // TODO: figure out a better naming scheme for files
-    cell.trackNumberLabel.text = [NSString stringWithFormat:@"Track %d", trackNumber];
+    cell.trackNumberLabel.text = @"Track";
     NSData *audioData = [cell.track.audioFilePF getData];
-    NSURL *cellUrl = [self getRecordingFileUrl: trackNumber];
-    NSError *writingError = nil;
-    [audioData writeToURL:cellUrl options:NSDataWritingAtomic error:&writingError];
-    if (writingError != nil) NSLog(@"%@", writingError.localizedDescription);
-    else {
-        NSValue *trackKey = [NSValue valueWithNonretainedObject:cell.track];
-        [self.trackUrlDict setObject:cellUrl forKey:trackKey];
-    }
+    cell.trackAudioUrl = [self.fileManager writeToAvailableUrl:audioData];
     return cell;
 }
 
@@ -85,12 +80,12 @@
     if (startError != nil){
         NSLog(@"%@", startError.localizedDescription);
     }else{
-        for (id key in self.trackUrlDict){
-            NSURL *fileUrl = [self.trackUrlDict objectForKey:key];
+        for (LoopTrackCell *cell in self.trackTableView.visibleCells){
+            NSURL *trackUrl = cell.trackAudioUrl;
             AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
             [self.audioEngine attachNode:playerNode];
             NSError *readingError = NULL;
-            AVAudioFile *file = [[AVAudioFile alloc] initForReading:fileUrl.absoluteURL error:&readingError];
+            AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&readingError];
             [self.audioEngine connect:playerNode to:self.mixerNode format:file.processingFormat];
             [playerNode scheduleFile:file atTime:nil completionHandler:nil];
             [playerNode play];
@@ -98,10 +93,10 @@
     }
 }
 
-- (void) startTrack:(NSURL *) fileUrl{
+- (void) startTrack:(NSURL *) trackUrl{
     [self.audioEngine stop];
     NSError *creationError = NULL;
-    AVAudioFile *file = [[AVAudioFile alloc] initForReading:fileUrl.absoluteURL error:&creationError];
+    AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&creationError];
     if (creationError != nil){
         NSLog(@"Error initializing AVAudioFile when playing track");
     }
@@ -129,9 +124,8 @@
     [self.audioEngine stop];
 }
 
-- (void)playTrack:(Track *) track{
-    NSURL *fileUrl = [self.trackUrlDict objectForKey:[NSValue valueWithNonretainedObject:track]];
-    [self startTrack:fileUrl];
+- (void)playTrack:(NSURL *) trackUrl{
+    [self startTrack:trackUrl];
 }
 
 - (IBAction)didTapAddTrack:(id)sender {
