@@ -268,24 +268,16 @@
                                                     <color key="textColor" name="custom background color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQn-JW-3hx">
-                                                    <rect key="frame" x="338" y="6.5" width="66" height="31"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Delete"/>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="YUy-VK-EfY" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="0fl-SZ-d6n"/>
-                                                <constraint firstAttribute="trailing" secondItem="GQn-JW-3hx" secondAttribute="trailing" constant="10" id="GtD-gq-JZe"/>
                                                 <constraint firstItem="gDB-93-5Vg" firstAttribute="leading" secondItem="YUy-VK-EfY" secondAttribute="trailing" constant="10" id="Jt2-Tm-mkN"/>
-                                                <constraint firstItem="GQn-JW-3hx" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="V3q-4e-twt"/>
                                                 <constraint firstItem="YUy-VK-EfY" firstAttribute="leading" secondItem="BJE-Fh-Aiw" secondAttribute="leading" constant="20" id="Vnr-PY-42E"/>
                                                 <constraint firstItem="gDB-93-5Vg" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="qaj-dx-N9S"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="light blue"/>
                                         <connections>
-                                            <outlet property="deleteButton" destination="GQn-JW-3hx" id="v2h-N9-oTf"/>
                                             <outlet property="playTrackButton" destination="YUy-VK-EfY" id="FIx-Td-MMy"/>
                                             <outlet property="trackNumberLabel" destination="gDB-93-5Vg" id="w7K-Sm-pII"/>
                                         </connections>

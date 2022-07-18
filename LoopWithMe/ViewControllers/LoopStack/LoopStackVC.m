@@ -34,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.trackTableView.dataSource = self;
+    self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
     self.loopNameLabel.text = self.loop.name;
     [self.playMixButton initWithColor:[UIColor blackColor]];
     [self.playMixButton UIPlay];
@@ -135,6 +136,20 @@
     vc.loop = self.loop;
     [vc setUpRecording];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Cannot delete the last track
+    return ([self.loop.tracks count] > 1);
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
+        [self.fileManager freeUrl:cellToDelete.trackAudioUrl];
+        [self.loop.tracks removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 @end
