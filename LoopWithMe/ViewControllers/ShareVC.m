@@ -7,15 +7,21 @@
 
 #import "ShareVC.h"
 
-@interface ShareVC ()
+@interface ShareVC () <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextView *captionTextView;
+@property (weak, nonatomic) IBOutlet UILabel *charCountLabel;
 
 @end
 
 @implementation ShareVC
 
+#define CHAR_LIMIT 140
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.captionTextView.layer.cornerRadius = 5;
+    self.captionTextView.delegate = self;
+    [self updateCharCountLabel:0];
 }
 
 - (IBAction)didTapPost:(id)sender {
@@ -26,6 +32,19 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)textView:(UITextField *)textField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    NSString *newText = [self.captionTextView.text stringByReplacingCharactersInRange:range withString:text];
+    return newText.length <= CHAR_LIMIT;
+}
+
+-(void)textViewDidChange:(UITextView *)textView{
+    int charCount = (int)[self.captionTextView.text length];
+    [self updateCharCountLabel:charCount];
+}
+
+-(void) updateCharCountLabel:(int) charCount{
+    self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
+}
 
 /*
 #pragma mark - Navigation
