@@ -179,10 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				298421F3287F3CDC001CB7D8 /* LoopStack */,
-				29958C71287B6B8C0004D8D1 /* LoginVC.h */,
-				29958C72287B6B8C0004D8D1 /* LoginVC.m */,
-				29958C74287B6BCC0004D8D1 /* SignUpVC.h */,
-				29958C75287B6BCC0004D8D1 /* SignUpVC.m */,
+				29D7EA2B2885F3C200D9B42A /* Authentication */,
 				29958C77287BA1EF0004D8D1 /* RecordingVC.h */,
 				29958C78287BA1EF0004D8D1 /* RecordingVC.m */,
 				29958C7D287BA25C0004D8D1 /* ShareVC.h */,
@@ -270,6 +267,17 @@
 			);
 			name = Models;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		29D7EA2B2885F3C200D9B42A /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				29958C71287B6B8C0004D8D1 /* LoginVC.h */,
+				29958C72287B6B8C0004D8D1 /* LoginVC.m */,
+				29958C74287B6BCC0004D8D1 /* SignUpVC.h */,
+				29958C75287B6BCC0004D8D1 /* SignUpVC.m */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

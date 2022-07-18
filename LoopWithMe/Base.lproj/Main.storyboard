@@ -211,29 +211,77 @@
             </objects>
             <point key="canvasLocation" x="2032" y="877"/>
         </scene>
-        <!--View Controller-->
+        <!--ShareVC-->
         <scene sceneID="Irr-UT-quj">
             <objects>
-                <viewController id="1KE-6U-aKo" sceneMemberID="viewController">
+                <viewController id="1KE-6U-aKo" customClass="ShareVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="83L-EE-3HC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Share Screen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcz-EA-2Uk">
-                                <rect key="frame" x="156" y="162" width="102" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share Loop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M23-Qg-spS">
+                                <rect key="frame" x="30" y="118" width="154" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                <color key="textColor" name="custom text color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h9y-jS-ilo">
+                                <rect key="frame" x="30" y="188.5" width="354" height="150"/>
+                                <color key="backgroundColor" name="custom secondary bg color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="IP4-uh-mdW"/>
+                                </constraints>
+                                <color key="textColor" name="custom text color"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1A-oT-QhO">
+                                <rect key="frame" x="180.5" y="368.5" width="53" height="31"/>
+                                <color key="tintColor" name="custom text color"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Post">
+                                    <backgroundConfiguration key="background" cornerRadius="5">
+                                        <color key="backgroundColor" name="AccentColor"/>
+                                    </backgroundConfiguration>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="didTapPost:" destination="bJM-KP-qZA" eventType="touchUpInside" id="Tc4-L9-Lut"/>
+                                    <action selector="didTapPost:" destination="1KE-6U-aKo" eventType="touchUpInside" id="m7Y-IZ-R4P"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write your caption..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgC-ja-TVm">
+                                <rect key="frame" x="30" y="174" width="114.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NDr-u2-MD4"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="custom background color"/>
+                        <constraints>
+                            <constraint firstItem="h9y-jS-ilo" firstAttribute="top" secondItem="LgC-ja-TVm" secondAttribute="bottom" id="DHF-5M-Fa2"/>
+                            <constraint firstItem="M23-Qg-spS" firstAttribute="top" secondItem="NDr-u2-MD4" secondAttribute="top" constant="30" id="cLf-5G-aUu"/>
+                            <constraint firstItem="e1A-oT-QhO" firstAttribute="top" secondItem="h9y-jS-ilo" secondAttribute="bottom" constant="30" id="dJA-ZS-SNv"/>
+                            <constraint firstItem="LgC-ja-TVm" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="30" id="gaw-Di-MnR"/>
+                            <constraint firstItem="e1A-oT-QhO" firstAttribute="centerX" secondItem="83L-EE-3HC" secondAttribute="centerX" id="naf-lA-8to"/>
+                            <constraint firstItem="LgC-ja-TVm" firstAttribute="top" secondItem="M23-Qg-spS" secondAttribute="bottom" constant="20" id="pRU-TI-5oH"/>
+                            <constraint firstItem="M23-Qg-spS" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="30" id="sbj-rN-wlw"/>
+                            <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="h9y-jS-ilo" secondAttribute="trailing" constant="30" id="u5V-g4-gim"/>
+                            <constraint firstItem="h9y-jS-ilo" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="30" id="wo4-pe-MFb"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Gsp-E7-OHl">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="fpb-TA-FVl">
+                            <connections>
+                                <action selector="didTapBack:" destination="1KE-6U-aKo" id="w8f-nh-eG1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOg-Sc-utm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="bJM-KP-qZA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="186" y="2289"/>
+            <point key="canvasLocation" x="3847.826086956522" y="2288.8392857142858"/>
         </scene>
         <!--Loop StackVC-->
         <scene sceneID="8fa-d0-Dh4">
@@ -334,7 +382,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3UL-rd-nqF">
                                                 <rect key="frame" x="5" y="31" width="80" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                                <nil key="textColor"/>
+                                                <color key="textColor" name="custom background color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -370,6 +418,11 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" style="plain" id="6QL-8c-6np">
                             <connections>
                                 <action selector="didTapBack:" destination="xyn-lb-lQU" id="CeV-ZS-vqm"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Share" style="plain" id="Fdl-fi-1FJ">
+                            <connections>
+                                <segue destination="RqG-7O-Bj7" kind="show" id="k6W-qQ-lz2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -726,6 +779,25 @@
             </objects>
             <point key="canvasLocation" x="1102.8985507246377" y="-633.48214285714278"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="LIR-f7-Y3v">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="RqG-7O-Bj7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Mme-WL-yiw"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dtX-Z8-PjG">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1KE-6U-aKo" kind="relationship" relationship="rootViewController" id="3E7-2S-6IS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hMQ-4Q-vMi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2937.68115942029" y="2288.8392857142858"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Logo" width="360" height="360"/>
@@ -751,14 +823,11 @@
             <color red="0.92199999094009399" green="0.83899998664855957" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="recording screen color">
-            <color red="0.12399999797344208" green="0.20100000500679016" blue="0.2669999897480011" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.037000000476837158" green="0.083999998867511749" blue="0.21299999952316284" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="text field color">
             <color red="0.16899999976158142" green="0.16899999976158142" blue="0.18999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

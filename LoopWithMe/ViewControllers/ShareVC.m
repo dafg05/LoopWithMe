@@ -18,6 +18,15 @@
     // Do any additional setup after loading the view.
 }
 
+- (IBAction)didTapPost:(id)sender {
+    NSLog(@"Feature to be implemented!");
+}
+
+- (IBAction)didTapBack:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 /*
 #pragma mark - Navigation
 
