@@ -24,10 +24,22 @@
     self.captionTextView.layer.cornerRadius = 5;
     self.captionTextView.delegate = self;
     [self updateCharCountLabel:0];
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
 - (IBAction)didTapPost:(id)sender {
-    NSLog(@"Feature to be implemented!");
+    self.loop.caption = self.captionTextView.text;
+    [Loop postLoop:self.loop withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error != nil){
+            NSLog(@"%@,", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Posted loop succesfully!");
+            [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
 }
 
 - (IBAction)didTapBack:(id)sender {
@@ -46,6 +58,10 @@
 
 -(void) updateCharCountLabel:(int) charCount{
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
+}
+
+-(void)dismissKeyboard{
+    [self.view endEditing:YES];
 }
 
 

@@ -225,7 +225,7 @@
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h9y-jS-ilo">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h9y-jS-ilo">
                                 <rect key="frame" x="15" y="178.5" width="384" height="150"/>
                                 <color key="backgroundColor" name="custom secondary bg color"/>
                                 <constraints>

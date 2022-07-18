@@ -23,10 +23,9 @@
     return @"Loop";
 }
 
-// TODO: define class method to convert array of AVAudioFiles to PFFileObjects
-// Note that the view controller will play audio with AVAudioFiles,
-// but PFFileObjects are needed to connect with the database
-
++ (void) postLoop: (Loop *)loop withCompletion: (PFBooleanResultBlock  _Nullable)completion{
+    [loop saveInBackgroundWithBlock:completion];
+}
 // TODO: posting a loop
 // parameter: An already declared loop object with non-null name,
 // caption, tracks, postAuthor; potentially null taSettings, parentLoop.

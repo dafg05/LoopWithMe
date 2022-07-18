@@ -23,14 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PFUser *postAuthor;
 @property (nonatomic, strong) TempoAssistSettings *taSettings;
 
++ (void) postLoop: (Loop *)loop withCompletion: (PFBooleanResultBlock  _Nullable)completion;
 
-// TODO: define class method to convert array of AVAudioFiles to PFFileObjects
-// Note that the view controller will play audio with AVAudioFiles,
-// but PFFileObjects are needed to connect with the database
 
-// TODO: posting a loop
-// parameter: An already declared loop object with non-null name,
-// caption, tracks, postAuthor; potentially null taSettings, parentLoop.
 
 
 
