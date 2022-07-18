@@ -10,6 +10,7 @@
 @interface ShareVC () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *captionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *charCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *shareLoopLabel;
 
 @end
 
@@ -19,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.shareLoopLabel.text = [NSString stringWithFormat:@"Share %@", self.loop.name];
     self.captionTextView.layer.cornerRadius = 5;
     self.captionTextView.delegate = self;
     [self updateCharCountLabel:0];
@@ -46,14 +48,5 @@
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -9,6 +9,7 @@
 #import "LoopTrackCell.h"
 #import "AVFoundation/AVFAudio.h"
 #import "RecordingVC.h"
+#import "ShareVC.h"
 #import "PlayStopButton.h"
 #import "TrackFileManager.h"
 
@@ -156,9 +157,15 @@
     }
 }
 
-//- (IBAction)didTapShare:(id)sender {
-//    [self performSegueWithIdentifier:@"ShareSegue" sender:nil];
-//}
+- (IBAction)didTapShare:(id)sender {
+    [self performSegueWithIdentifier:@"ShareSegue" sender:nil];
+}
 
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+    ShareVC *vc = (ShareVC *)navController.topViewController;
+    vc.loop = self.loop;
+}
 
 @end

@@ -220,13 +220,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share Loop" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M23-Qg-spS">
-                                <rect key="frame" x="30" y="118" width="154" height="36"/>
+                                <rect key="frame" x="15" y="103" width="154" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h9y-jS-ilo">
-                                <rect key="frame" x="30" y="193.5" width="354" height="150"/>
+                                <rect key="frame" x="15" y="178.5" width="384" height="150"/>
                                 <color key="backgroundColor" name="custom secondary bg color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="IP4-uh-mdW"/>
@@ -236,19 +236,19 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write your caption..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgC-ja-TVm">
-                                <rect key="frame" x="30" y="174" width="114.5" height="14.5"/>
+                                <rect key="frame" x="15" y="159" width="114.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Char Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81A-fY-bEf">
-                                <rect key="frame" x="319.5" y="348.5" width="64.5" height="14.5"/>
+                                <rect key="frame" x="334.5" y="333.5" width="64.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1A-oT-QhO">
-                                <rect key="frame" x="180.5" y="388" width="53" height="31"/>
+                                <rect key="frame" x="180.5" y="373" width="53" height="31"/>
                                 <color key="tintColor" name="custom text color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Post">
@@ -268,14 +268,14 @@
                             <constraint firstItem="e1A-oT-QhO" firstAttribute="top" secondItem="81A-fY-bEf" secondAttribute="bottom" constant="25" id="9pX-JN-h9o"/>
                             <constraint firstItem="81A-fY-bEf" firstAttribute="top" secondItem="h9y-jS-ilo" secondAttribute="bottom" constant="5" id="BmK-wj-K1c"/>
                             <constraint firstItem="h9y-jS-ilo" firstAttribute="top" secondItem="LgC-ja-TVm" secondAttribute="bottom" constant="5" id="DHF-5M-Fa2"/>
-                            <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="81A-fY-bEf" secondAttribute="trailing" constant="30" id="F2q-gF-qyn"/>
+                            <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="81A-fY-bEf" secondAttribute="trailing" constant="15" id="F2q-gF-qyn"/>
                             <constraint firstItem="e1A-oT-QhO" firstAttribute="centerX" secondItem="83L-EE-3HC" secondAttribute="centerX" id="Vn1-ST-O3V"/>
-                            <constraint firstItem="M23-Qg-spS" firstAttribute="top" secondItem="NDr-u2-MD4" secondAttribute="top" constant="30" id="cLf-5G-aUu"/>
-                            <constraint firstItem="LgC-ja-TVm" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="30" id="gaw-Di-MnR"/>
+                            <constraint firstItem="M23-Qg-spS" firstAttribute="top" secondItem="NDr-u2-MD4" secondAttribute="top" constant="15" id="cLf-5G-aUu"/>
+                            <constraint firstItem="LgC-ja-TVm" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="gaw-Di-MnR"/>
                             <constraint firstItem="LgC-ja-TVm" firstAttribute="top" secondItem="M23-Qg-spS" secondAttribute="bottom" constant="20" id="pRU-TI-5oH"/>
-                            <constraint firstItem="M23-Qg-spS" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="30" id="sbj-rN-wlw"/>
-                            <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="h9y-jS-ilo" secondAttribute="trailing" constant="30" id="u5V-g4-gim"/>
-                            <constraint firstItem="h9y-jS-ilo" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="30" id="wo4-pe-MFb"/>
+                            <constraint firstItem="M23-Qg-spS" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="sbj-rN-wlw"/>
+                            <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="h9y-jS-ilo" secondAttribute="trailing" constant="15" id="u5V-g4-gim"/>
+                            <constraint firstItem="h9y-jS-ilo" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="wo4-pe-MFb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Gsp-E7-OHl">
@@ -288,6 +288,7 @@
                     <connections>
                         <outlet property="captionTextView" destination="h9y-jS-ilo" id="NHu-fU-1X8"/>
                         <outlet property="charCountLabel" destination="81A-fY-bEf" id="gDf-ej-3Dc"/>
+                        <outlet property="shareLoopLabel" destination="M23-Qg-spS" id="ZId-xK-pvv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOg-Sc-utm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -434,7 +435,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Share" style="plain" id="Fdl-fi-1FJ">
                             <connections>
-                                <segue destination="RqG-7O-Bj7" kind="show" id="k6W-qQ-lz2"/>
+                                <action selector="didTapShare:" destination="xyn-lb-lQU" id="UF8-xG-w2i"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -444,6 +445,7 @@
                         <outlet property="stopMixButton" destination="lnL-wX-YNx" id="YdR-14-aTi"/>
                         <outlet property="trackCountLabel" destination="3UL-rd-nqF" id="ldc-EV-zH6"/>
                         <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>
+                        <segue destination="RqG-7O-Bj7" kind="presentation" identifier="ShareSegue" id="7BL-hF-x7X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RxC-Nn-5mE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
