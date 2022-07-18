@@ -98,7 +98,6 @@
 
 
 - (IBAction)didTapRecord:(id)sender {
-    NSLog(@"%lu", (unsigned long)[self.loop.tracks count]);
     if (self.audioRecorder.recording){
         [self finishRecording:YES];
     } else{

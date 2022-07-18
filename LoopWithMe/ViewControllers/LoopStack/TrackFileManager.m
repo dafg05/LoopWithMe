@@ -63,8 +63,6 @@
         [NSException raise:@"FreeURLException" format:@"Trying to free a non-allocated url"];
     }
     [self.freeUrlStack addObject:url];
-    
-    NSLog(@"%d", [self.freeUrlStack count]);
 }
 
 

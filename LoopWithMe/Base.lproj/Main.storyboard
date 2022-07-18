@@ -303,14 +303,6 @@
                                             <action selector="didTapStopMix:" destination="xyn-lb-lQU" eventType="touchUpInside" id="V8c-Pf-CFD"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-zG-X4Z">
-                                        <rect key="frame" x="314.5" y="34.5" width="89.5" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Add Track"/>
-                                        <connections>
-                                            <action selector="didTapAddTrack:" destination="xyn-lb-lQU" eventType="touchUpInside" id="1IH-XU-gSM"/>
-                                        </connections>
-                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="v5Q-3v-qOE">
                                         <rect key="frame" x="125.5" y="25.5" width="99.5" height="49"/>
                                         <subviews>
@@ -328,19 +320,37 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-Bj-bYQ">
+                                        <rect key="frame" x="314.5" y="26" width="89.5" height="48"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-zG-X4Z">
+                                                <rect key="frame" x="0.0" y="0.0" width="89.5" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Add Track"/>
+                                                <connections>
+                                                    <action selector="didTapAddTrack:" destination="xyn-lb-lQU" eventType="touchUpInside" id="1IH-XU-gSM"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3UL-rd-nqF">
+                                                <rect key="frame" x="5" y="31" width="80" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" name="pink lace"/>
                                 <constraints>
-                                    <constraint firstItem="mJM-zG-X4Z" firstAttribute="centerY" secondItem="W4W-Xb-cPS" secondAttribute="centerY" id="JlB-ja-30w"/>
+                                    <constraint firstAttribute="trailing" secondItem="xL5-Bj-bYQ" secondAttribute="trailing" constant="10" id="6wV-z4-UCI"/>
+                                    <constraint firstItem="xL5-Bj-bYQ" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="AKz-ZV-bXp"/>
                                     <constraint firstItem="lnL-wX-YNx" firstAttribute="leading" secondItem="W4W-Xb-cPS" secondAttribute="trailing" id="P3D-bD-TcJ"/>
                                     <constraint firstAttribute="height" constant="100" id="XTf-d9-adS"/>
                                     <constraint firstItem="lnL-wX-YNx" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="aPc-aT-gxK"/>
                                     <constraint firstItem="v5Q-3v-qOE" firstAttribute="leading" secondItem="lnL-wX-YNx" secondAttribute="trailing" constant="10" id="bJp-je-Oxd"/>
-                                    <constraint firstAttribute="trailing" secondItem="mJM-zG-X4Z" secondAttribute="trailing" constant="10" id="dDS-2m-ZXa"/>
                                     <constraint firstItem="W4W-Xb-cPS" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="eqU-gI-1rm"/>
                                     <constraint firstItem="W4W-Xb-cPS" firstAttribute="leading" secondItem="8Id-z2-ITc" secondAttribute="leading" constant="10" id="kMB-U3-fmo"/>
                                     <constraint firstItem="v5Q-3v-qOE" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="pXY-9v-apf"/>
-                                    <constraint firstItem="mJM-zG-X4Z" firstAttribute="centerY" secondItem="W4W-Xb-cPS" secondAttribute="centerY" id="zFb-iW-qjH"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -367,6 +377,7 @@
                         <outlet property="loopNameLabel" destination="PTT-DU-zxp" id="RF9-F6-Or1"/>
                         <outlet property="playMixButton" destination="W4W-Xb-cPS" id="JhC-ab-bXB"/>
                         <outlet property="stopMixButton" destination="lnL-wX-YNx" id="YdR-14-aTi"/>
+                        <outlet property="trackCountLabel" destination="3UL-rd-nqF" id="ldc-EV-zH6"/>
                         <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>
                     </connections>
                 </viewController>

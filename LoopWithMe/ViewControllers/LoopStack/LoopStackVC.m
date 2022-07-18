@@ -21,8 +21,7 @@
 @property AVAudioMixerNode *mixerNode;
 @property BOOL mixPlayedLast;
 @property (strong, nonatomic) TrackFileManager *fileManager;
-
-
+@property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
 
 @end
 
@@ -43,6 +42,7 @@
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
     self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
+    [self updateTrackCountLabel];
 }
 
 - (IBAction)didTapBack:(id)sender {
@@ -62,8 +62,8 @@
     return cell;
 }
 
-- (NSURL *)getRecordingFileUrl:(int) trackNumber{
-    return [[NSURL alloc] initFileURLWithPath:[NSString stringWithFormat:@"%@/track%d.m4a", DOCUMENTS_FOLDER, trackNumber]];
+- (void) updateTrackCountLabel{
+    self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -130,16 +130,19 @@
 }
 
 - (IBAction)didTapAddTrack:(id)sender {
-    [self.audioEngine stop];
-    UINavigationController *navController = (UINavigationController *) [self presentingViewController];
-    RecordingVC *vc = (RecordingVC *) navController.topViewController;
-    vc.loop = self.loop;
-    [vc setUpRecording];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([self.loop.tracks count] < MAX_NUM_TRACKS){
+        [self.audioEngine stop];
+        UINavigationController *navController = (UINavigationController *) [self presentingViewController];
+        RecordingVC *vc = (RecordingVC *) navController.topViewController;
+        vc.loop = self.loop;
+        [vc setUpRecording];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Cannot delete the last track
+    // Cannot delete if there's only one track
     return ([self.loop.tracks count] > 1);
 }
 
@@ -149,6 +152,7 @@
         [self.fileManager freeUrl:cellToDelete.trackAudioUrl];
         [self.loop.tracks removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self updateTrackCountLabel];
     }
 }
 
