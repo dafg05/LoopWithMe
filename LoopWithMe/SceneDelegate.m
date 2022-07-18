@@ -23,7 +23,10 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     if (PFUser.currentUser) {
         // Persist user
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+        UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+        // TODO: Refactor this by writing custom tab bar class
+        mainTBC.tabBar.unselectedItemTintColor = [UIColor systemGrayColor];
+        self.window.rootViewController = mainTBC;
     }
     else{
         self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];

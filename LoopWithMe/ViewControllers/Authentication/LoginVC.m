@@ -25,7 +25,7 @@
 }
 
 - (IBAction)didTapLogin:(id)sender {
-    // spinner not showing up
+    // TODO: fix spinner not showing up
 //    [self.spinner startAnimating];
     [self loginUser];
 }
@@ -49,6 +49,7 @@
             NSLog(@"User logged in successfully");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+            mainTBC.tabBar.unselectedItemTintColor = [UIColor systemGrayColor];
             SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
             [sceneDelegate changeRootViewController:mainTBC];
         }
@@ -62,7 +63,6 @@
 
 - (void) setUpTextFields{
     self.errorLabel.text = @"";
-    // Set up custom placeholders
     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGrayColor}];
     self.usernameField.delegate = self;
@@ -70,7 +70,6 @@
 }
 
 - (void) segue{
-    
     // TODO: animation
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];

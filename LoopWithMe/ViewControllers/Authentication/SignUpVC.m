@@ -97,12 +97,12 @@
 }
 
 - (void) segue{
+    // TODO: animation
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
+    mainTBC.tabBar.unselectedItemTintColor = [UIColor systemGrayColor];
     SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
     [sceneDelegate changeRootViewController:mainTBC];
-    
-    // TODO: animation
 }
 
 /*
