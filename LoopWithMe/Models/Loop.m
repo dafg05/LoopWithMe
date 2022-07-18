@@ -26,9 +26,6 @@
 + (void) postLoop: (Loop *)loop withCompletion: (PFBooleanResultBlock  _Nullable)completion{
     [loop saveInBackgroundWithBlock:completion];
 }
-// TODO: posting a loop
-// parameter: An already declared loop object with non-null name,
-// caption, tracks, postAuthor; potentially null taSettings, parentLoop.
 
 
 @end
