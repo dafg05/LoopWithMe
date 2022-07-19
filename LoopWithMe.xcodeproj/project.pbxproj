@@ -180,14 +180,10 @@
 			children = (
 				298421F3287F3CDC001CB7D8 /* LoopStack */,
 				29D7EA2B2885F3C200D9B42A /* Authentication */,
-				29958C77287BA1EF0004D8D1 /* RecordingVC.h */,
-				29958C78287BA1EF0004D8D1 /* RecordingVC.m */,
-				29958C7D287BA25C0004D8D1 /* ShareVC.h */,
-				29958C7E287BA25C0004D8D1 /* ShareVC.m */,
-				29F2C4C6287CA49800861B7B /* ProfileVC.h */,
-				29F2C4C7287CA49800861B7B /* ProfileVC.m */,
-				298421F7287F4465001CB7D8 /* NewLoopVC.h */,
-				298421F8287F4465001CB7D8 /* NewLoopVC.m */,
+				29FEFDE1288624D0009A693B /* Share */,
+				29FEFDE2288624ED009A693B /* Recording */,
+				29FEFDE3288624FE009A693B /* Profile */,
+				29FEFDE42886251D009A693B /* NewLoop */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -278,6 +274,42 @@
 				29958C75287B6BCC0004D8D1 /* SignUpVC.m */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		29FEFDE1288624D0009A693B /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				29958C7D287BA25C0004D8D1 /* ShareVC.h */,
+				29958C7E287BA25C0004D8D1 /* ShareVC.m */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
+		29FEFDE2288624ED009A693B /* Recording */ = {
+			isa = PBXGroup;
+			children = (
+				29958C77287BA1EF0004D8D1 /* RecordingVC.h */,
+				29958C78287BA1EF0004D8D1 /* RecordingVC.m */,
+			);
+			path = Recording;
+			sourceTree = "<group>";
+		};
+		29FEFDE3288624FE009A693B /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				29F2C4C6287CA49800861B7B /* ProfileVC.h */,
+				29F2C4C7287CA49800861B7B /* ProfileVC.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		29FEFDE42886251D009A693B /* NewLoop */ = {
+			isa = PBXGroup;
+			children = (
+				298421F7287F4465001CB7D8 /* NewLoopVC.h */,
+				298421F8287F4465001CB7D8 /* NewLoopVC.m */,
+			);
+			path = NewLoop;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
