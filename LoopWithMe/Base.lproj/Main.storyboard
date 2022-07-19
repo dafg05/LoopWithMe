@@ -205,6 +205,7 @@
                         <outlet property="loopNameField" destination="pZm-Uq-Vrg" id="0Ga-mn-xZZ"/>
                         <outlet property="nameErrorLabel" destination="6oe-bQ-ig0" id="TRZ-5C-C7c"/>
                         <segue destination="tj9-Td-phI" kind="show" identifier="NewLoopRecordingSegue" id="Bsx-dN-Fbu"/>
+                        <segue destination="dVn-I0-VAo" kind="presentation" identifier="RecordingDoneSegue" id="BMB-yT-ki9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkC-yt-GtU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -294,12 +295,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOg-Sc-utm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="bJM-KP-qZA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3847.826086956522" y="2288.8392857142858"/>
+            <point key="canvasLocation" x="2032" y="3076"/>
         </scene>
         <!--Loop StackVC-->
         <scene sceneID="8fa-d0-Dh4">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="xyn-lb-lQU" customClass="LoopStackVC" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="xyn-lb-lQU" customClass="LoopStackVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yfz-sS-dpH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -446,22 +447,23 @@
                         <outlet property="trackCountLabel" destination="3UL-rd-nqF" id="ldc-EV-zH6"/>
                         <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>
                         <segue destination="RqG-7O-Bj7" kind="presentation" identifier="ShareSegue" id="7BL-hF-x7X"/>
+                        <segue destination="tj9-Td-phI" kind="show" identifier="AddTrackSegue" id="IIA-qI-f9s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RxC-Nn-5mE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2045" y="2289"/>
+            <point key="canvasLocation" x="1151" y="2352"/>
         </scene>
         <!--RecordingVC-->
         <scene sceneID="YDb-Uz-6Y1">
             <objects>
                 <viewController id="MnC-97-ftA" customClass="RecordingVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TNV-rQ-T6h">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-p5-Re8">
-                                <rect key="frame" x="172" y="751" width="70" height="31"/>
+                                <rect key="frame" x="172" y="771" width="70" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Record"/>
                                 <connections>
@@ -469,13 +471,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-qP-zGb">
-                                <rect key="frame" x="152.5" y="711.5" width="109.5" height="19.5"/>
+                                <rect key="frame" x="152.5" y="731.5" width="109.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfc-fM-A7g" customClass="PlayStopButton">
-                                <rect key="frame" x="181.5" y="660.5" width="51" height="31"/>
+                                <rect key="frame" x="181.5" y="680.5" width="51" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Play"/>
                                 <connections>
@@ -506,12 +508,11 @@
                         <outlet property="playStopButton" destination="lfc-fM-A7g" id="10Z-R4-Xep"/>
                         <outlet property="recordButton" destination="0kb-p5-Re8" id="mci-da-9rU"/>
                         <outlet property="timerLabel" destination="b0L-qP-zGb" id="VI4-9f-NVH"/>
-                        <segue destination="dVn-I0-VAo" kind="presentation" identifier="RecordingDoneSegue" id="tna-gX-lXX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2di-eB-Grl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2938" y="1557"/>
+            <point key="canvasLocation" x="2032" y="2352"/>
         </scene>
         <!--Profile-->
         <scene sceneID="1Dc-bn-RsD">
@@ -741,11 +742,12 @@
         <!--Navigation Controller-->
         <scene sceneID="cPC-Bt-G5O">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hna-5U-YIb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tj9-Td-phI" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="v7j-E4-37Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="B1a-5a-Kwe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -753,9 +755,8 @@
                         <segue destination="MnC-97-ftA" kind="relationship" relationship="rootViewController" id="Kfo-7e-zTW"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hna-5U-YIb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2028.985507246377" y="1556.9196428571429"/>
+            <point key="canvasLocation" x="2032" y="1590"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="06j-3a-94R">
@@ -773,7 +774,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LLF-5Z-P1r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1134.7826086956522" y="2288.8392857142858"/>
+            <point key="canvasLocation" x="1152" y="1590"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xD0-9p-Igi">
@@ -810,9 +811,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMQ-4Q-vMi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2937.68115942029" y="2288.8392857142858"/>
+            <point key="canvasLocation" x="1151" y="3076"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="IIA-qI-f9s"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="360" height="360"/>
         <namedColor name="AccentColor">

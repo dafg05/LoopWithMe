@@ -11,6 +11,7 @@
 #import "Track.h"
 #import "Parse/Parse.h"
 #import "LoopStackVC.h"
+#import "NewLoopVC.h"
 #import "PlayStopButton.h"
 
 @interface RecordingVC () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
@@ -160,7 +161,28 @@
 - (IBAction)didTapDone:(id)sender {
     [self.audioPlayer stop];
     [self setUpLoopData];
-    [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
+    // Update loop data in presenting view controller when dismissing
+    UIViewController *presentingVC = self.presentingViewController;
+    if ([presentingVC isKindOfClass:[UITabBarController class]]){
+        UIViewController *tabItemVC = ((UITabBarController *) presentingVC).selectedViewController;
+        if ([tabItemVC isKindOfClass:[NewLoopVC class]]){
+            NewLoopVC *newLoopVC = (NewLoopVC *) tabItemVC;
+            newLoopVC.loop = self.loop;
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [newLoopVC performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
+        }
+    } else if ([presentingVC isKindOfClass:[UINavigationController class]]){
+        UIViewController *topVC = ((UINavigationController *) presentingVC).topViewController;
+        if ([topVC isKindOfClass:[LoopStackVC class]]){
+            LoopStackVC *loopStackVC = (LoopStackVC *) topVC;
+            loopStackVC.loop = self.loop;
+            [loopStackVC reloadLoopData];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else{
+        NSLog(@"Segue not supported");
+    }
 }
 
 -(void) setUpLoopData{
@@ -199,14 +221,6 @@
                                                      handler:nil];
     [alertController addAction:actionOk];
     [self presentViewController:alertController animated:YES completion:nil];
-}
-
-#pragma mark - Navigation
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-    LoopStackVC *vc = (LoopStackVC *)navController.topViewController;
-    vc.loop = self.loop;
 }
 
 

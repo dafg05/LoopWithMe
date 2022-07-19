@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) Loop *loop;
 
+-(void)reloadLoopData;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,9 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RecordingVC : UIViewController
 
-@property (weak, nonatomic) Loop *loop;
-
--(void) setUpRecording;
+@property (strong, nonatomic) Loop *loop;
 
 @end
 

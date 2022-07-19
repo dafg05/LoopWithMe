@@ -8,11 +8,11 @@
 #import "NewLoopVC.h"
 #import "Loop.h"
 #import "RecordingVC.h"
+#import "LoopStackVC.h"
 
 @interface NewLoopVC () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *loopNameField;
-@property (strong, nonatomic) Loop *loop;
 @property (weak, nonatomic) IBOutlet UILabel *nameErrorLabel;
 
 @end
@@ -34,7 +34,6 @@
         self.loop.name = self.loopNameField.text;
         [self performSegueWithIdentifier:@"NewLoopRecordingSegue" sender:nil];
     }
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -46,9 +45,16 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-    RecordingVC *vc = (RecordingVC *)navController.topViewController;
-    vc.loop = self.loop;
+    if ([[segue identifier] isEqualToString:@"NewLoopRecordingSegue"]){
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        RecordingVC *vc = (RecordingVC *)navController.topViewController;
+        vc.loop = self.loop;
+    }
+    else if ([[segue identifier] isEqualToString:@"RecordingDoneSegue"]){
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        LoopStackVC *vc = (LoopStackVC *)navController.topViewController;
+        vc.loop = self.loop;
+    }
 }
 
 

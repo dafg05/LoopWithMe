@@ -33,6 +33,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setUpVC];
+}
+
+- (void)setUpVC{
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
     self.loopNameLabel.text = self.loop.name;
@@ -133,13 +137,8 @@
 - (IBAction)didTapAddTrack:(id)sender {
     if ([self.loop.tracks count] < MAX_NUM_TRACKS){
         [self.audioEngine stop];
-        UINavigationController *navController = (UINavigationController *) [self presentingViewController];
-        RecordingVC *vc = (RecordingVC *) navController.topViewController;
-        vc.loop = self.loop;
-        [vc setUpRecording];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self performSegueWithIdentifier:@"AddTrackSegue" sender:nil];
     }
-    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -161,11 +160,25 @@
     [self performSegueWithIdentifier:@"ShareSegue" sender:nil];
 }
 
+-(void)reloadLoopData{
+    self.fileManager = nil;
+    self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
+    [self updateTrackCountLabel];
+    [self.trackTableView reloadData];
+}
+
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-    ShareVC *vc = (ShareVC *)navController.topViewController;
-    vc.loop = self.loop;
+    if ([[segue identifier] isEqualToString:@"ShareSegue"]){
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        ShareVC *vc = (ShareVC *)navController.topViewController;
+        vc.loop = self.loop;
+    }
+    else if ([[segue identifier] isEqualToString:@"AddTrackSegue"]){
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        RecordingVC *vc = (RecordingVC *)navController.topViewController;
+        vc.loop = self.loop;
+    }
 }
 
 @end
