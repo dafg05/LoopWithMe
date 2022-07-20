@@ -26,7 +26,7 @@
 
 - (IBAction)didTapLogin:(id)sender {
     // TODO: fix spinner not showing up
-//    [self.spinner startAnimating];
+    [self.spinner startAnimating];
     [self loginUser];
 }
 
@@ -37,19 +37,20 @@
     [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser * user, NSError *  error) {
         if (error != nil) {
             NSLog(@"User log in failed: %@", error.localizedDescription);
-            // NOTE: hard coded
             if ([error.localizedDescription isEqualToString:@"username/email is required."]){
                 self.errorLabel.text = @"username is required.";
             }
             else{
                 self.errorLabel.text = error.localizedDescription;
             }
+            [self.spinner stopAnimating];
             
         } else {
             NSLog(@"User logged in successfully");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
             mainTBC.tabBar.unselectedItemTintColor = [UIColor systemGrayColor];
+            [self.spinner stopAnimating];
             SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
             [sceneDelegate changeRootViewController:mainTBC];
         }
