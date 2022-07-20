@@ -52,6 +52,7 @@
         NSError *setCategoryError = nil;
         NSError *setActiveError = nil;
         [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
+        [self.recordingSession overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
         [self.recordingSession setActive:YES error:&setActiveError];
         [self.recordingSession requestRecordPermission:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
