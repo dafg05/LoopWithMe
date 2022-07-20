@@ -31,6 +31,8 @@
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define MAX_NUM_TRACKS 8
 
+#pragma mark - Initial View Controller Setup
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpVC];
@@ -50,9 +52,7 @@
     [self updateTrackCountLabel];
 }
 
-- (IBAction)didTapBack:(id)sender {
-    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-}
+#pragma mark - UITableViewDataSource methods
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     LoopTrackCell *cell = [self.trackTableView dequeueReusableCellWithIdentifier:
@@ -68,15 +68,63 @@
     return cell;
 }
 
-- (void)updateTrackCountLabel{
-    self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
-}
-
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.loop.tracks count];
 }
 
+- (void)updateTrackCountLabel{
+    self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Cannot delete if there's only one track
+    return ([self.loop.tracks count] > 1);
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
+        [self.fileManager freeUrl:cellToDelete.trackAudioUrl];
+        [self.loop.tracks removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self updateTrackCountLabel];
+    }
+}
+
+#pragma mark - Button Actions
+
+- (IBAction)didTapPlayMix:(id)sender{
+    [self startMix];
+}
+
+- (IBAction)didTapStopMix:(id)sender{
+    [self.audioEngine stop];
+}
+
+- (IBAction)didTapAddTrack:(id)sender {
+    if ([self.loop.tracks count] < MAX_NUM_TRACKS){
+        [self.audioEngine stop];
+        [self performSegueWithIdentifier:@"AddTrackSegue" sender:nil];
+    }
+}
+
+- (IBAction)didTapShare:(id)sender {
+    [self performSegueWithIdentifier:@"ShareSegue" sender:nil];
+}
+
+- (IBAction)didTapBack:(id)sender {
+    [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+/* LoopTrack cell delegate method: called when LoopTrackCell button is pressed*/
+- (void)playTrack:(NSURL *) trackUrl{
+    [self startTrack:trackUrl];
+}
+
+#pragma mark - Playback
+
 -(void)startMix{
+    // TODO: inconsistent audioEngine start between startMix and startTrackj
     [self.audioEngine stop];
     [self.audioEngine attachNode:self.mixerNode];
     [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
@@ -127,52 +175,7 @@
     }
 }
 
-- (IBAction)didTapPlayMix:(id)sender{
-    [self startMix];
-}
-
-- (IBAction)didTapStopMix:(id)sender{
-    [self.audioEngine stop];
-}
-
-- (void)playTrack:(NSURL *) trackUrl{
-    [self startTrack:trackUrl];
-}
-
-- (IBAction)didTapAddTrack:(id)sender {
-    if ([self.loop.tracks count] < MAX_NUM_TRACKS){
-        [self.audioEngine stop];
-        [self performSegueWithIdentifier:@"AddTrackSegue" sender:nil];
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Cannot delete if there's only one track
-    return ([self.loop.tracks count] > 1);
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
-        [self.fileManager freeUrl:cellToDelete.trackAudioUrl];
-        [self.loop.tracks removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self updateTrackCountLabel];
-    }
-}
-
-- (IBAction)didTapShare:(id)sender {
-    [self performSegueWithIdentifier:@"ShareSegue" sender:nil];
-}
-
--(void)reloadLoopData{
-    // TODO: Refactor so that we don't need to reload the whole table view.
-    // need to reinitialize the file manager because every cell is being reloaded
-    self.fileManager = nil;
-    self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
-    [self updateTrackCountLabel];
-    [self.trackTableView reloadData];
-}
+#pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([[segue identifier] isEqualToString:@"ShareSegue"]){
@@ -187,4 +190,13 @@
     }
 }
 
+/* Needs to be called if tableView is reloaded */
+-(void)reloadLoopData{
+    // TODO: Refactor so that we don't need to reload the whole table view.
+    // need to reinitialize the file manager because every cell is being reloaded
+    self.fileManager = nil;
+    self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
+    [self updateTrackCountLabel];
+    [self.trackTableView reloadData];
+}
 @end

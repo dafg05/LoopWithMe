@@ -54,6 +54,10 @@
     return newText.length <= CHAR_LIMIT;
 }
 
+-(void)dismissKeyboard{
+    [self.view endEditing:YES];
+}
+
 -(void)textViewDidChange:(UITextView *)textView{
     int charCount = (int)[self.captionTextView.text length];
     [self updateCharCountLabel:charCount];
@@ -63,9 +67,6 @@
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
 }
 
--(void)dismissKeyboard{
-    [self.view endEditing:YES];
-}
 
 
 @end
