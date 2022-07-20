@@ -23,7 +23,7 @@
     return @"Loop";
 }
 
-+ (void)postLoop: (Loop *)loop withCompletion: (PFBooleanResultBlock  _Nullable)completion{
++ (void)postLoop:(Loop *)loop withCompletion:(PFBooleanResultBlock  _Nullable)completion{
     [loop saveInBackgroundWithBlock:completion];
 }
 

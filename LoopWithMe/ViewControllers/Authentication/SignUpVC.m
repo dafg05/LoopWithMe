@@ -68,7 +68,7 @@
     }];
 }
 
-- (BOOL)checkForEmptyFields{
+- (BOOL)checkForEmptyFields {
     for (UITextField *textField in self.fieldsArray){
         if ([textField.text isEqualToString:@""] || textField.text == nil){
             return YES;
@@ -81,13 +81,13 @@
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
 
-- (void)setUpTextFieldsPlaceholders{
-    // Note: writing a for loop to do this would require setting up a dictionary with the keys being NSValues of the text fields, and the elements being the placeholder strings
+- (void)setUpTextFieldsPlaceholders {
+    //  Writing a for loop to do this would require setting up a dictionary with the keys being NSValues of the text fields, and the elements being the placeholder strings
     // This would be just as cumbersome, if not more than the current implementation
     self.givenNameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter your name" attributes:@{NSForegroundColorAttributeName: UIColor.systemGray2Color}];
     self.usernameField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Username" attributes:@{NSForegroundColorAttributeName: UIColor.systemGray2Color}];
@@ -96,7 +96,7 @@
     self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: UIColor.systemGray2Color}];
 }
 
-- (void)segue{
+- (void)segue {
     // TODO: animation
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
@@ -104,15 +104,5 @@
     SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
     [sceneDelegate changeRootViewController:mainTBC];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

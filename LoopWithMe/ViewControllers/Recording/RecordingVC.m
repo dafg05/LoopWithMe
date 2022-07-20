@@ -34,12 +34,12 @@
 
 # pragma mark - Initial View Controller setup
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpVC];
 }
 
--(void)setUpVC{
+-(void)setUpVC {
     if (self.loop.tracks == nil){
         self.loop.tracks = [NSMutableArray new];
     }
@@ -66,12 +66,12 @@
                 }
             });
         }];
-    } @catch (NSException *exception) {
+    } @catch (NSException *exception){
         [self recordingAlert:[NSString stringWithFormat:@"An exception occurred while setting up recording: %@", exception.name]];
     }
 }
 
-- (void)setUpRecorder{
+- (void)setUpRecorder {
     self.audioFileUrl = [self getRecordingFileUrl];
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
@@ -89,20 +89,20 @@
 
 #pragma mark - UI
 
--(void)recordingAvailableUI{
+-(void)recordingAvailableUI {
     self.recordButton.enabled = YES;
     [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
     [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
 }
 
--(void)recordingUnavailableUI{
+-(void)recordingUnavailableUI {
     self.recordButton.enabled = NO;
     [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
     [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
 }
 
-- (void)updateTimerLabel{
+- (void)updateTimerLabel {
     if(self.audioRecorder.recording){
         NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
         formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
@@ -111,7 +111,7 @@
     }
 }
 
--(void)recordingAlert:(NSString *)message{
+-(void)recordingAlert:(NSString *)message {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
                                                                              message:message
                                                                       preferredStyle:UIAlertControllerStyleAlert];
@@ -173,7 +173,7 @@
 
 #pragma mark - Recording and playback
 
-- (void)startRecording{
+- (void)startRecording {
     self.audioPlayer = nil;
     self.doneButton.enabled = NO;
     [self.playStopButton disable];
@@ -186,7 +186,7 @@
     }
 }
 
-- (void)finishRecording:(BOOL)success{
+- (void)finishRecording:(BOOL)success {
     [self.audioRecorder stop];
     if (self.recordingTimer){
         [self.recordingTimer invalidate];
@@ -201,7 +201,7 @@
     }
 }
 
-- (void)initializeAudioPlayer{
+- (void)initializeAudioPlayer {
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
@@ -210,13 +210,13 @@
 }
 
 /* AVAudioPlayer delegate method*/
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     [self.playStopButton UIPlay];
 }
 
 #pragma mark - Miscellanous helper methods
 
--(void)setUpLoopData{
+-(void)setUpLoopData {
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     NSError *dataError = nil;
     NSURL *audioFilePFUrl = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.audioFileUrl.absoluteString]];
@@ -230,7 +230,7 @@
     [self.loop.tracks addObject:track];
 }
 
-- (NSURL *)getRecordingFileUrl{
+- (NSURL *)getRecordingFileUrl {
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
 

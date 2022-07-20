@@ -9,30 +9,22 @@
 
 @implementation PlayStopButton
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-- (void)initWithColor:(UIColor *)color{
+- (void)initWithColor:(UIColor *)color {
     [self setTintColor:color];
     [self setTitle:@"" forState:UIControlStateNormal];
 }
 
--(void)UIPlay{
+-(void)UIPlay {
     [self setImage:[UIImage systemImageNamed:@"play.fill"] forState:UIControlStateNormal];
     [self setImage:[UIImage systemImageNamed:@"play.fill"] forState:UIControlStateHighlighted];
 }
 
--(void)UIStop{
+-(void)UIStop {
     [self setImage:[UIImage systemImageNamed:@"stop.fill"] forState:UIControlStateNormal];
     [self setImage:[UIImage systemImageNamed:@"stop.fill"] forState:UIControlStateHighlighted];
 }
 
--(void)disable{
+-(void)disable {
     self.enabled = NO;
     [self setImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateDisabled];
 }

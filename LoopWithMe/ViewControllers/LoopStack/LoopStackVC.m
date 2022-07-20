@@ -38,7 +38,7 @@
     [self setUpVC];
 }
 
-- (void)setUpVC{
+- (void)setUpVC {
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
     self.loopNameLabel.text = self.loop.name;
@@ -72,7 +72,7 @@
     return [self.loop.tracks count];
 }
 
-- (void)updateTrackCountLabel{
+- (void)updateTrackCountLabel {
     self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
 }
 
@@ -93,11 +93,11 @@
 
 #pragma mark - Button Actions
 
-- (IBAction)didTapPlayMix:(id)sender{
+- (IBAction)didTapPlayMix:(id)sender {
     [self startMix];
 }
 
-- (IBAction)didTapStopMix:(id)sender{
+- (IBAction)didTapStopMix:(id)sender {
     [self.audioEngine stop];
 }
 
@@ -117,13 +117,13 @@
 }
 
 /* LoopTrack cell delegate method: called when LoopTrackCell button is pressed*/
-- (void)playTrack:(NSURL *) trackUrl{
+- (void)playTrack:(NSURL *)trackUrl {
     [self startTrack:trackUrl];
 }
 
 #pragma mark - Playback
 
--(void)startMix{
+-(void)startMix {
     // TODO: inconsistent audioEngine start between startMix and startTrackj
     [self.audioEngine stop];
     [self.audioEngine attachNode:self.mixerNode];
@@ -152,7 +152,7 @@
     }
 }
 
-- (void)startTrack:(NSURL *) trackUrl{
+- (void)startTrack:(NSURL *)trackUrl {
     [self.audioEngine stop];
     NSError *creationError = NULL;
     AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&creationError];
@@ -177,7 +177,7 @@
 
 #pragma mark - Navigation
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"ShareSegue"]){
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         ShareVC *vc = (ShareVC *)navController.topViewController;
@@ -191,7 +191,7 @@
 }
 
 /* Needs to be called if tableView is reloaded */
--(void)reloadLoopData{
+-(void)reloadLoopData {
     // TODO: Refactor so that we don't need to reload the whole table view.
     // need to reinitialize the file manager because every cell is being reloaded
     self.fileManager = nil;
