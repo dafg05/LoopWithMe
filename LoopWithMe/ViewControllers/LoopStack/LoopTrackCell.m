@@ -9,15 +9,8 @@
 
 @implementation LoopTrackCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
 - (IBAction)didTapPlayTrack:(id)sender {
     [self.delegate playTrack:self.trackAudioUrl];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
 }
 
 @end
