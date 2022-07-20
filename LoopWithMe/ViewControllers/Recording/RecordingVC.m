@@ -32,12 +32,14 @@
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
+# pragma mark - Initial View Controller setup
+
 - (void) viewDidLoad {
     [super viewDidLoad];
-    [self setUpRecording];
+    [self setUpVC];
 }
 
--(void)setUpRecording{
+-(void)setUpVC{
     if (self.loop.tracks == nil){
         self.loop.tracks = [NSMutableArray new];
     }
@@ -69,19 +71,6 @@
     }
 }
 
--(void)recordingAvailableUI{
-    self.recordButton.enabled = YES;
-    [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
-    [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
-    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
-}
-
--(void)recordingUnavailableUI{
-    self.recordButton.enabled = NO;
-    [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
-    [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
-}
-
 - (void)setUpRecorder{
     self.audioFileUrl = [self getRecordingFileUrl];
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
@@ -98,6 +87,42 @@
     self.audioRecorder.delegate = self;
 }
 
+#pragma mark - UI
+
+-(void)recordingAvailableUI{
+    self.recordButton.enabled = YES;
+    [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
+    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
+}
+
+-(void)recordingUnavailableUI{
+    self.recordButton.enabled = NO;
+    [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
+}
+
+- (void)updateTimerLabel{
+    if(self.audioRecorder.recording){
+        NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
+        formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
+        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+        self.timerLabel.text = [formatter stringFromTimeInterval:self.audioRecorder.currentTime];
+    }
+}
+
+-(void)recordingAlert:(NSString *)message{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
+                                                                             message:message
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil];
+    [alertController addAction:actionOk];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark - Button Actions
 
 - (IBAction)didTapRecord:(id)sender {
     if (self.audioRecorder.recording){
@@ -118,6 +143,35 @@
         [self.playStopButton UIStop];
     }
 }
+
+- (IBAction)didTapDone:(id)sender {
+    [self.audioPlayer stop];
+    [self setUpLoopData];
+    // Send loop data back to presenting view controller when dismissing
+    UIViewController *presentingVC = self.presentingViewController;
+    if ([presentingVC isKindOfClass:[UITabBarController class]]){
+        UIViewController *tabItemVC = ((UITabBarController *) presentingVC).selectedViewController;
+        if ([tabItemVC isKindOfClass:[NewLoopVC class]]){
+            NewLoopVC *newLoopVC = (NewLoopVC *) tabItemVC;
+            newLoopVC.loop = self.loop;
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [newLoopVC performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
+        }
+    } else if ([presentingVC isKindOfClass:[UINavigationController class]]){
+        UIViewController *topVC = ((UINavigationController *) presentingVC).topViewController;
+        if ([topVC isKindOfClass:[LoopStackVC class]]){
+            LoopStackVC *loopStackVC = (LoopStackVC *) topVC;
+            loopStackVC.loop = self.loop;
+            [loopStackVC reloadLoopData];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else{
+        NSLog(@"Segue not supported");
+    }
+}
+
+#pragma mark - Recording and playback
 
 - (void)startRecording{
     self.audioPlayer = nil;
@@ -155,36 +209,12 @@
     [self.playStopButton UIPlay];
 }
 
+/* AVAudioPlayer delegate method*/
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
     [self.playStopButton UIPlay];
 }
 
-- (IBAction)didTapDone:(id)sender {
-    [self.audioPlayer stop];
-    [self setUpLoopData];
-    // Update loop data in presenting view controller when dismissing
-    UIViewController *presentingVC = self.presentingViewController;
-    if ([presentingVC isKindOfClass:[UITabBarController class]]){
-        UIViewController *tabItemVC = ((UITabBarController *) presentingVC).selectedViewController;
-        if ([tabItemVC isKindOfClass:[NewLoopVC class]]){
-            NewLoopVC *newLoopVC = (NewLoopVC *) tabItemVC;
-            newLoopVC.loop = self.loop;
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [newLoopVC performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
-        }
-    } else if ([presentingVC isKindOfClass:[UINavigationController class]]){
-        UIViewController *topVC = ((UINavigationController *) presentingVC).topViewController;
-        if ([topVC isKindOfClass:[LoopStackVC class]]){
-            LoopStackVC *loopStackVC = (LoopStackVC *) topVC;
-            loopStackVC.loop = self.loop;
-            [loopStackVC reloadLoopData];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }
-    else{
-        NSLog(@"Segue not supported");
-    }
-}
+#pragma mark - Miscellanous helper methods
 
 -(void)setUpLoopData{
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
@@ -204,25 +234,7 @@
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
 
-- (void)updateTimerLabel{
-    if(self.audioRecorder.recording){
-        NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
-        formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
-        formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
-        self.timerLabel.text = [formatter stringFromTimeInterval:self.audioRecorder.currentTime];
-    }
-}
 
--(void)recordingAlert:(NSString *)message{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
-                                                                             message:message
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
-                                                       style:UIAlertActionStyleDefault
-                                                     handler:nil];
-    [alertController addAction:actionOk];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
 
 
 @end
