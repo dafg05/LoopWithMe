@@ -11,6 +11,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *captionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *charCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shareLoopLabel;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
 
@@ -30,6 +31,7 @@
 }
 
 - (IBAction)didTapPost:(id)sender {
+    [self.spinner startAnimating];
     self.loop.caption = self.captionTextView.text;
     [Loop postLoop:self.loop withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil){
@@ -39,6 +41,7 @@
             NSLog(@"Posted loop succesfully!");
             [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
         }
+        [self.spinner stopAnimating];
     }];
 }
 

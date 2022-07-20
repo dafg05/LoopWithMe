@@ -262,6 +262,10 @@
                                     <action selector="didTapPost:" destination="1KE-6U-aKo" eventType="touchUpInside" id="m7Y-IZ-R4P"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fMg-se-ul2">
+                                <rect key="frame" x="258.5" y="378.5" width="20" height="20"/>
+                                <color key="color" name="custom text color"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NDr-u2-MD4"/>
                         <color key="backgroundColor" name="custom background color"/>
@@ -272,7 +276,9 @@
                             <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="81A-fY-bEf" secondAttribute="trailing" constant="15" id="F2q-gF-qyn"/>
                             <constraint firstItem="e1A-oT-QhO" firstAttribute="centerX" secondItem="83L-EE-3HC" secondAttribute="centerX" id="Vn1-ST-O3V"/>
                             <constraint firstItem="M23-Qg-spS" firstAttribute="top" secondItem="NDr-u2-MD4" secondAttribute="top" constant="15" id="cLf-5G-aUu"/>
+                            <constraint firstItem="fMg-se-ul2" firstAttribute="leading" secondItem="e1A-oT-QhO" secondAttribute="trailing" constant="25" id="dwf-m2-JyA"/>
                             <constraint firstItem="LgC-ja-TVm" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="gaw-Di-MnR"/>
+                            <constraint firstItem="fMg-se-ul2" firstAttribute="centerY" secondItem="e1A-oT-QhO" secondAttribute="centerY" id="gef-oR-dcm"/>
                             <constraint firstItem="LgC-ja-TVm" firstAttribute="top" secondItem="M23-Qg-spS" secondAttribute="bottom" constant="20" id="pRU-TI-5oH"/>
                             <constraint firstItem="M23-Qg-spS" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="sbj-rN-wlw"/>
                             <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="h9y-jS-ilo" secondAttribute="trailing" constant="15" id="u5V-g4-gim"/>
@@ -290,6 +296,7 @@
                         <outlet property="captionTextView" destination="h9y-jS-ilo" id="NHu-fU-1X8"/>
                         <outlet property="charCountLabel" destination="81A-fY-bEf" id="gDf-ej-3Dc"/>
                         <outlet property="shareLoopLabel" destination="M23-Qg-spS" id="ZId-xK-pvv"/>
+                        <outlet property="spinner" destination="fMg-se-ul2" id="2MX-we-uYw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOg-Sc-utm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

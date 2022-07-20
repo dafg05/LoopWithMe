@@ -25,7 +25,6 @@
 }
 
 - (IBAction)didTapLogin:(id)sender {
-    // TODO: fix spinner not showing up
     [self.spinner startAnimating];
     [self loginUser];
 }
@@ -43,17 +42,16 @@
             else{
                 self.errorLabel.text = error.localizedDescription;
             }
-            [self.spinner stopAnimating];
             
         } else {
             NSLog(@"User logged in successfully");
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];
             mainTBC.tabBar.unselectedItemTintColor = [UIColor systemGrayColor];
-            [self.spinner stopAnimating];
             SceneDelegate *sceneDelegate = (SceneDelegate * ) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
             [sceneDelegate changeRootViewController:mainTBC];
         }
+        [self.spinner stopAnimating];
     }];
 }
 
