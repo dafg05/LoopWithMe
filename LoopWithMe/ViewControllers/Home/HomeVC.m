@@ -13,10 +13,6 @@
 @interface HomeVC () <UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
-@property (weak, nonatomic) IBOutlet UILabel *authorLabel;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *captionLabel;
-@property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
 @property (strong, nonatomic) NSMutableArray *loops;
 
 @end
@@ -27,7 +23,6 @@
     [super viewDidLoad];
     self.feedTableView.dataSource = self;
     [self queryLoops];
-    
 }
 
 - (void)queryLoops {

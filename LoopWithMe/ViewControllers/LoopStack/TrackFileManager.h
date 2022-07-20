@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface TrackFileManager : NSObject
 
 
-- (id) initWithPath:(NSString *) path withSize:(int) size;
-- (NSURL *) writeToAvailableUrl:(NSData *) data;
-- (void) freeUrl:(NSURL *) url;
+- (id)initWithPath:(NSString *)path withSize:(int)size;
+- (NSURL *)writeToAvailableUrl:(NSData *)data;
+- (void)freeUrl:(NSURL *)url;
 @end
 
 NS_ASSUME_NONNULL_END

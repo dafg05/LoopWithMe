@@ -17,7 +17,7 @@
 
 @implementation TrackFileManager
 
--(id)initWithPath:(NSString *)path withSize:(int)size{
+-(id)initWithPath:(NSString *)path withSize:(int)size {
     self = [super init];
     if (self){
         self.freeUrlStack = [NSMutableArray new];
@@ -33,7 +33,7 @@
     }
 };
 
--(NSURL *) writeToAvailableUrl:(NSData *) data{
+-(NSURL *)writeToAvailableUrl:(NSData *)data {
     if (self.freeUrlStack == nil){
         [NSException raise:@"WritingToURLException" format:@"Uninitialized object"];
         return nil;
@@ -55,7 +55,7 @@
     return url;
 }
 
--(void) freeUrl:(NSURL *)url{
+-(void)freeUrl:(NSURL *)url {
     if ([self.freeUrlStack containsObject:url]){
         [NSException raise:@"FreeURLException" format:@"Double free"];
     }

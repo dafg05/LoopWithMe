@@ -49,23 +49,24 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (BOOL)textView:(UITextField *)textField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+- (BOOL)textView:(UITextField *)textField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     NSString *newText = [self.captionTextView.text stringByReplacingCharactersInRange:range withString:text];
     return newText.length <= CHAR_LIMIT;
 }
 
--(void)textViewDidChange:(UITextView *)textView{
+-(void)dismissKeyboard {
+    [self.view endEditing:YES];
+}
+
+-(void)textViewDidChange:(UITextView *)textView {
     int charCount = (int)[self.captionTextView.text length];
     [self updateCharCountLabel:charCount];
 }
 
--(void) updateCharCountLabel:(int) charCount{
+-(void)updateCharCountLabel:(int)charCount {
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
 }
 
--(void)dismissKeyboard{
-    [self.view endEditing:YES];
-}
 
 
 @end
