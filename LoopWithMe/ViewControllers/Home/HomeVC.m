@@ -7,7 +7,6 @@
 
 #import "HomeVC.h"
 #import "FeedCell.h"
-#import "PlayStopButton.h"
 #import "Parse/Parse.h"
 
 @interface HomeVC () <UITableViewDataSource>
@@ -33,6 +32,7 @@
         if (loops != nil) {
             self.loops = (NSMutableArray *)loops;
             [self.feedTableView reloadData];
+            NSLog(@"Successfully queried loops");
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -42,11 +42,17 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
     cell.layer.cornerRadius = 5;
+    Loop *cellLoop = self.loops[indexPath.row];
+    cell.loop = cellLoop;
+    cell.loopNameLabel.text = cellLoop.name;
+    cell.captionLabel.text = cellLoop.caption;
+    cell.authorLabel.text = cellLoop.postAuthor.username;
+    NSLog(@"%@", cellLoop.postAuthor.username);
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return [self.loops count];
 }
 
 @end

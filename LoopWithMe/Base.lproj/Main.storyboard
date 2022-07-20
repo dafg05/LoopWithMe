@@ -585,32 +585,35 @@
                                 <rect key="frame" x="0.0" y="80" width="414" height="733"/>
                                 <color key="backgroundColor" name="custom background color"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="144" id="UO8-lb-qJX" customClass="FeedCell">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="144"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="122" id="UO8-lb-qJX" customClass="FeedCell">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UO8-lb-qJX" id="WLK-a8-pKV">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYg-ia-Aei">
-                                                    <rect key="frame" x="30" y="14" width="81" height="17"/>
+                                                    <rect key="frame" x="30" y="14" width="354" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                     <color key="textColor" systemColor="systemGray2Color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBv-IP-4Zt" customClass="PlayStopButton">
-                                                    <rect key="frame" x="30" y="36" width="51" height="31"/>
+                                                    <rect key="frame" x="30" y="36" width="60" height="38"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="INd-oa-Ei0"/>
+                                                    </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Play"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao5-3f-gNo">
-                                                    <rect key="frame" x="91" y="41" width="90" height="21"/>
+                                                    <rect key="frame" x="100" y="44.5" width="284" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" name="custom text color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrd-2o-T7k">
-                                                    <rect key="frame" x="30" y="77" width="354" height="17"/>
+                                                    <rect key="frame" x="30" y="84" width="354" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" name="custom text color"/>
                                                     <nil key="highlightedColor"/>
@@ -618,17 +621,26 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Rrd-2o-T7k" firstAttribute="leading" secondItem="PBv-IP-4Zt" secondAttribute="leading" id="GBG-qA-VzR"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ao5-3f-gNo" secondAttribute="trailing" constant="10" id="MZb-9a-y7Q"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Rrd-2o-T7k" secondAttribute="trailing" constant="10" id="XDf-o9-7sB"/>
                                                 <constraint firstItem="ao5-3f-gNo" firstAttribute="centerY" secondItem="PBv-IP-4Zt" secondAttribute="centerY" id="Xkj-t9-i30"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="NYg-ia-Aei" secondAttribute="trailing" constant="10" id="dwd-PW-qvn"/>
                                                 <constraint firstItem="NYg-ia-Aei" firstAttribute="top" secondItem="WLK-a8-pKV" secondAttribute="topMargin" constant="3" id="gMC-qK-aSf"/>
                                                 <constraint firstItem="NYg-ia-Aei" firstAttribute="leading" secondItem="WLK-a8-pKV" secondAttribute="leadingMargin" constant="10" id="moL-ch-qVo"/>
                                                 <constraint firstItem="Rrd-2o-T7k" firstAttribute="top" secondItem="PBv-IP-4Zt" secondAttribute="bottom" constant="10" id="pZ0-1X-Tgl"/>
                                                 <constraint firstItem="ao5-3f-gNo" firstAttribute="leading" secondItem="PBv-IP-4Zt" secondAttribute="trailing" constant="10" id="rJK-zP-2AC"/>
                                                 <constraint firstItem="PBv-IP-4Zt" firstAttribute="top" secondItem="NYg-ia-Aei" secondAttribute="bottom" constant="5" id="stx-P2-uJU"/>
                                                 <constraint firstItem="PBv-IP-4Zt" firstAttribute="leading" secondItem="NYg-ia-Aei" secondAttribute="leading" id="tmf-Zv-hFr"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Rrd-2o-T7k" secondAttribute="bottom" constant="10" id="uc9-ic-qbW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="custom secondary bg color"/>
+                                        <connections>
+                                            <outlet property="authorLabel" destination="NYg-ia-Aei" id="sVZ-Rn-YOZ"/>
+                                            <outlet property="captionLabel" destination="Rrd-2o-T7k" id="b0A-2X-kv2"/>
+                                            <outlet property="loopNameLabel" destination="ao5-3f-gNo" id="vVq-gZ-dCM"/>
+                                            <outlet property="playStopButton" destination="PBv-IP-4Zt" id="hF1-BH-Rqm"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
