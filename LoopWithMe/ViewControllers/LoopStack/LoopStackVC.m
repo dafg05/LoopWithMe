@@ -57,6 +57,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     LoopTrackCell *cell = [self.trackTableView dequeueReusableCellWithIdentifier:
                            @"LoopTrackCell"];
+    cell.layer.cornerRadius = 5;
     cell.track = self.loop.tracks[indexPath.row];
     cell.delegate = self;
     [cell.playTrackButton initWithColor:[UIColor blackColor]];
