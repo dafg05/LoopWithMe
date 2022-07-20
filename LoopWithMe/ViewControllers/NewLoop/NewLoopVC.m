@@ -9,6 +9,7 @@
 #import "Loop.h"
 #import "RecordingVC.h"
 #import "LoopStackVC.h"
+#import "Parse/Parse.h"
 
 @interface NewLoopVC () <UITextFieldDelegate>
 
@@ -32,6 +33,7 @@
     else{
         self.loop = [Loop new];
         self.loop.name = self.loopNameField.text;
+        self.loop.postAuthor = [PFUser currentUser];
         [self performSegueWithIdentifier:@"NewLoopRecordingSegue" sender:nil];
     }
 }
