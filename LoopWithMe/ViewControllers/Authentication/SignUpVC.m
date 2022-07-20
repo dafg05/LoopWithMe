@@ -68,7 +68,7 @@
     }];
 }
 
-- (BOOL) checkForEmptyFields{
+- (BOOL)checkForEmptyFields{
     for (UITextField *textField in self.fieldsArray){
         if ([textField.text isEqualToString:@""] || textField.text == nil){
             return YES;
@@ -96,7 +96,7 @@
     self.emailField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: UIColor.systemGray2Color}];
 }
 
-- (void) segue{
+- (void)segue{
     // TODO: animation
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UITabBarController *mainTBC = [storyboard instantiateViewControllerWithIdentifier:@"TabBarVC"];

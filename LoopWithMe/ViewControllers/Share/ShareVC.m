@@ -59,7 +59,7 @@
     [self updateCharCountLabel:charCount];
 }
 
--(void) updateCharCountLabel:(int) charCount{
+-(void)updateCharCountLabel:(int) charCount{
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
 }
 

@@ -69,7 +69,7 @@
     [(AppDelegate *)UIApplication.sharedApplication.delegate saveContext];
 }
 
-- (void) changeRootViewController:(UIViewController *) vc{
+- (void)changeRootViewController:(UIViewController *) vc{
     self.window.rootViewController = vc;
 }
 

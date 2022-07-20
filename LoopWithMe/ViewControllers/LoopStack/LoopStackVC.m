@@ -68,7 +68,7 @@
     return cell;
 }
 
-- (void) updateTrackCountLabel{
+- (void)updateTrackCountLabel{
     self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
 }
 
@@ -76,7 +76,7 @@
     return [self.loop.tracks count];
 }
 
--(void) startMix{
+-(void)startMix{
     [self.audioEngine stop];
     [self.audioEngine attachNode:self.mixerNode];
     [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
@@ -104,7 +104,7 @@
     }
 }
 
-- (void) startTrack:(NSURL *) trackUrl{
+- (void)startTrack:(NSURL *) trackUrl{
     [self.audioEngine stop];
     NSError *creationError = NULL;
     AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&creationError];
@@ -174,7 +174,7 @@
     [self.trackTableView reloadData];
 }
 
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([[segue identifier] isEqualToString:@"ShareSegue"]){
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         ShareVC *vc = (ShareVC *)navController.topViewController;

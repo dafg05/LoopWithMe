@@ -11,7 +11,7 @@
 
 @property (strong, nonatomic) UIWindow * window;
 
--(void) changeRootViewController:(UIViewController *)vc;
+-(void)changeRootViewController:(UIViewController *)vc;
 
 @end
 

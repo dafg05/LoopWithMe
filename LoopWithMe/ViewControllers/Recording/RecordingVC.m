@@ -37,7 +37,7 @@
     [self setUpRecording];
 }
 
--(void) setUpRecording{
+-(void)setUpRecording{
     if (self.loop.tracks == nil){
         self.loop.tracks = [NSMutableArray new];
     }
@@ -69,14 +69,14 @@
     }
 }
 
--(void) recordingAvailableUI{
+-(void)recordingAvailableUI{
     self.recordButton.enabled = YES;
     [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
     [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
     [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
 }
 
--(void) recordingUnavailableUI{
+-(void)recordingUnavailableUI{
     self.recordButton.enabled = NO;
     [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
     [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
@@ -147,7 +147,7 @@
     }
 }
 
-- (void) initializeAudioPlayer{
+- (void)initializeAudioPlayer{
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
@@ -186,7 +186,7 @@
     }
 }
 
--(void) setUpLoopData{
+-(void)setUpLoopData{
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     NSError *dataError = nil;
     NSURL *audioFilePFUrl = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.audioFileUrl.absoluteString]];
@@ -213,7 +213,7 @@
     }
 }
 
--(void) recordingAlert:(NSString *)message{
+-(void)recordingAlert:(NSString *)message{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
                                                                              message:message
                                                                       preferredStyle:UIAlertControllerStyleAlert];

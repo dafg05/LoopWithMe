@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LoopTrackCellDelegate
 
-- (void) playTrack:(NSURL *) trackUrl;
+- (void)playTrack:(NSURL *) trackUrl;
 
 @end
 
