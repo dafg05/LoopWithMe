@@ -570,34 +570,56 @@
         <!--Home-->
         <scene sceneID="BGN-lV-fVS">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="Dpq-B3-Fe5" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="Dpq-B3-Fe5" customClass="HomeVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DD3-vM-gBg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z08-ro-lZv">
-                                <rect key="frame" x="30" y="74" width="148" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z08-ro-lZv">
+                                <rect key="frame" x="166" y="44" width="82" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To be implemented..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YIf-rp-iPd">
-                                <rect key="frame" x="30" y="140" width="160" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" name="custom text color"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="yOk-Sd-BGG">
+                                <rect key="frame" x="0.0" y="80" width="414" height="733"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" id="UO8-lb-qJX" customClass="FeedCell">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UO8-lb-qJX" id="WLK-a8-pKV">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feed Cell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYg-ia-Aei">
+                                                    <rect key="frame" x="57" y="11" width="71" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0tD-d6-m2V"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
-                            <constraint firstItem="YIf-rp-iPd" firstAttribute="top" secondItem="z08-ro-lZv" secondAttribute="bottom" constant="30" id="CG3-7q-rCV"/>
-                            <constraint firstItem="z08-ro-lZv" firstAttribute="top" secondItem="0tD-d6-m2V" secondAttribute="top" constant="30" id="E28-R2-Dxs"/>
-                            <constraint firstItem="YIf-rp-iPd" firstAttribute="leading" secondItem="z08-ro-lZv" secondAttribute="leading" id="Iwu-ca-gWf"/>
-                            <constraint firstItem="z08-ro-lZv" firstAttribute="leading" secondItem="0tD-d6-m2V" secondAttribute="leading" constant="30" id="YEO-Rj-iDT"/>
+                            <constraint firstItem="yOk-Sd-BGG" firstAttribute="top" secondItem="z08-ro-lZv" secondAttribute="bottom" id="3Og-Ol-EOo"/>
+                            <constraint firstItem="yOk-Sd-BGG" firstAttribute="leading" secondItem="0tD-d6-m2V" secondAttribute="leading" id="Njh-Uz-f7i"/>
+                            <constraint firstItem="z08-ro-lZv" firstAttribute="centerX" secondItem="DD3-vM-gBg" secondAttribute="centerX" id="hkb-fU-EdS"/>
+                            <constraint firstItem="0tD-d6-m2V" firstAttribute="bottom" secondItem="yOk-Sd-BGG" secondAttribute="bottom" id="t1k-G3-TYy"/>
+                            <constraint firstItem="0tD-d6-m2V" firstAttribute="trailing" secondItem="yOk-Sd-BGG" secondAttribute="trailing" id="wSB-ZR-eim"/>
+                            <constraint firstItem="z08-ro-lZv" firstAttribute="top" secondItem="0tD-d6-m2V" secondAttribute="top" id="wxI-in-BrI"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="ihu-85-siA"/>
+                    <connections>
+                        <outlet property="feedTableView" destination="yOk-Sd-BGG" id="jxL-gE-Pi5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvG-Uz-CVo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -853,6 +875,9 @@
         <namedColor name="text field color">
             <color red="0.16899999976158142" green="0.16899999976158142" blue="0.18999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
