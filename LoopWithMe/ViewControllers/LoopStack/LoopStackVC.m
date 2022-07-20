@@ -86,15 +86,19 @@
     if (startError != nil){
         NSLog(@"%@", startError.localizedDescription);
     }else{
-        for (LoopTrackCell *cell in self.trackTableView.visibleCells){
-            NSURL *trackUrl = cell.trackAudioUrl;
-            AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
-            [self.audioEngine attachNode:playerNode];
-            NSError *readingError = NULL;
-            AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&readingError];
-            [self.audioEngine connect:playerNode to:self.mixerNode format:file.processingFormat];
-            [playerNode scheduleFile:file atTime:nil completionHandler:nil];
-            [playerNode play];
+        for (int section = 0; section < [self.trackTableView numberOfSections]; section++){
+            for (int row = 0; row < [self.trackTableView numberOfRowsInSection:section]; row++){
+                NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
+                LoopTrackCell* cell = [self.trackTableView cellForRowAtIndexPath:cellPath];
+                NSURL *trackUrl = cell.trackAudioUrl;
+                AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
+                [self.audioEngine attachNode:playerNode];
+                NSError *readingError = NULL;
+                AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&readingError];
+                [self.audioEngine connect:playerNode to:self.mixerNode format:file.processingFormat];
+                [playerNode scheduleFile:file atTime:nil completionHandler:nil];
+                [playerNode play];
+            }
         }
     }
 }
@@ -161,12 +165,13 @@
 }
 
 -(void)reloadLoopData{
+    // TODO: Refactor so that we don't need to reload the whole table view.
+    // need to reinitialize the file manager because every cell is being reloaded
     self.fileManager = nil;
     self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
 }
-
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([[segue identifier] isEqualToString:@"ShareSegue"]){
