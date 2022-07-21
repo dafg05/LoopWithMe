@@ -10,7 +10,7 @@
 #import "Parse/Parse.h"
 #import "AVFoundation/AVFAudio.h"
 
-@interface HomeVC () <UITableViewDataSource,FeedCellDelegate>;
+@interface HomeVC () <UITableViewDataSource>;
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) NSMutableArray *loops;
@@ -47,7 +47,6 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
-    cell.delegate = self;
     cell.layer.cornerRadius = 5;
     Loop *cellLoop = self.loops[indexPath.row];
     cell.loop = cellLoop;
@@ -62,8 +61,5 @@
 }
 
 
--(void)playStopMix:(Loop *)loop{
-    
-}
 
 @end

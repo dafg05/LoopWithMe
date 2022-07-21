@@ -11,15 +11,10 @@
 
 - (void)awakeFromNib{
     [super awakeFromNib];
-    [self.playStopButton initWithColor:[UIColor whiteColor]];
-    [self.playStopButton UIPlay];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-}
-- (IBAction)didTapPlayStop:(id)sender {
-    [self.delegate playStopMix:self.loop];
 }
 
 @end
