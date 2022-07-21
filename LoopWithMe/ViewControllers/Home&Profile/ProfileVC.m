@@ -11,6 +11,9 @@
 #import "SceneDelegate.h"
 
 @interface ProfileVC ()
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *givennameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 
 @end
 
@@ -18,6 +21,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (!self.user){
+        self.user = [PFUser currentUser];
+    }
+    self.usernameLabel.text = self.user.username;
+    self.givennameLabel.text = self.user[@"givenName"];
+    
 }
 - (IBAction)didTapLogout:(id)sender {
     [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {

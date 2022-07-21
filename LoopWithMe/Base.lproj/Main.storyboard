@@ -612,6 +612,11 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" id="Lbf-5W-vqK"/>
+                    <connections>
+                        <outlet property="givennameLabel" destination="rDZ-N2-9wc" id="zgd-OX-xIY"/>
+                        <outlet property="profileImageView" destination="bf8-jy-zPX" id="fAc-hZ-ndG"/>
+                        <outlet property="usernameLabel" destination="u4j-cN-eMY" id="qAq-pn-oen"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4VO-Fh-8d7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
