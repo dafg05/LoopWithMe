@@ -15,7 +15,7 @@
 
 @interface HomeVC () <UITableViewDataSource, UITableViewDelegate>;
 
-@property (weak, nonatomic) IBOutlet UITableView *feedTableView;
+@property (weak, nonatomic) IBOutlet UITableView *postTableView;
 @property (strong, nonatomic) NSArray *loops;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -28,14 +28,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.feedTableView.dataSource = self;
-    self.feedTableView.delegate = self;
+    self.postTableView.dataSource = self;
+    self.postTableView.delegate = self;
     [self queryLoops:nil];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     refreshControl.tintColor = [UIColor whiteColor];
-    [self.feedTableView insertSubview:refreshControl atIndex:0];
+    [self.postTableView insertSubview:refreshControl atIndex:0];
 }
 
 #pragma mark - UITableViewDataSourceMethods
@@ -75,11 +75,11 @@
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"postAuthor"];
     [query includeKey:@"tracks"];
-    query.limit = 20;
+    query.limit = 10;
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
             self.loops = loops;
-            [self.feedTableView reloadData];
+            [self.postTableView reloadData];
             NSLog(@"Successfully queried loops");
             if (refreshControl) [refreshControl endRefreshing];
         } else {
