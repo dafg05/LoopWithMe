@@ -16,7 +16,7 @@
 @interface HomeVC () <UITableViewDataSource, UITableViewDelegate>;
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
-@property (strong, nonatomic) NSMutableArray *loops;
+@property (strong, nonatomic) NSArray *loops;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property AVAudioEngine *audioEngine;
@@ -78,7 +78,7 @@
     query.limit = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
-            self.loops = (NSMutableArray *)loops;
+            self.loops = loops;
             [self.feedTableView reloadData];
             NSLog(@"Successfully queried loops");
             if (refreshControl) [refreshControl endRefreshing];
