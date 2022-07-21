@@ -10,7 +10,9 @@
 #import "Parse/Parse.h"
 #import "AVFoundation/AVFAudio.h"
 
-@interface HomeVC () <UITableViewDataSource>;
+#import "LoopStackVC.h"
+
+@interface HomeVC () <UITableViewDataSource, UITableViewDelegate>;
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) NSMutableArray *loops;
@@ -25,8 +27,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.feedTableView.dataSource = self;
+    self.feedTableView.delegate = self;
     [self queryLoops];
 }
+
+#pragma mark - UITableViewDataSourceMethods
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
+    cell.layer.cornerRadius = 5;
+    Loop *cellLoop = self.loops[indexPath.row];
+    cell.loop = cellLoop;
+    cell.loopNameLabel.text = cellLoop.name;
+    cell.captionLabel.text = cellLoop.caption;
+    cell.authorLabel.text = cellLoop.postAuthor.username;
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.loops count];
+}
+
+#pragma mark - UITableViewDelegateMethods
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Loop *loop = self.loops[indexPath.row];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"LoopStackNavController"];
+    LoopStackVC *vc = (LoopStackVC *) navController.topViewController;
+    vc.loop = loop;
+    vc.readOnly = YES;
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+#pragma mark - Helper Methods
 
 - (void)queryLoops {
     PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
@@ -44,22 +78,5 @@
         }
     }];
 }
-
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
-    cell.layer.cornerRadius = 5;
-    Loop *cellLoop = self.loops[indexPath.row];
-    cell.loop = cellLoop;
-    cell.loopNameLabel.text = cellLoop.name;
-    cell.captionLabel.text = cellLoop.caption;
-    cell.authorLabel.text = cellLoop.postAuthor.username;
-    return cell;
-}
-
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.loops count];
-}
-
-
 
 @end
