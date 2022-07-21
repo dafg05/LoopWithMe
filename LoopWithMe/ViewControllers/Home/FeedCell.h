@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol FeedCellDelegate
 
-- (void)didTapPlayStop:(Loop *)loop;
+- (void)playStopMix:(Loop *)loop;
 
 @end
 
@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
 @property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
+@property (weak, nonatomic) id<FeedCellDelegate> delegate;
 @property (strong, nonatomic) Loop *loop;
 
 @end

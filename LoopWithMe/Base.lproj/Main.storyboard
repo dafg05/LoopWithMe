@@ -605,6 +605,9 @@
                                                     </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                                                    <connections>
+                                                        <action selector="didTapPlayStop:" destination="UO8-lb-qJX" eventType="touchUpInside" id="RpE-lu-Q58"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao5-3f-gNo">
                                                     <rect key="frame" x="100" y="44.5" width="284" height="21"/>

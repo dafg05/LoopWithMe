@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
-@property BOOL mixPlayedLast;
 @property (strong, nonatomic) TrackFileManager *fileManager;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
 

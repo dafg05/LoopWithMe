@@ -8,11 +8,15 @@
 #import "HomeVC.h"
 #import "FeedCell.h"
 #import "Parse/Parse.h"
+#import "AVFoundation/AVFAudio.h"
 
-@interface HomeVC () <UITableViewDataSource>
+@interface HomeVC () <UITableViewDataSource,FeedCellDelegate>;
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) NSMutableArray *loops;
+
+@property AVAudioEngine *audioEngine;
+@property AVAudioMixerNode *mixerNode;
 
 @end
 
@@ -27,6 +31,8 @@
 - (void)queryLoops {
     PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
     [query orderByDescending:@"createdAt"];
+    [query includeKey:@"postAuthor"];
+    [query includeKey:@"tracks"];
     query.limit = 20;
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
@@ -41,18 +47,23 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
+    cell.delegate = self;
     cell.layer.cornerRadius = 5;
     Loop *cellLoop = self.loops[indexPath.row];
     cell.loop = cellLoop;
     cell.loopNameLabel.text = cellLoop.name;
     cell.captionLabel.text = cellLoop.caption;
     cell.authorLabel.text = cellLoop.postAuthor.username;
-    NSLog(@"%@", cellLoop.postAuthor.username);
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.loops count];
+}
+
+
+-(void)playStopMix:(Loop *)loop{
+    
 }
 
 @end
