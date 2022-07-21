@@ -42,7 +42,7 @@
 - (void)setUpVC {
     if (self.readOnly){
         self.shareButton.enabled = NO;
-        self.addTrackButton.enabled = NO;
+        self.addTrackButton.hidden = YES;
     }
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
@@ -78,7 +78,7 @@
 }
 
 - (void)updateTrackCountLabel {
-    self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
+    self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d tracks", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
