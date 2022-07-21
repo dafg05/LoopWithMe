@@ -6,7 +6,7 @@
 //
 
 #import "HomeVC.h"
-#import "FeedCell.h"
+#import "PostCell.h"
 #import "Parse/Parse.h"
 #import "AVFoundation/AVFAudio.h"
 #import "ShareVC.h"
@@ -41,7 +41,7 @@
 #pragma mark - UITableViewDataSourceMethods
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
     cell.layer.cornerRadius = 5;
     Loop *cellLoop = self.loops[indexPath.row];
     cell.loop = cellLoop;
