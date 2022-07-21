@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong, nonatomic) NSMutableArray *loops;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
@@ -28,7 +29,12 @@
     [super viewDidLoad];
     self.feedTableView.dataSource = self;
     self.feedTableView.delegate = self;
-    [self queryLoops];
+    [self queryLoops:nil];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
+    refreshControl.tintColor = [UIColor whiteColor];
+    [self.feedTableView insertSubview:refreshControl atIndex:0];
 }
 
 #pragma mark - UITableViewDataSourceMethods
@@ -62,7 +68,8 @@
 
 #pragma mark - Helper Methods
 
-- (void)queryLoops {
+/* Refresh control should be nil if not refreshing*/
+- (void)queryLoops:(nullable UIRefreshControl *)refreshControl {
     PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"postAuthor"];
@@ -73,10 +80,15 @@
             self.loops = (NSMutableArray *)loops;
             [self.feedTableView reloadData];
             NSLog(@"Successfully queried loops");
+            if (refreshControl) [refreshControl endRefreshing];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (void)beginRefresh:(UIRefreshControl *)refreshControl {
+    [self queryLoops:refreshControl];
 }
 
 @end
