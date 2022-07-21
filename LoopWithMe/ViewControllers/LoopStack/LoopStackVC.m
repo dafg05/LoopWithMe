@@ -20,8 +20,9 @@
 @property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
-@property BOOL mixPlayedLast;
 @property (strong, nonatomic) TrackFileManager *fileManager;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (weak, nonatomic) IBOutlet UIButton *addTrackButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
 
 @end
@@ -39,6 +40,10 @@
 }
 
 - (void)setUpVC {
+    if (self.readOnly){
+        self.shareButton.enabled = NO;
+        self.addTrackButton.hidden = YES;
+    }
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
     self.loopNameLabel.text = self.loop.name;
@@ -73,11 +78,12 @@
 }
 
 - (void)updateTrackCountLabel {
-    self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
+    self.trackCountLabel.text = [NSString stringWithFormat:@"%lu/%d tracks", (unsigned long)[self.loop.tracks count], MAX_NUM_TRACKS];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Cannot delete if there's only one track
+    if (self.readOnly) return NO;
     return ([self.loop.tracks count] > 1);
 }
 
@@ -124,7 +130,7 @@
 #pragma mark - Playback
 
 -(void)startMix {
-    // TODO: inconsistent audioEngine start between startMix and startTrackj
+    // TODO: inconsistent audioEngine start between startMix and startTrack
     [self.audioEngine stop];
     [self.audioEngine attachNode:self.mixerNode];
     [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];

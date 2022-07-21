@@ -307,52 +307,11 @@
         <!--Loop StackVC-->
         <scene sceneID="8fa-d0-Dh4">
             <objects>
-                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="xyn-lb-lQU" customClass="LoopStackVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoopStackVC" modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="xyn-lb-lQU" customClass="LoopStackVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yfz-sS-dpH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aly-L4-KOE">
-                                <rect key="frame" x="0.0" y="88" width="414" height="674"/>
-                                <color key="backgroundColor" name="custom secondary bg color"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoopTrackCell" id="gTu-c5-Yht" customClass="LoopTrackCell">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gTu-c5-Yht" id="BJE-Fh-Aiw">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUy-VK-EfY" customClass="PlayStopButton">
-                                                    <rect key="frame" x="20" y="6.5" width="51" height="31"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Play"/>
-                                                    <connections>
-                                                        <action selector="didTapPlayTrack:" destination="gTu-c5-Yht" eventType="touchUpInside" id="EZx-lL-npf"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDB-93-5Vg">
-                                                    <rect key="frame" x="81" y="13" width="99.5" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="custom background color"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="YUy-VK-EfY" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="0fl-SZ-d6n"/>
-                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="leading" secondItem="YUy-VK-EfY" secondAttribute="trailing" constant="10" id="Jt2-Tm-mkN"/>
-                                                <constraint firstItem="YUy-VK-EfY" firstAttribute="leading" secondItem="BJE-Fh-Aiw" secondAttribute="leading" constant="20" id="Vnr-PY-42E"/>
-                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="qaj-dx-N9S"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" name="light blue"/>
-                                        <connections>
-                                            <outlet property="playTrackButton" destination="YUy-VK-EfY" id="FIx-Td-MMy"/>
-                                            <outlet property="trackNumberLabel" destination="gDB-93-5Vg" id="w7K-Sm-pII"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Id-z2-ITc">
                                 <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <subviews>
@@ -422,6 +381,47 @@
                                     <constraint firstItem="v5Q-3v-qOE" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="pXY-9v-apf"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aly-L4-KOE">
+                                <rect key="frame" x="0.0" y="88" width="414" height="674"/>
+                                <color key="backgroundColor" name="custom secondary bg color"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoopTrackCell" id="gTu-c5-Yht" customClass="LoopTrackCell">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gTu-c5-Yht" id="BJE-Fh-Aiw">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUy-VK-EfY" customClass="PlayStopButton">
+                                                    <rect key="frame" x="20" y="6.5" width="51" height="31"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                                                    <connections>
+                                                        <action selector="didTapPlayTrack:" destination="gTu-c5-Yht" eventType="touchUpInside" id="EZx-lL-npf"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDB-93-5Vg">
+                                                    <rect key="frame" x="81" y="13" width="99.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="custom background color"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="YUy-VK-EfY" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="0fl-SZ-d6n"/>
+                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="leading" secondItem="YUy-VK-EfY" secondAttribute="trailing" constant="10" id="Jt2-Tm-mkN"/>
+                                                <constraint firstItem="YUy-VK-EfY" firstAttribute="leading" secondItem="BJE-Fh-Aiw" secondAttribute="leading" constant="20" id="Vnr-PY-42E"/>
+                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="qaj-dx-N9S"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="light blue"/>
+                                        <connections>
+                                            <outlet property="playTrackButton" destination="YUy-VK-EfY" id="FIx-Td-MMy"/>
+                                            <outlet property="trackNumberLabel" destination="gDB-93-5Vg" id="w7K-Sm-pII"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="llw-qx-Tz1"/>
                         <color key="backgroundColor" name="custom background color"/>
@@ -448,8 +448,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addTrackButton" destination="mJM-zG-X4Z" id="QTo-M4-TU3"/>
                         <outlet property="loopNameLabel" destination="PTT-DU-zxp" id="RF9-F6-Or1"/>
                         <outlet property="playMixButton" destination="W4W-Xb-cPS" id="JhC-ab-bXB"/>
+                        <outlet property="shareButton" destination="Fdl-fi-1FJ" id="hHB-5Z-euR"/>
                         <outlet property="stopMixButton" destination="lnL-wX-YNx" id="YdR-14-aTi"/>
                         <outlet property="trackCountLabel" destination="3UL-rd-nqF" id="ldc-EV-zH6"/>
                         <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>
@@ -582,53 +584,54 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="yOk-Sd-BGG">
-                                <rect key="frame" x="0.0" y="80" width="414" height="733"/>
+                                <rect key="frame" x="0.0" y="85" width="414" height="728"/>
                                 <color key="backgroundColor" name="custom background color"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="144" id="UO8-lb-qJX" customClass="FeedCell">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="144"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedCell" rowHeight="122" id="UO8-lb-qJX" customClass="FeedCell">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UO8-lb-qJX" id="WLK-a8-pKV">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYg-ia-Aei">
-                                                    <rect key="frame" x="30" y="14" width="81" height="17"/>
+                                                    <rect key="frame" x="30" y="14" width="354" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                     <color key="textColor" systemColor="systemGray2Color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBv-IP-4Zt" customClass="PlayStopButton">
-                                                    <rect key="frame" x="30" y="36" width="51" height="31"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Play"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao5-3f-gNo">
-                                                    <rect key="frame" x="91" y="41" width="90" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Loop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ao5-3f-gNo">
+                                                    <rect key="frame" x="30" y="53" width="354" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <color key="textColor" name="custom text color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrd-2o-T7k">
-                                                    <rect key="frame" x="30" y="77" width="354" height="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Caption" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrd-2o-T7k">
+                                                    <rect key="frame" x="30" y="84" width="354" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" name="custom text color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Rrd-2o-T7k" firstAttribute="leading" secondItem="PBv-IP-4Zt" secondAttribute="leading" id="GBG-qA-VzR"/>
+                                                <constraint firstItem="Rrd-2o-T7k" firstAttribute="leading" secondItem="WLK-a8-pKV" secondAttribute="leadingMargin" constant="10" id="G0l-fH-jdc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ao5-3f-gNo" secondAttribute="trailing" constant="10" id="MZb-9a-y7Q"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Rrd-2o-T7k" secondAttribute="trailing" constant="10" id="XDf-o9-7sB"/>
-                                                <constraint firstItem="ao5-3f-gNo" firstAttribute="centerY" secondItem="PBv-IP-4Zt" secondAttribute="centerY" id="Xkj-t9-i30"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Rrd-2o-T7k" secondAttribute="bottom" constant="10" id="YIa-vY-529"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="NYg-ia-Aei" secondAttribute="trailing" constant="10" id="dwd-PW-qvn"/>
+                                                <constraint firstItem="ao5-3f-gNo" firstAttribute="top" secondItem="NYg-ia-Aei" secondAttribute="bottom" constant="10" id="g8O-LH-weh"/>
                                                 <constraint firstItem="NYg-ia-Aei" firstAttribute="top" secondItem="WLK-a8-pKV" secondAttribute="topMargin" constant="3" id="gMC-qK-aSf"/>
+                                                <constraint firstItem="ao5-3f-gNo" firstAttribute="leading" secondItem="WLK-a8-pKV" secondAttribute="leadingMargin" constant="10" id="j6G-rU-rCH"/>
                                                 <constraint firstItem="NYg-ia-Aei" firstAttribute="leading" secondItem="WLK-a8-pKV" secondAttribute="leadingMargin" constant="10" id="moL-ch-qVo"/>
-                                                <constraint firstItem="Rrd-2o-T7k" firstAttribute="top" secondItem="PBv-IP-4Zt" secondAttribute="bottom" constant="10" id="pZ0-1X-Tgl"/>
-                                                <constraint firstItem="ao5-3f-gNo" firstAttribute="leading" secondItem="PBv-IP-4Zt" secondAttribute="trailing" constant="10" id="rJK-zP-2AC"/>
-                                                <constraint firstItem="PBv-IP-4Zt" firstAttribute="top" secondItem="NYg-ia-Aei" secondAttribute="bottom" constant="5" id="stx-P2-uJU"/>
-                                                <constraint firstItem="PBv-IP-4Zt" firstAttribute="leading" secondItem="NYg-ia-Aei" secondAttribute="leading" id="tmf-Zv-hFr"/>
+                                                <constraint firstItem="Rrd-2o-T7k" firstAttribute="top" secondItem="ao5-3f-gNo" secondAttribute="bottom" constant="10" id="spA-G8-GhM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="custom secondary bg color"/>
+                                        <connections>
+                                            <outlet property="authorLabel" destination="NYg-ia-Aei" id="sVZ-Rn-YOZ"/>
+                                            <outlet property="captionLabel" destination="Rrd-2o-T7k" id="b0A-2X-kv2"/>
+                                            <outlet property="loopNameLabel" destination="ao5-3f-gNo" id="vVq-gZ-dCM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -636,7 +639,7 @@
                         <viewLayoutGuide key="safeArea" id="0tD-d6-m2V"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
-                            <constraint firstItem="yOk-Sd-BGG" firstAttribute="top" secondItem="z08-ro-lZv" secondAttribute="bottom" id="3Og-Ol-EOo"/>
+                            <constraint firstItem="yOk-Sd-BGG" firstAttribute="top" secondItem="z08-ro-lZv" secondAttribute="bottom" constant="5" id="3Og-Ol-EOo"/>
                             <constraint firstItem="yOk-Sd-BGG" firstAttribute="leading" secondItem="0tD-d6-m2V" secondAttribute="leading" id="Njh-Uz-f7i"/>
                             <constraint firstItem="z08-ro-lZv" firstAttribute="centerX" secondItem="DD3-vM-gBg" secondAttribute="centerX" id="hkb-fU-EdS"/>
                             <constraint firstItem="0tD-d6-m2V" firstAttribute="bottom" secondItem="yOk-Sd-BGG" secondAttribute="bottom" id="t1k-G3-TYy"/>
@@ -818,7 +821,7 @@
         <!--Navigation Controller-->
         <scene sceneID="06j-3a-94R">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="dVn-I0-VAo" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoopStackNavController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="dVn-I0-VAo" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nhk-br-PUf">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>

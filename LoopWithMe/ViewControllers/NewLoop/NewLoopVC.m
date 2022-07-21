@@ -56,6 +56,7 @@
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         LoopStackVC *vc = (LoopStackVC *)navController.topViewController;
         vc.loop = self.loop;
+        vc.readOnly = NO;
     }
 }
 

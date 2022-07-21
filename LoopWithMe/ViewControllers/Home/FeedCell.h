@@ -7,9 +7,17 @@
 
 #import <UIKit/UIKit.h>
 
+#import "PlayStopButton.h"
+#import "Loop.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FeedCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *authorLabel;
+@property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *captionLabel;
+@property (strong, nonatomic) Loop *loop;
 
 @end
 

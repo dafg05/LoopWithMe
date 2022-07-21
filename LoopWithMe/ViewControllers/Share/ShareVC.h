@@ -10,9 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol ShareVCDelegate
+
+-(void)didShare;
+
+@end
+
 @interface ShareVC : UIViewController
 
 @property (strong, nonatomic) Loop *loop;
+@property (weak, nonatomic) id<ShareVCDelegate> delegate;
 
 @end
 
