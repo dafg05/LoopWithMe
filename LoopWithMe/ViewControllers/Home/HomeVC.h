@@ -6,10 +6,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ShareVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeVC : UIViewController
+@interface HomeVC : UIViewController <ShareVCDelegate>
 
 @end
 

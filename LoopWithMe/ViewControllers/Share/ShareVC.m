@@ -6,6 +6,7 @@
 //
 
 #import "ShareVC.h"
+#import "HomeVC.h"
 
 @interface ShareVC () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *captionTextView;
@@ -39,7 +40,9 @@
         }
         else{
             NSLog(@"Posted loop succesfully!");
+            [self setHomeFeedAsDelegate];
             [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+            [self.delegate didShare];
         }
         [self.spinner stopAnimating];
     }];
@@ -47,6 +50,13 @@
 
 - (IBAction)didTapBack:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)setHomeFeedAsDelegate {
+    // TODO: Need to make sure that the delegateVC is a HomeVC
+    UITabBarController *tabBarVC = (UITabBarController *)self.view.window.rootViewController;
+    HomeVC *delegateVC = tabBarVC.viewControllers[0];
+    self.delegate = delegateVC;
 }
 
 - (BOOL)textView:(UITextField *)textField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {

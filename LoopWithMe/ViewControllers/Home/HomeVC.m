@@ -9,6 +9,7 @@
 #import "FeedCell.h"
 #import "Parse/Parse.h"
 #import "AVFoundation/AVFAudio.h"
+#import "ShareVC.h"
 
 #import "LoopStackVC.h"
 
@@ -89,6 +90,11 @@
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     [self queryLoops:refreshControl];
+}
+
+/* ShareVC delegate method */
+- (void)didShare {
+    [self queryLoops:nil];
 }
 
 @end
