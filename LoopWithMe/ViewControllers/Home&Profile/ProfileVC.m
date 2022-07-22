@@ -7,9 +7,12 @@
 
 #import "ProfileVC.h"
 #import "Parse/Parse.h"
-#import "LoginVC.h"
 #import "SceneDelegate.h"
+
+#import "LoginVC.h"
+#import "LoopStackVC.h"
 #import "PostCell.h"
+
 
 @interface ProfileVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -53,6 +56,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
     [query orderByDescending:@"createdAt"];
     [query includeKey:@"postAuthor"];
+    [query includeKey:@"tracks"];
     [query whereKey:@"postAuthor" equalTo:self.user];
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
@@ -81,7 +85,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    Loop *loop = self.userLoops[indexPath.row];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"LoopStackNavController"];
+    LoopStackVC *vc = (LoopStackVC *) navController.topViewController;
+    vc.loop = loop;
+    vc.readOnly = YES;
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 @end
