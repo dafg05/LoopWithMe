@@ -11,7 +11,7 @@
 #import "SceneDelegate.h"
 #import "PostCell.h"
 
-@interface ProfileVC ()<UITableViewDataSource>
+@interface ProfileVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *givennameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
@@ -28,6 +28,7 @@
         self.user = [PFUser currentUser];
     }
     self.postTableView.dataSource = self;
+    self.postTableView.delegate = self;
     self.usernameLabel.text = self.user.username;
     self.givennameLabel.text = self.user[@"givenName"];
     [self queryUserPosts];
@@ -68,13 +69,19 @@
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserPostCell"];
     Loop *cellLoop = self.userLoops[indexPath.row];
     cell.loopNameLabel.text = cellLoop.name;
+    cell.captionLabel.text = cellLoop.caption;
+    cell.authorLabel.text = cellLoop.postAuthor.username;
     NSLog(@"%@", cell.loopNameLabel.text);
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"%d", [self.userLoops count]);
+    NSLog(@"%lu", (unsigned long)[self.userLoops count]);
     return [self.userLoops count];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 @end
