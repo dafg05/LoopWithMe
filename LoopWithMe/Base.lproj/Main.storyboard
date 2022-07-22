@@ -587,7 +587,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VHq-QJ-QxY">
+                                                <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VHq-QJ-QxY">
                                                     <rect key="frame" x="100" y="20.5" width="90" height="47.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wiH-UW-2Ag">
@@ -596,7 +596,7 @@
                                                             <color key="textColor" systemColor="systemGray2Color"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Loop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06L-yx-OcS">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="06L-yx-OcS">
                                                             <rect key="frame" x="0.0" y="27" width="90" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <color key="textColor" name="custom text color"/>
@@ -699,7 +699,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nTj-YC-QUH">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nTj-YC-QUH">
                                                     <rect key="frame" x="100" y="20.5" width="90" height="47.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NYg-ia-Aei">
@@ -717,13 +717,13 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Caption" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rrd-2o-T7k">
-                                                    <rect key="frame" x="35" y="84" width="349" height="17"/>
+                                                    <rect key="frame" x="30" y="84" width="354" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" name="custom text color"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ir3-zZ-aea">
-                                                    <rect key="frame" x="30" y="15" width="60" height="57.5"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ir3-zZ-aea">
+                                                    <rect key="frame" x="30" y="14" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ir3-zZ-aea" secondAttribute="height" multiplier="1:1" id="IVn-aD-B7y"/>
                                                         <constraint firstAttribute="height" constant="60" id="vkl-6r-E6n"/>
@@ -731,7 +731,7 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Rrd-2o-T7k" firstAttribute="leading" secondItem="WLK-a8-pKV" secondAttribute="leadingMargin" constant="15" id="G0l-fH-jdc"/>
+                                                <constraint firstItem="Rrd-2o-T7k" firstAttribute="leading" secondItem="WLK-a8-pKV" secondAttribute="leadingMargin" constant="10" id="G0l-fH-jdc"/>
                                                 <constraint firstItem="nTj-YC-QUH" firstAttribute="leading" secondItem="ir3-zZ-aea" secondAttribute="trailing" constant="10" id="IId-cn-Cvk"/>
                                                 <constraint firstItem="ir3-zZ-aea" firstAttribute="top" secondItem="WLK-a8-pKV" secondAttribute="topMargin" constant="3" id="J6s-NY-WJp"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Rrd-2o-T7k" secondAttribute="trailing" constant="10" id="XDf-o9-7sB"/>
@@ -995,7 +995,6 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="360" height="360"/>
-        <image name="person" catalog="system" width="128" height="117"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
