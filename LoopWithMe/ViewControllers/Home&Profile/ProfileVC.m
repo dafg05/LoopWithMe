@@ -14,7 +14,7 @@
 #import "PostCell.h"
 
 
-@interface ProfileVC ()<UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PostCellDelegate>
+@interface ProfileVC ()<UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *givennameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
@@ -69,7 +69,6 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserPostCell"];
-    cell.delegate = self;
     Loop *cellLoop = self.userLoops[indexPath.row];
     cell.loopNameLabel.text = cellLoop.name;
     cell.captionLabel.text = cellLoop.caption;
@@ -144,12 +143,11 @@
     }];
 }
 
-- (void)postCell:(nonnull PostCell *)postCell didTap:(nonnull PFUser *)user {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ProfileVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"ProfileVC"];
-    vc.user = user;
-    [self presentViewController:vc animated:YES completion:nil];
-    
-}
+//- (void)postCell:(nonnull PostCell *)postCell didTap:(nonnull PFUser *)user {
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    ProfileVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"ProfileVC"];
+//    vc.user = user;
+//    [self presentViewController:vc animated:YES completion:nil];
+//}
 
 @end
