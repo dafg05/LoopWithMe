@@ -6,16 +6,17 @@
 //
 
 #import "HomeVC.h"
-#import "FeedCell.h"
+#import "PostCell.h"
 #import "Parse/Parse.h"
 #import "AVFoundation/AVFAudio.h"
 #import "ShareVC.h"
+#import "ProfileVC.h"
 
 #import "LoopStackVC.h"
 
-@interface HomeVC () <UITableViewDataSource, UITableViewDelegate>;
+@interface HomeVC () <UITableViewDataSource, UITableViewDelegate, PostCellDelegate>;
 
-@property (weak, nonatomic) IBOutlet UITableView *feedTableView;
+@property (weak, nonatomic) IBOutlet UITableView *postTableView;
 @property (strong, nonatomic) NSArray *loops;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -26,28 +27,55 @@
 
 @implementation HomeVC
 
+/* Refresh control should be nil if not refreshing*/
+- (void)queryLoops:(nullable UIRefreshControl *)refreshControl {
+    PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"postAuthor"];
+    [query includeKey:@"tracks"];
+    query.limit = 10;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
+        if (loops != nil) {
+            self.loops = loops;
+            [self.postTableView reloadData];
+            NSLog(@"Successfully queried loops");
+            if (refreshControl) [refreshControl endRefreshing];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.feedTableView.dataSource = self;
-    self.feedTableView.delegate = self;
+    self.postTableView.dataSource = self;
+    self.postTableView.delegate = self;
     [self queryLoops:nil];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(beginRefresh:) forControlEvents:UIControlEventValueChanged];
     refreshControl.tintColor = [UIColor whiteColor];
-    [self.feedTableView insertSubview:refreshControl atIndex:0];
+    [self.postTableView insertSubview:refreshControl atIndex:0];
 }
 
 #pragma mark - UITableViewDataSourceMethods
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    FeedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
     cell.layer.cornerRadius = 5;
+    cell.delegate = self;
     Loop *cellLoop = self.loops[indexPath.row];
     cell.loop = cellLoop;
     cell.loopNameLabel.text = cellLoop.name;
     cell.captionLabel.text = cellLoop.caption;
     cell.authorLabel.text = cellLoop.postAuthor.username;
+    PFFileObject *imageFile = cellLoop.postAuthor[@"profilePic"];
+    if (imageFile){
+        cell.profileImageView.image = [UIImage imageWithData:[imageFile getData]];
+    }
+    else{
+        cell.profileImageView.image = [UIImage systemImageNamed:@"person"];
+    }
     return cell;
 }
 
@@ -67,26 +95,7 @@
     [self presentViewController:navController animated:YES completion:nil];
 }
 
-#pragma mark - Helper Methods
-
-/* Refresh control should be nil if not refreshing*/
-- (void)queryLoops:(nullable UIRefreshControl *)refreshControl {
-    PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"postAuthor"];
-    [query includeKey:@"tracks"];
-    query.limit = 20;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
-        if (loops != nil) {
-            self.loops = loops;
-            [self.feedTableView reloadData];
-            NSLog(@"Successfully queried loops");
-            if (refreshControl) [refreshControl endRefreshing];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
-}
+#pragma mark - Misc
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     [self queryLoops:refreshControl];
@@ -96,5 +105,14 @@
 - (void)didShare {
     [self queryLoops:nil];
 }
+
+
+- (void)postCell:(nonnull PostCell *)postCell didTap:(nonnull PFUser *)user {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ProfileVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"ProfileVC"];
+    vc.user = user;
+    [[self navigationController] pushViewController:vc animated:YES];
+}
+
 
 @end

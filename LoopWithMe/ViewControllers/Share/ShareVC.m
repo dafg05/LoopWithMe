@@ -55,7 +55,8 @@
 - (void)setHomeFeedAsDelegate {
     // TODO: Need to make sure that the delegateVC is a HomeVC
     UITabBarController *tabBarVC = (UITabBarController *)self.view.window.rootViewController;
-    HomeVC *delegateVC = tabBarVC.viewControllers[0];
+    UINavigationController *navController = tabBarVC.viewControllers[0];
+    HomeVC *delegateVC = (HomeVC *) navController.topViewController;
     self.delegate = delegateVC;
 }
 

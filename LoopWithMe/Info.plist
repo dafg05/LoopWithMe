@@ -23,5 +23,7 @@
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>LoopWithMe uses microphone to record audio.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>LoopWithMe uses camera to take profile pictures</string>
 </dict>
 </plist>
