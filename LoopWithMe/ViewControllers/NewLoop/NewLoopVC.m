@@ -11,6 +11,8 @@
 #import "LoopStackVC.h"
 #import "Parse/Parse.h"
 
+#import "PrototypeView.h"
+
 @interface NewLoopVC () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *loopNameField;
@@ -60,5 +62,13 @@
     }
 }
 
+- (IBAction)didTapPrototype:(id)sender {
+    NSLog(@"doing this");
+    CGRect rect = CGRectMake(10, 100, 100, 100);
+    PrototypeView *view = [[PrototypeView alloc] initWithFrame:rect];
+    [self.view addSubview:view];
+    [self.view bringSubviewToFront:view];
+    
+}
 
 @end

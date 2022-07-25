@@ -183,18 +183,28 @@
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgc-Sg-h4u">
+                                <rect key="frame" x="127" y="691" width="160" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Show prototype view"/>
+                                <connections>
+                                    <action selector="didTapPrototype:" destination="VF1-fz-vae" eventType="touchUpInside" id="SrM-x0-dC6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="A0W-CQ-gJc"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
                             <constraint firstItem="6oe-bQ-ig0" firstAttribute="top" secondItem="pZm-Uq-Vrg" secondAttribute="bottom" constant="5" id="7XQ-7D-LNa"/>
                             <constraint firstItem="pZm-Uq-Vrg" firstAttribute="centerY" secondItem="zqS-Sj-5QG" secondAttribute="centerY" id="9ZK-Gh-lfg"/>
+                            <constraint firstItem="mgc-Sg-h4u" firstAttribute="centerX" secondItem="wyY-lH-W7N" secondAttribute="centerX" id="B94-am-kMz"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="apo-9z-Og5" secondAttribute="bottom" constant="30" id="EEb-Pk-HVf"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="NtG-OF-ZKg" secondAttribute="trailing" constant="30" id="KPP-kN-ioU"/>
                             <constraint firstItem="zqS-Sj-5QG" firstAttribute="top" secondItem="NtG-OF-ZKg" secondAttribute="bottom" constant="30" id="M79-wd-Iqb"/>
                             <constraint firstItem="6oe-bQ-ig0" firstAttribute="leading" secondItem="pZm-Uq-Vrg" secondAttribute="leading" id="XGC-9c-Yyw"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="top" secondItem="A0W-CQ-gJc" secondAttribute="top" constant="30" id="cwd-Eg-bUP"/>
                             <constraint firstItem="apo-9z-Og5" firstAttribute="centerX" secondItem="wyY-lH-W7N" secondAttribute="centerX" id="jDY-pq-MKo"/>
+                            <constraint firstItem="apo-9z-Og5" firstAttribute="top" secondItem="mgc-Sg-h4u" secondAttribute="bottom" constant="30" id="lAp-wq-n0c"/>
                             <constraint firstItem="zqS-Sj-5QG" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="pMF-Lo-iQJ"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="rT1-fU-Mhr"/>
                             <constraint firstItem="pZm-Uq-Vrg" firstAttribute="leading" secondItem="zqS-Sj-5QG" secondAttribute="trailing" constant="20" id="u9E-QI-7E4"/>
@@ -468,11 +478,11 @@
             <objects>
                 <viewController id="MnC-97-ftA" customClass="RecordingVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TNV-rQ-T6h">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-p5-Re8">
-                                <rect key="frame" x="172" y="771" width="70" height="31"/>
+                                <rect key="frame" x="172" y="751" width="70" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Record"/>
                                 <connections>
@@ -480,13 +490,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-qP-zGb">
-                                <rect key="frame" x="152.5" y="731.5" width="109.5" height="19.5"/>
+                                <rect key="frame" x="152.5" y="711.5" width="109.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfc-fM-A7g" customClass="PlayStopButton">
-                                <rect key="frame" x="181.5" y="680.5" width="51" height="31"/>
+                                <rect key="frame" x="181.5" y="660.5" width="51" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Play"/>
                                 <connections>
@@ -925,7 +935,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="v7j-E4-37Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="B1a-5a-Kwe">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1013,7 +1023,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="IIA-qI-f9s"/>
+        <segue reference="Bsx-dN-Fbu"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="360" height="360"/>
