@@ -10,10 +10,11 @@
 #import "Parse/Parse.h"
 #import "AVFoundation/AVFAudio.h"
 #import "ShareVC.h"
+#import "ProfileVC.h"
 
 #import "LoopStackVC.h"
 
-@interface HomeVC () <UITableViewDataSource, UITableViewDelegate>;
+@interface HomeVC () <UITableViewDataSource, UITableViewDelegate, PostCellDelegate>;
 
 @property (weak, nonatomic) IBOutlet UITableView *postTableView;
 @property (strong, nonatomic) NSArray *loops;
@@ -25,6 +26,25 @@
 @end
 
 @implementation HomeVC
+
+/* Refresh control should be nil if not refreshing*/
+- (void)queryLoops:(nullable UIRefreshControl *)refreshControl {
+    PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
+    [query orderByDescending:@"createdAt"];
+    [query includeKey:@"postAuthor"];
+    [query includeKey:@"tracks"];
+    query.limit = 10;
+    [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
+        if (loops != nil) {
+            self.loops = loops;
+            [self.postTableView reloadData];
+            NSLog(@"Successfully queried loops");
+            if (refreshControl) [refreshControl endRefreshing];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +63,7 @@
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
     cell.layer.cornerRadius = 5;
+    cell.delegate = self;
     Loop *cellLoop = self.loops[indexPath.row];
     cell.loop = cellLoop;
     cell.loopNameLabel.text = cellLoop.name;
@@ -67,26 +88,7 @@
     [self presentViewController:navController animated:YES completion:nil];
 }
 
-#pragma mark - Helper Methods
-
-/* Refresh control should be nil if not refreshing*/
-- (void)queryLoops:(nullable UIRefreshControl *)refreshControl {
-    PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"postAuthor"];
-    [query includeKey:@"tracks"];
-    query.limit = 10;
-    [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
-        if (loops != nil) {
-            self.loops = loops;
-            [self.postTableView reloadData];
-            NSLog(@"Successfully queried loops");
-            if (refreshControl) [refreshControl endRefreshing];
-        } else {
-            NSLog(@"%@", error.localizedDescription);
-        }
-    }];
-}
+#pragma mark - Misc
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     [self queryLoops:refreshControl];
@@ -96,5 +98,14 @@
 - (void)didShare {
     [self queryLoops:nil];
 }
+
+
+- (void)postCell:(nonnull PostCell *)postCell didTap:(nonnull PFUser *)user {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ProfileVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"ProfileVC"];
+    vc.user = user;
+    [[self navigationController] pushViewController:vc animated:YES];
+}
+
 
 @end

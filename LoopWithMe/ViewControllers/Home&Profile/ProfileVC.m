@@ -142,12 +142,4 @@
         }
     }];
 }
-
-//- (void)postCell:(nonnull PostCell *)postCell didTap:(nonnull PFUser *)user {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ProfileVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"ProfileVC"];
-//    vc.user = user;
-//    [self presentViewController:vc animated:YES completion:nil];
-//}
-
 @end
