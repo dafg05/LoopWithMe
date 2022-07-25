@@ -69,6 +69,13 @@
     cell.loopNameLabel.text = cellLoop.name;
     cell.captionLabel.text = cellLoop.caption;
     cell.authorLabel.text = cellLoop.postAuthor.username;
+    PFFileObject *imageFile = cellLoop.postAuthor[@"profilePic"];
+    if (imageFile){
+        cell.profileImageView.image = [UIImage imageWithData:[imageFile getData]];
+    }
+    else{
+        cell.profileImageView.image = [UIImage systemImageNamed:@"person"];
+    }
     return cell;
 }
 
