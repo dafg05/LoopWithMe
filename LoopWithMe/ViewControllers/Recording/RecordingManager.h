@@ -10,7 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol RecordingManagerDelegate
+
+- (void)recordingAlert:(NSString *)message;
+
+@end
+
 @interface RecordingManager : NSObject  <RecordingViewDelegate>
+
+@property (weak, nonatomic) id<RecordingManagerDelegate> delegate;
 
 @end
 

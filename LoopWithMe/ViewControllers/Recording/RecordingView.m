@@ -47,6 +47,7 @@
     self.contentView.layer.cornerRadius = 10;
     [self.playStopButton initWithColor:[UIColor systemGray2Color]];
     self.doneButton.enabled = NO;
+    [self resetTimerLabel];
 }
 
 - (IBAction)didTapDone:(id)sender {
@@ -61,7 +62,7 @@
     [self.delegate recordToggle:self];
 }
 
-- (void)recordingOnUI {
+- (void)recordingAvailableUI {
     self.recordButton.enabled = YES;
     [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
     [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
@@ -79,6 +80,13 @@
     formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
     formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
     self.timerLabel.text = [formatter stringFromTimeInterval:timeElapsed];
+}
+
+- (void)resetTimerLabel {
+    NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
+    formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
+    formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+    self.timerLabel.text = [formatter stringFromTimeInterval:0];
 }
 
 @end
