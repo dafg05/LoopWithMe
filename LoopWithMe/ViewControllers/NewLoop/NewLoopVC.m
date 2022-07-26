@@ -64,10 +64,21 @@
 
 - (IBAction)didTapPrototype:(id)sender {
     NSLog(@"doing this");
-    CGRect rect = CGRectMake(10, 100, 100, 100);
-    PrototypeView *view = [[PrototypeView alloc] initWithFrame:rect];
-    [self.view addSubview:view];
-    [self.view bringSubviewToFront:view];
+    PrototypeView *pview = [[PrototypeView alloc] init];
+    [pview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    pview.layer.cornerRadius = 5;
+    pview.layer.masksToBounds = YES;
+    [self.view addSubview:pview];
+    UILayoutGuide *margin = self.view.layoutMarginsGuide;
+         
+    
+    [pview.leadingAnchor constraintEqualToAnchor:margin.leadingAnchor].active = YES;
+    [pview.trailingAnchor constraintEqualToAnchor:margin.trailingAnchor].active = YES;
+    [pview.bottomAnchor constraintEqualToAnchor:margin.bottomAnchor].active = YES;
+    [pview.heightAnchor constraintEqualToConstant:200].active = YES;
+    [self.view bringSubviewToFront:pview];
+
+    
     
 }
 
