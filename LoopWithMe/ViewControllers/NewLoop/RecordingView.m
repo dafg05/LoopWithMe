@@ -47,6 +47,10 @@
     self.contentView.layer.cornerRadius = 10;
 }
 
+- (void)recorderSetup {
+    
+}
+
 - (IBAction)didTapDone:(id)sender {
 }
 
@@ -55,4 +59,14 @@
 
 - (IBAction)didTapRecord:(id)sender {
 }
+
+- (void)recordingOnUI {
+}
+
+- (void)recordingOffUI {
+}
+
+- (void)updateTimerLabel {
+}
+
 @end

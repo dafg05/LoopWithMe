@@ -205,4 +205,8 @@
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
 }
+
+- (IBAction)didTapPrototype:(id)sender {
+}
+
 @end

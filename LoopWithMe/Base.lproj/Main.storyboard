@@ -360,10 +360,18 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-Bj-bYQ">
-                                        <rect key="frame" x="314.5" y="26" width="89.5" height="48"/>
+                                        <rect key="frame" x="314.5" y="10.5" width="89.5" height="79"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K9w-wr-J2O">
+                                                <rect key="frame" x="1" y="0.0" width="87.5" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Prototype"/>
+                                                <connections>
+                                                    <action selector="didTapPrototype:" destination="xyn-lb-lQU" eventType="touchUpInside" id="Y3y-76-hFA"/>
+                                                </connections>
+                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-zG-X4Z">
-                                                <rect key="frame" x="0.0" y="0.0" width="89.5" height="31"/>
+                                                <rect key="frame" x="0.0" y="31" width="89.5" height="31"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Add Track"/>
                                                 <connections>
@@ -371,7 +379,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3UL-rd-nqF">
-                                                <rect key="frame" x="5" y="31" width="80" height="17"/>
+                                                <rect key="frame" x="5" y="62" width="80" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                 <color key="textColor" name="custom background color"/>
                                                 <nil key="highlightedColor"/>
@@ -479,11 +487,11 @@
             <objects>
                 <viewController id="MnC-97-ftA" customClass="RecordingVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TNV-rQ-T6h">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-p5-Re8">
-                                <rect key="frame" x="172" y="751" width="70" height="31"/>
+                                <rect key="frame" x="172" y="771" width="70" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Record"/>
                                 <connections>
@@ -491,13 +499,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-qP-zGb">
-                                <rect key="frame" x="152.5" y="711.5" width="109.5" height="19.5"/>
+                                <rect key="frame" x="152.5" y="731.5" width="109.5" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfc-fM-A7g" customClass="PlayStopButton">
-                                <rect key="frame" x="181.5" y="660.5" width="51" height="31"/>
+                                <rect key="frame" x="181.5" y="680.5" width="51" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Play"/>
                                 <connections>
@@ -936,7 +944,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="v7j-E4-37Y"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="B1a-5a-Kwe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1024,7 +1032,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Bsx-dN-Fbu"/>
+        <segue reference="IIA-qI-f9s"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="360" height="360"/>
