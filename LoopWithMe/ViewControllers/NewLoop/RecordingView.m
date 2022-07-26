@@ -35,6 +35,7 @@
     [[NSBundle mainBundle] loadNibNamed:@"RecordingView" owner:self options:nil];
     [self addSubview:self.contentView];
     self.contentView.frame = self.bounds;
+    self.contentView.layer.cornerRadius = 10;
 }
 
 @end

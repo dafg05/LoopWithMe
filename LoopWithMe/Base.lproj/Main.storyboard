@@ -153,14 +153,6 @@
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apo-9z-Og5">
-                                <rect key="frame" x="146" y="752" width="122" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Start recording"/>
-                                <connections>
-                                    <action selector="didTapStartRecording:" destination="VF1-fz-vae" eventType="touchUpInside" id="dgO-0W-SaN"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqS-Sj-5QG">
                                 <rect key="frame" x="30" y="140" width="78" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -183,28 +175,36 @@
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgc-Sg-h4u">
-                                <rect key="frame" x="127" y="691" width="160" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apo-9z-Og5">
+                                <rect key="frame" x="66" y="195" width="282" height="31"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Show prototype view"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Start recording (soon to be deprecated)"/>
                                 <connections>
-                                    <action selector="didTapPrototype:" destination="VF1-fz-vae" eventType="touchUpInside" id="SrM-x0-dC6"/>
+                                    <action selector="didTapStartRecording:" destination="VF1-fz-vae" eventType="touchUpInside" id="dgO-0W-SaN"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXA-tP-omY" customClass="RecordingView">
+                                <rect key="frame" x="0.0" y="513" width="414" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="5RU-w5-15e"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="A0W-CQ-gJc"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
+                            <constraint firstItem="apo-9z-Og5" firstAttribute="top" secondItem="6oe-bQ-ig0" secondAttribute="bottom" constant="10" id="59L-T4-loJ"/>
                             <constraint firstItem="6oe-bQ-ig0" firstAttribute="top" secondItem="pZm-Uq-Vrg" secondAttribute="bottom" constant="5" id="7XQ-7D-LNa"/>
                             <constraint firstItem="pZm-Uq-Vrg" firstAttribute="centerY" secondItem="zqS-Sj-5QG" secondAttribute="centerY" id="9ZK-Gh-lfg"/>
-                            <constraint firstItem="mgc-Sg-h4u" firstAttribute="centerX" secondItem="wyY-lH-W7N" secondAttribute="centerX" id="B94-am-kMz"/>
-                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="apo-9z-Og5" secondAttribute="bottom" constant="30" id="EEb-Pk-HVf"/>
+                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="BXA-tP-omY" secondAttribute="trailing" id="BLO-yo-vk4"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="NtG-OF-ZKg" secondAttribute="trailing" constant="30" id="KPP-kN-ioU"/>
                             <constraint firstItem="zqS-Sj-5QG" firstAttribute="top" secondItem="NtG-OF-ZKg" secondAttribute="bottom" constant="30" id="M79-wd-Iqb"/>
                             <constraint firstItem="6oe-bQ-ig0" firstAttribute="leading" secondItem="pZm-Uq-Vrg" secondAttribute="leading" id="XGC-9c-Yyw"/>
+                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="BXA-tP-omY" secondAttribute="bottom" id="b3P-iS-Qta"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="top" secondItem="A0W-CQ-gJc" secondAttribute="top" constant="30" id="cwd-Eg-bUP"/>
+                            <constraint firstItem="BXA-tP-omY" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" id="dDM-Q5-Cia"/>
                             <constraint firstItem="apo-9z-Og5" firstAttribute="centerX" secondItem="wyY-lH-W7N" secondAttribute="centerX" id="jDY-pq-MKo"/>
-                            <constraint firstItem="apo-9z-Og5" firstAttribute="top" secondItem="mgc-Sg-h4u" secondAttribute="bottom" constant="30" id="lAp-wq-n0c"/>
                             <constraint firstItem="zqS-Sj-5QG" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="pMF-Lo-iQJ"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="rT1-fU-Mhr"/>
                             <constraint firstItem="pZm-Uq-Vrg" firstAttribute="leading" secondItem="zqS-Sj-5QG" secondAttribute="trailing" constant="20" id="u9E-QI-7E4"/>
@@ -214,6 +214,7 @@
                     <connections>
                         <outlet property="loopNameField" destination="pZm-Uq-Vrg" id="0Ga-mn-xZZ"/>
                         <outlet property="nameErrorLabel" destination="6oe-bQ-ig0" id="TRZ-5C-C7c"/>
+                        <outlet property="recordingView" destination="BXA-tP-omY" id="mIQ-7d-EwZ"/>
                         <segue destination="tj9-Td-phI" kind="show" identifier="NewLoopRecordingSegue" id="Bsx-dN-Fbu"/>
                         <segue destination="dVn-I0-VAo" kind="presentation" identifier="RecordingDoneSegue" id="BMB-yT-ki9"/>
                     </connections>
@@ -1054,6 +1055,9 @@
         <namedColor name="text field color">
             <color red="0.16899999976158142" green="0.16899999976158142" blue="0.18999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
