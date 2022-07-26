@@ -32,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol RecordingViewDelegate
-/* Takes care of playback and recording, updates UI of rview appropriately*/
+/* Takes care of playback and recording, updates UI of recordingView appropriately*/
 
-- (void)setUpRecording:(RecordingView *)rview;
-- (void)recordToggle:(RecordingView *)rview;
-- (void)playbackToggle:(RecordingView *)rview;
-- (void)doneRecording:(RecordingView *)rview;
+- (void)setUpRecording:(RecordingView *)recordingView;
+- (void)recordToggle:(RecordingView *)recordingView;
+- (void)playbackToggle:(RecordingView *)recordingView;
+- (void)doneRecording:(RecordingView *)recordingView;
 
 @end
 

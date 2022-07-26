@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="c1U-yC-g5N">
-                    <rect key="frame" x="172" y="115.5" width="70" height="136.5"/>
+                    <rect key="frame" x="172" y="135.5" width="70" height="136.5"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDL-et-o3I" customClass="PlayStopButton">
                             <rect key="frame" x="9.5" y="0.0" width="51" height="31"/>
@@ -60,7 +60,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="c1U-yC-g5N" secondAttribute="bottom" constant="50" id="6mn-ER-aBp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="c1U-yC-g5N" secondAttribute="bottom" constant="30" id="6mn-ER-aBp"/>
                 <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ioj-yd-q7F"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
                 <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>
@@ -74,7 +74,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="recording screen color">
-            <color red="0.046547526894897717" green="0.1078488870189719" blue="0.27707828235144571" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.046999998390674591" green="0.1080000028014183" blue="0.27700001001358032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

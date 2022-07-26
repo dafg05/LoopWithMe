@@ -13,6 +13,7 @@
 		29506C97288F5C71007231CD /* RecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29506C96288F5C71007231CD /* RecordingView.m */; };
 		298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */; };
 		298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F8287F4465001CB7D8 /* NewLoopVC.m */; };
+		29853DBC28909E2400314962 /* RecordingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29853DBB28909E2400314962 /* RecordingManager.m */; };
 		29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C72287B6B8C0004D8D1 /* LoginVC.m */; };
 		29958C76287B6BCC0004D8D1 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C75287B6BCC0004D8D1 /* SignUpVC.m */; };
 		29958C79287BA1EF0004D8D1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C78287BA1EF0004D8D1 /* RecordingVC.m */; };
@@ -68,6 +69,8 @@
 		298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopTrackCell.m; sourceTree = "<group>"; };
 		298421F7287F4465001CB7D8 /* NewLoopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLoopVC.h; sourceTree = "<group>"; };
 		298421F8287F4465001CB7D8 /* NewLoopVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewLoopVC.m; sourceTree = "<group>"; };
+		29853DBA28909E2400314962 /* RecordingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingManager.h; sourceTree = "<group>"; };
+		29853DBB28909E2400314962 /* RecordingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingManager.m; sourceTree = "<group>"; };
 		29958C71287B6B8C0004D8D1 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		29958C72287B6B8C0004D8D1 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		29958C74287B6BCC0004D8D1 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
@@ -314,6 +317,11 @@
 			children = (
 				29958C77287BA1EF0004D8D1 /* RecordingVC.h */,
 				29958C78287BA1EF0004D8D1 /* RecordingVC.m */,
+				29853DBA28909E2400314962 /* RecordingManager.h */,
+				29853DBB28909E2400314962 /* RecordingManager.m */,
+				29506C93288F5C5A007231CD /* RecordingView.xib */,
+				29506C95288F5C71007231CD /* RecordingView.h */,
+				29506C96288F5C71007231CD /* RecordingView.m */,
 			);
 			path = Recording;
 			sourceTree = "<group>";
@@ -323,9 +331,6 @@
 			children = (
 				298421F7287F4465001CB7D8 /* NewLoopVC.h */,
 				298421F8287F4465001CB7D8 /* NewLoopVC.m */,
-				29506C93288F5C5A007231CD /* RecordingView.xib */,
-				29506C95288F5C71007231CD /* RecordingView.h */,
-				29506C96288F5C71007231CD /* RecordingView.m */,
 			);
 			path = NewLoop;
 			sourceTree = "<group>";
@@ -577,6 +582,7 @@
 				298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */,
 				298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */,
 				29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */,
+				29853DBC28909E2400314962 /* RecordingManager.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
 				29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */,
 				29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */,
