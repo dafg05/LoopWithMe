@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecordingView">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="P7Q-oc-pFC"/>
+                <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
                 <outlet property="playStopButton" destination="aDL-et-o3I" id="XUz-yg-5DD"/>
                 <outlet property="recordButton" destination="Eyw-K2-UlO" id="hAc-et-SJJ"/>
                 <outlet property="timerLabel" destination="xo0-hT-Wkd" id="k0A-wN-XNt"/>

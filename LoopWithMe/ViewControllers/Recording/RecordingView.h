@@ -17,9 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) id<RecordingViewDelegate> delegate;
-
-- (void)recorderSetup;
 
 - (IBAction)didTapRecord:(id)sender;
 - (IBAction)didTapPlayStop:(id)sender;
@@ -27,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)recordingOnUI;
 - (void)recordingOffUI;
-- (void)updateTimerLabel;
+- (void)updateTimerLabel:(NSTimeInterval)timeElapsed;
 
 @end
 

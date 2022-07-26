@@ -45,29 +45,40 @@
     [self addSubview:self.contentView];
     self.contentView.frame = self.bounds;
     self.contentView.layer.cornerRadius = 10;
-}
-
-- (void)recorderSetup {
-    
+    [self.playStopButton initWithColor:[UIColor systemGray2Color]];
+    self.doneButton.enabled = NO;
 }
 
 - (IBAction)didTapDone:(id)sender {
-    self.hidden = YES;
+    [self.delegate doneRecording:self];
 }
 
 - (IBAction)didTapPlayStop:(id)sender {
+    [self.delegate playbackToggle:self];
 }
 
 - (IBAction)didTapRecord:(id)sender {
+    [self.delegate recordToggle:self];
 }
 
 - (void)recordingOnUI {
+    self.recordButton.enabled = YES;
+    [self.recordButton setTitleColor:UIColor.systemRedColor forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:[UIColor colorNamed:@"darker-system-red color"] forState:UIControlStateHighlighted];
+    [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
 }
 
 - (void)recordingOffUI {
+    self.recordButton.enabled = NO;
+    [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
 }
 
-- (void)updateTimerLabel {
+- (void)updateTimerLabel:(NSTimeInterval)timeElapsed {
+    NSDateComponentsFormatter *formatter = [NSDateComponentsFormatter new];
+    formatter.allowedUnits = (NSCalendarUnitMinute | NSCalendarUnitSecond);
+    formatter.zeroFormattingBehavior = NSDateComponentsFormatterZeroFormattingBehaviorPad;
+    self.timerLabel.text = [formatter stringFromTimeInterval:timeElapsed];
 }
 
 @end
