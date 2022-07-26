@@ -52,6 +52,7 @@
 }
 
 - (IBAction)didTapDone:(id)sender {
+    self.hidden = YES;
 }
 
 - (IBAction)didTapPlayStop:(id)sender {

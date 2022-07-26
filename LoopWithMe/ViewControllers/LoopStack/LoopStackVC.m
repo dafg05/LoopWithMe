@@ -12,6 +12,7 @@
 #import "ShareVC.h"
 #import "PlayStopButton.h"
 #import "TrackFileManager.h"
+#import "RecordingView.h"
 
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *addTrackButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
+@property (strong, nonatomic) RecordingView *recordingview;
 
 @end
 
@@ -207,6 +209,14 @@
 }
 
 - (IBAction)didTapPrototype:(id)sender {
+    self.recordingview = [[RecordingView alloc] init];
+    [self.recordingview setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.view addSubview:self.recordingview];
+    [self.recordingview.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.recordingview.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [self.recordingview.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
+    [self.recordingview.heightAnchor constraintEqualToConstant:250].active = YES;
+    [self.view bringSubviewToFront:self.recordingview];
 }
 
 @end
