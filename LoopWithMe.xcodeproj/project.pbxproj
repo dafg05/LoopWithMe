@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		05D110E6F0521463910A88F6 /* Pods_LoopWithMe_LoopWithMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */; };
 		1F95AB038BD28820930E6E98 /* Pods_LoopWithMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */; };
-		29506C94288F5C5A007231CD /* PrototypeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29506C93288F5C5A007231CD /* PrototypeView.xib */; };
-		29506C97288F5C71007231CD /* PrototypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29506C96288F5C71007231CD /* PrototypeView.m */; };
+		29506C94288F5C5A007231CD /* RecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29506C93288F5C5A007231CD /* RecordingView.xib */; };
+		29506C97288F5C71007231CD /* RecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29506C96288F5C71007231CD /* RecordingView.m */; };
 		298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */; };
 		298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F8287F4465001CB7D8 /* NewLoopVC.m */; };
 		29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C72287B6B8C0004D8D1 /* LoginVC.m */; };
@@ -61,9 +61,9 @@
 /* Begin PBXFileReference section */
 		06624472343DC8FC72E1C4EC /* Pods-LoopWithMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMe_LoopWithMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		29506C93288F5C5A007231CD /* PrototypeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrototypeView.xib; sourceTree = "<group>"; };
-		29506C95288F5C71007231CD /* PrototypeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrototypeView.h; sourceTree = "<group>"; };
-		29506C96288F5C71007231CD /* PrototypeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrototypeView.m; sourceTree = "<group>"; };
+		29506C93288F5C5A007231CD /* RecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordingView.xib; sourceTree = "<group>"; };
+		29506C95288F5C71007231CD /* RecordingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingView.h; sourceTree = "<group>"; };
+		29506C96288F5C71007231CD /* RecordingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingView.m; sourceTree = "<group>"; };
 		298421F4287F3D1C001CB7D8 /* LoopTrackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopTrackCell.h; sourceTree = "<group>"; };
 		298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopTrackCell.m; sourceTree = "<group>"; };
 		298421F7287F4465001CB7D8 /* NewLoopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLoopVC.h; sourceTree = "<group>"; };
@@ -323,9 +323,9 @@
 			children = (
 				298421F7287F4465001CB7D8 /* NewLoopVC.h */,
 				298421F8287F4465001CB7D8 /* NewLoopVC.m */,
-				29506C93288F5C5A007231CD /* PrototypeView.xib */,
-				29506C95288F5C71007231CD /* PrototypeView.h */,
-				29506C96288F5C71007231CD /* PrototypeView.m */,
+				29506C93288F5C5A007231CD /* RecordingView.xib */,
+				29506C95288F5C71007231CD /* RecordingView.h */,
+				29506C96288F5C71007231CD /* RecordingView.m */,
 			);
 			path = NewLoop;
 			sourceTree = "<group>";
@@ -442,7 +442,7 @@
 				299C22CF2878833E0022D102 /* LaunchScreen.storyboard in Resources */,
 				299C22CC2878833E0022D102 /* Assets.xcassets in Resources */,
 				299C22C72878833D0022D102 /* Main.storyboard in Resources */,
-				29506C94288F5C5A007231CD /* PrototypeView.xib in Resources */,
+				29506C94288F5C5A007231CD /* RecordingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +584,7 @@
 				29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */,
 				299C22BE2878833D0022D102 /* AppDelegate.m in Sources */,
 				299C22FA287B40160022D102 /* Loop.m in Sources */,
-				29506C97288F5C71007231CD /* PrototypeView.m in Sources */,
+				29506C97288F5C71007231CD /* RecordingView.m in Sources */,
 				299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */,
 				299C2304287B4AAA0022D102 /* Track.m in Sources */,
 				29A376FF28821CA90075D518 /* TrackFileManager.m in Sources */,

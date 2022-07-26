@@ -5,25 +5,15 @@
 //  Created by Daniel Flores Garcia on 7/25/22.
 //
 
-#import "PrototypeView.h"
+#import "RecordingView.h"
 
-@interface PrototypeView ()
+@interface RecordingView ()
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-
 
 @end
 
-@implementation PrototypeView
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+@implementation RecordingView
 
 -(instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
@@ -42,7 +32,7 @@
 }
 
 -(void)customInit {
-    [[NSBundle mainBundle] loadNibNamed:@"PrototypeView" owner:self options:nil];
+    [[NSBundle mainBundle] loadNibNamed:@"RecordingView" owner:self options:nil];
     [self addSubview:self.contentView];
     self.contentView.frame = self.bounds;
 }

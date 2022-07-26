@@ -11,7 +11,7 @@
 #import "LoopStackVC.h"
 #import "Parse/Parse.h"
 
-#import "PrototypeView.h"
+#import "RecordingView.h"
 
 @interface NewLoopVC () <UITextFieldDelegate>
 
@@ -64,22 +64,17 @@
 
 - (IBAction)didTapPrototype:(id)sender {
     NSLog(@"doing this");
-    PrototypeView *pview = [[PrototypeView alloc] init];
+    RecordingView *pview = [[RecordingView alloc] init];
     [pview setTranslatesAutoresizingMaskIntoConstraints:NO];
     pview.layer.cornerRadius = 5;
     pview.layer.masksToBounds = YES;
     [self.view addSubview:pview];
     UILayoutGuide *margin = self.view.layoutMarginsGuide;
-         
-    
     [pview.leadingAnchor constraintEqualToAnchor:margin.leadingAnchor].active = YES;
     [pview.trailingAnchor constraintEqualToAnchor:margin.trailingAnchor].active = YES;
     [pview.bottomAnchor constraintEqualToAnchor:margin.bottomAnchor].active = YES;
     [pview.heightAnchor constraintEqualToConstant:200].active = YES;
     [self.view bringSubviewToFront:pview];
-
-    
-    
 }
 
 @end
