@@ -6,6 +6,7 @@
 //
 
 #import "RecordingView.h"
+#import "PlayStopButton.h"
 
 @interface RecordingView ()
 
@@ -14,6 +15,14 @@
 @end
 
 @implementation RecordingView
+
+-(instancetype)init {
+    self = [super init];
+    if (self){
+        [self customInit];
+    }
+    return self;
+}
 
 -(instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
@@ -38,4 +47,12 @@
     self.contentView.layer.cornerRadius = 10;
 }
 
+- (IBAction)didTapDone:(id)sender {
+}
+
+- (IBAction)didTapPlayStop:(id)sender {
+}
+
+- (IBAction)didTapRecord:(id)sender {
+}
 @end

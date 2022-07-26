@@ -11,6 +11,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecordingView">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="P7Q-oc-pFC"/>
+                <outlet property="playStopButton" destination="aDL-et-o3I" id="XUz-yg-5DD"/>
+                <outlet property="recordButton" destination="Eyw-K2-UlO" id="hAc-et-SJJ"/>
+                <outlet property="timerLabel" destination="xo0-hT-Wkd" id="k0A-wN-XNt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -18,18 +21,49 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="302"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording screen" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkK-sY-6Ff">
-                    <rect key="frame" x="140" y="140.5" width="134" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" name="custom text color"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="c1U-yC-g5N">
+                    <rect key="frame" x="172" y="115.5" width="70" height="136.5"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDL-et-o3I" customClass="PlayStopButton">
+                            <rect key="frame" x="9.5" y="0.0" width="51" height="31"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                            <connections>
+                                <action selector="didTapPlayStop:" destination="-1" eventType="touchUpInside" id="cWR-4n-RHM"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-hT-Wkd">
+                            <rect key="frame" x="13" y="58" width="44" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" name="custom text color"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyw-K2-UlO">
+                            <rect key="frame" x="0.0" y="105.5" width="70" height="31"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Record"/>
+                            <connections>
+                                <action selector="didTapRecord:" destination="-1" eventType="touchUpInside" id="wS5-4K-KXB"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1L3-oC-Cjz">
+                    <rect key="frame" x="340.5" y="15" width="58.5" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Done"/>
+                    <connections>
+                        <action selector="didTapDone:" destination="-1" eventType="touchUpInside" id="0hN-eD-gSI"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
             <constraints>
-                <constraint firstItem="dkK-sY-6Ff" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="1S0-XH-gCI"/>
-                <constraint firstItem="dkK-sY-6Ff" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WLw-hk-kah"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="c1U-yC-g5N" secondAttribute="bottom" constant="50" id="6mn-ER-aBp"/>
+                <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ioj-yd-q7F"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
+                <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="131.8840579710145" y="336.16071428571428"/>
