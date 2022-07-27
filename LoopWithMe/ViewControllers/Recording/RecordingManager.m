@@ -7,15 +7,17 @@
 
 #import "RecordingManager.h"
 #import "AVFoundation/AVFAudio.h"
+#import "RecordingView.h"
 
 
-@interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate>
+@interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
 @property AVAudioSession *recordingSession;
 @property AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 @property (strong, nonatomic) NSTimer *recordingTimer;
 @property (strong, nonatomic) NSURL *audioFileUrl;
+@property (strong, nonatomic) RecordingView *recordingView;
 
 @end
 
@@ -23,15 +25,19 @@
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
+#pragma mark - Initialization
+
 - (instancetype)initWithRecordingView:(RecordingView *)recordingView {
     self = [super init];
     if (self){
-        [self customInit:recordingView];
+        self.recordingView = recordingView;
+        self.recordingView.delegate = self;
+        [self customInit];
     }
     return self;
 }
 
-- (void)customInit:(RecordingView *)recordingView {
+- (void)customInit{
     self.recordingSession = [AVAudioSession sharedInstance];
     // TODO: Deal with errors
     NSError *setCategoryError = nil;
@@ -42,7 +48,7 @@
     [self.recordingSession requestRecordPermission:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (granted){
-                [recordingView recordingAvailableUI];
+                [self.recordingView recordingAvailableUI];
                 [self setUpRecorder];
             } else{
                 [self.delegate recordingAlert:@"Make sure to enable recording via microphone on your System Settings."];
@@ -51,16 +57,25 @@
     }];
 }
 
+#pragma mark - RecordingViewDelegate methods
 
-
-- (void)recordToggle:(RecordingView *)recordingView {
+- (void)recordToggle{
+    if (self.audioRecorder.recording){
+        [self finishRecording:YES];
+    } else{
+        [self.recordingView resetTimerLabel];
+        [self startRecording];
+    }
 }
 
-- (void)playbackToggle:(RecordingView *)recordingView {
+- (void)playbackToggle {
+    
 }
 
-- (void)doneRecording:(RecordingView *)recordingView {
+- (void)doneRecording {
 }
+
+#pragma mark - Private helper methods
 
 - (void)setUpRecorder {
     self.audioFileUrl = [self getRecordingFileUrl];
@@ -79,13 +94,44 @@
     self.audioRecorder.delegate = self;
 }
 
+- (void)startRecording {
+    self.audioPlayer = nil;
+    @try {
+        [self.audioRecorder record];
+        [self.recordingView currentlyRecordingUI];
+        self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
+    } @catch (NSException *exception) {
+        [self finishRecording:NO];
+    }
+}
+
+- (void)finishRecording:(BOOL)success {
+    [self.audioRecorder stop];
+    if (self.recordingTimer){
+        [self.recordingTimer invalidate];
+    }
+    if (success){
+        [self.recordingView doneRecordingUI];
+        [self initializeAudioPlayer];
+    } else{
+        [self.delegate recordingAlert:@"An error occurred while recording, try again"];
+        [self.recordingView recordingAvailableUI];
+    }
+}
+
+- (void) initializeAudioPlayer {
+    NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
+    self.audioPlayer.delegate = self;
+    [self.recordingView playbackEnabledUI];
+}
+
+- (void) viewUpdateTimer {
+    [self.recordingView updateTimerLabel:self.audioRecorder.currentTime];
+}
+
 - (NSURL *)getRecordingFileUrl {
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
-
-
-
-
-
 
 @end

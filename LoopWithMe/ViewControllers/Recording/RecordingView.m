@@ -16,7 +16,9 @@
 
 @implementation RecordingView
 
--(instancetype)init {
+#pragma mark - Initialization
+
+- (instancetype)init {
     self = [super init];
     if (self){
         [self customInit];
@@ -24,7 +26,7 @@
     return self;
 }
 
--(instancetype)initWithCoder:(NSCoder *)coder {
+- (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
     if (self){
         [self customInit];
@@ -32,7 +34,7 @@
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self){
         [self customInit];
@@ -48,19 +50,25 @@
     [self.playStopButton initWithColor:[UIColor systemGray2Color]];
     self.doneButton.enabled = NO;
     [self resetTimerLabel];
+    [self.playStopButton UIPlay];
+    [self recordingUnavailableUI];
 }
 
+#pragma mark - Button actions
+
 - (IBAction)didTapDone:(id)sender {
-    [self.delegate doneRecording:self];
+    [self.delegate doneRecording];
 }
 
 - (IBAction)didTapPlayStop:(id)sender {
-    [self.delegate playbackToggle:self];
+    [self.delegate playbackToggle];
 }
 
 - (IBAction)didTapRecord:(id)sender {
-    [self.delegate recordToggle:self];
+    [self.delegate recordToggle];
 }
+
+#pragma mark - UI
 
 - (void)recordingAvailableUI {
     self.recordButton.enabled = YES;
@@ -69,10 +77,27 @@
     [self.recordButton setTitle:@"Record" forState:UIControlStateNormal];
 }
 
-- (void)recordingOffUI {
+- (void)recordingUnavailableUI {
     self.recordButton.enabled = NO;
     [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
     [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
+    [self.playStopButton disable];
+}
+
+- (void)currentlyRecordingUI {
+    self.doneButton.enabled = NO;
+    [self.playStopButton disable];
+    [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
+}
+
+- (void)doneRecordingUI {
+    [self.recordButton setTitle:@"Re-record" forState:UIControlStateNormal];
+    self.doneButton.enabled = YES;
+}
+
+- (void)playbackEnabledUI {
+    self.playStopButton.enabled = YES;
+    [self.playStopButton UIPlay];
 }
 
 - (void)updateTimerLabel:(NSTimeInterval)timeElapsed {

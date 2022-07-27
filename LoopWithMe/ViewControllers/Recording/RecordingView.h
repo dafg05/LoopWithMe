@@ -25,16 +25,21 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)didTapDone:(id)sender;
 
 - (void)recordingAvailableUI;
-- (void)recordingOffUI;
+- (void)recordingUnavailableUI;
+- (void)currentlyRecordingUI;
+- (void)doneRecordingUI;
+- (void)playbackEnabledUI;
 - (void)updateTimerLabel:(NSTimeInterval)timeElapsed;
+- (void)resetTimerLabel;
+
 
 @end
 
 @protocol RecordingViewDelegate
 /* Takes care of playback and recording, updates UI of recordingView appropriately*/
-- (void)recordToggle:(RecordingView *)recordingView;
-- (void)playbackToggle:(RecordingView *)recordingView;
-- (void)doneRecording:(RecordingView *)recordingView;
+- (void)recordToggle;
+- (void)playbackToggle;
+- (void)doneRecording;
 
 @end
 
