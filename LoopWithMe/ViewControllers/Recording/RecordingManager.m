@@ -146,6 +146,11 @@
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
 
+/* AVAudioPlayer delegate method*/
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    [self.recordingView.playStopButton UIPlay];
+}
+
 - (Track *)createTrack {
     NSError *dataError = nil;
     NSURL *audioFilePFUrl = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.audioFileUrl.absoluteString]];

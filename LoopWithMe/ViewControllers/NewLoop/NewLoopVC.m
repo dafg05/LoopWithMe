@@ -12,12 +12,14 @@
 #import "Parse/Parse.h"
 
 #import "RecordingView.h"
+#import "RecordingManager.h"
 
-@interface NewLoopVC () <UITextFieldDelegate>
+@interface NewLoopVC () <UITextFieldDelegate, RecordingManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *loopNameField;
 @property (weak, nonatomic) IBOutlet UILabel *nameErrorLabel;
 @property (weak, nonatomic) IBOutlet RecordingView *recordingView;
+@property (strong, nonatomic) RecordingManager *recordingManager;
 
 @end
 
@@ -27,6 +29,8 @@
     [super viewDidLoad];
     self.nameErrorLabel.text = @"";
     self.loopNameField.delegate = self;
+    self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
+    self.recordingManager.delegate = self;
 }
 
 - (IBAction)didTapStartRecording:(id)sender {
@@ -62,4 +66,19 @@
         vc.readOnly = NO;
     }
 }
+- (void)doneRecording:(nonnull Track *)track {
+    NSLog(@"Recording successfully done!");
+}
+
+- (void)recordingAlert:(nonnull NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
+                                                            message:message
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
+                                             style:UIAlertActionStyleDefault
+                                             handler:nil];
+    [alertController addAction:actionOk];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 @end

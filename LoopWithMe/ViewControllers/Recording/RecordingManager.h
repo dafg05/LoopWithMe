@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id<RecordingManagerDelegate> delegate;
 
+- (instancetype)initWithRecordingView:(RecordingView *)recordingView;
+
 @end
 
 NS_ASSUME_NONNULL_END

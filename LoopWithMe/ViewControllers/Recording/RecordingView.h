@@ -32,7 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateTimerLabel:(NSTimeInterval)timeElapsed;
 - (void)resetTimerLabel;
 
-
 @end
 
 @protocol RecordingViewDelegate
