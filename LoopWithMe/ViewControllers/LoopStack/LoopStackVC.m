@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpVC];
+    NSLog(@"%lu", (unsigned long)[self.loop.tracks count]);
 }
 
 - (void)setUpVC {
