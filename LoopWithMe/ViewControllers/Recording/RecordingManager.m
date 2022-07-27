@@ -69,7 +69,14 @@
 }
 
 - (void)playbackToggle {
-    
+    if (self.audioPlayer.playing){
+        [self.audioPlayer stop];
+        [self.recordingView.playStopButton UIPlay];
+    }
+    else{
+        [self.audioPlayer play];
+        [self.recordingView.playStopButton UIStop];
+    }
 }
 
 - (void)doneRecording {
