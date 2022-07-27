@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
+#import "LoopFeedVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProfileVC : UIViewController
+@interface ProfileVC : LoopFeedVC
 
 @property (strong, nonatomic) PFUser *user;
 

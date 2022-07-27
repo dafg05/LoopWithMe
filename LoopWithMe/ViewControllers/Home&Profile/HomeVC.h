@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ShareVC.h"
+#import "LoopFeedVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HomeVC : UIViewController <ShareVCDelegate>
+@interface HomeVC : LoopFeedVC <ShareVCDelegate>
 
 @end
 

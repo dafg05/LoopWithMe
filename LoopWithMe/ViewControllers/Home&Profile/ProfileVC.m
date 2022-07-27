@@ -72,7 +72,7 @@
     Loop *cellLoop = self.userLoops[indexPath.row];
     cell.loopNameLabel.text = cellLoop.name;
     cell.captionLabel.text = cellLoop.caption;
-    cell.authorLabel.text = cellLoop.postAuthor.username;
+    cell.authorDescription.attributedText = [self getAuthorDescriptionString:cellLoop];
     // No need to download image for every post
     // since every post is from the same author
     cell.profileImageView.image = self.profileImageView.image;
