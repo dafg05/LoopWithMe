@@ -56,7 +56,6 @@
     [query whereKey:@"postAuthor" equalTo:self.user];
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
-            NSLog(@"Queried for posts!");
             self.userLoops = loops;
             [self.postTableView reloadData];
         } else {
@@ -80,7 +79,6 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"%lu", (unsigned long)[self.userLoops count]);
     return [self.userLoops count];
 }
 
@@ -138,7 +136,6 @@
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             LoginVC *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
             sceneDelegate.window.rootViewController = loginViewController;
-            NSLog(@"Logout success!!!");
         }
     }];
 }

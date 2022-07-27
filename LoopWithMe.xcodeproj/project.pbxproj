@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		05D110E6F0521463910A88F6 /* Pods_LoopWithMe_LoopWithMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */; };
 		1F95AB038BD28820930E6E98 /* Pods_LoopWithMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */; };
+		294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 294B937E2891BD3A0042BEC1 /* RecordingVC.m */; };
+		29506C94288F5C5A007231CD /* RecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29506C93288F5C5A007231CD /* RecordingView.xib */; };
+		29506C97288F5C71007231CD /* RecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29506C96288F5C71007231CD /* RecordingView.m */; };
 		298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */; };
 		298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F8287F4465001CB7D8 /* NewLoopVC.m */; };
+		29853DBC28909E2400314962 /* RecordingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29853DBB28909E2400314962 /* RecordingManager.m */; };
 		29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C72287B6B8C0004D8D1 /* LoginVC.m */; };
 		29958C76287B6BCC0004D8D1 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C75287B6BCC0004D8D1 /* SignUpVC.m */; };
-		29958C79287BA1EF0004D8D1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C78287BA1EF0004D8D1 /* RecordingVC.m */; };
 		29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C7B287BA2120004D8D1 /* LoopStackVC.m */; };
 		29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29958C7E287BA25C0004D8D1 /* ShareVC.m */; };
 		299C22BE2878833D0022D102 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 299C22BD2878833D0022D102 /* AppDelegate.m */; };
@@ -59,16 +62,21 @@
 /* Begin PBXFileReference section */
 		06624472343DC8FC72E1C4EC /* Pods-LoopWithMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMe_LoopWithMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		294B937D2891BD3A0042BEC1 /* RecordingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingVC.h; sourceTree = "<group>"; };
+		294B937E2891BD3A0042BEC1 /* RecordingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingVC.m; sourceTree = "<group>"; };
+		29506C93288F5C5A007231CD /* RecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordingView.xib; sourceTree = "<group>"; };
+		29506C95288F5C71007231CD /* RecordingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingView.h; sourceTree = "<group>"; };
+		29506C96288F5C71007231CD /* RecordingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingView.m; sourceTree = "<group>"; };
 		298421F4287F3D1C001CB7D8 /* LoopTrackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopTrackCell.h; sourceTree = "<group>"; };
 		298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopTrackCell.m; sourceTree = "<group>"; };
 		298421F7287F4465001CB7D8 /* NewLoopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLoopVC.h; sourceTree = "<group>"; };
 		298421F8287F4465001CB7D8 /* NewLoopVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewLoopVC.m; sourceTree = "<group>"; };
+		29853DBA28909E2400314962 /* RecordingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingManager.h; sourceTree = "<group>"; };
+		29853DBB28909E2400314962 /* RecordingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingManager.m; sourceTree = "<group>"; };
 		29958C71287B6B8C0004D8D1 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		29958C72287B6B8C0004D8D1 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		29958C74287B6BCC0004D8D1 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
 		29958C75287B6BCC0004D8D1 /* SignUpVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpVC.m; sourceTree = "<group>"; };
-		29958C77287BA1EF0004D8D1 /* RecordingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingVC.h; sourceTree = "<group>"; };
-		29958C78287BA1EF0004D8D1 /* RecordingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingVC.m; sourceTree = "<group>"; };
 		29958C7A287BA2120004D8D1 /* LoopStackVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopStackVC.h; sourceTree = "<group>"; };
 		29958C7B287BA2120004D8D1 /* LoopStackVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopStackVC.m; sourceTree = "<group>"; };
 		29958C7D287BA25C0004D8D1 /* ShareVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShareVC.h; sourceTree = "<group>"; };
@@ -307,8 +315,13 @@
 		29FEFDE2288624ED009A693B /* Recording */ = {
 			isa = PBXGroup;
 			children = (
-				29958C77287BA1EF0004D8D1 /* RecordingVC.h */,
-				29958C78287BA1EF0004D8D1 /* RecordingVC.m */,
+				29853DBA28909E2400314962 /* RecordingManager.h */,
+				29853DBB28909E2400314962 /* RecordingManager.m */,
+				29506C93288F5C5A007231CD /* RecordingView.xib */,
+				29506C95288F5C71007231CD /* RecordingView.h */,
+				29506C96288F5C71007231CD /* RecordingView.m */,
+				294B937D2891BD3A0042BEC1 /* RecordingVC.h */,
+				294B937E2891BD3A0042BEC1 /* RecordingVC.m */,
 			);
 			path = Recording;
 			sourceTree = "<group>";
@@ -434,6 +447,7 @@
 				299C22CF2878833E0022D102 /* LaunchScreen.storyboard in Resources */,
 				299C22CC2878833E0022D102 /* Assets.xcassets in Resources */,
 				299C22C72878833D0022D102 /* Main.storyboard in Resources */,
+				29506C94288F5C5A007231CD /* RecordingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,19 +582,21 @@
 				298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */,
 				298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */,
 				29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */,
+				29853DBC28909E2400314962 /* RecordingManager.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
 				29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */,
+				294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */,
 				29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */,
 				29958C76287B6BCC0004D8D1 /* SignUpVC.m in Sources */,
 				29958C73287B6B8C0004D8D1 /* LoginVC.m in Sources */,
 				299C22BE2878833D0022D102 /* AppDelegate.m in Sources */,
 				299C22FA287B40160022D102 /* Loop.m in Sources */,
+				29506C97288F5C71007231CD /* RecordingView.m in Sources */,
 				299C2301287B49380022D102 /* TempoAssistSettings.m in Sources */,
 				299C2304287B4AAA0022D102 /* Track.m in Sources */,
 				29A376FF28821CA90075D518 /* TrackFileManager.m in Sources */,
 				299C22C12878833D0022D102 /* SceneDelegate.m in Sources */,
 				299C22CA2878833D0022D102 /* LoopWithMe.xcdatamodeld in Sources */,
-				29958C79287BA1EF0004D8D1 /* RecordingVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,11 +768,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3XRLMZ2LJQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LoopWithMe/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "LoopWithMe uses camera to take profile pictures";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LoopWithMe uses microphone to record audio.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -767,8 +786,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.danielfloresg.LoopWithMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.danielfloresg.LoopWithMeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -780,11 +800,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3XRLMZ2LJQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = LoopWithMe/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "LoopWithMe uses camera to take profile pictures";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "LoopWithMe uses microphone to record audio.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -795,8 +818,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.danielfloresg.LoopWithMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.danielfloresg.LoopWithMeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

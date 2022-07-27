@@ -2,7 +2,7 @@
 //  RecordingVC.h
 //  LoopWithMe
 //
-//  Created by Daniel Flores Garcia on 7/10/22.
+//  Created by Daniel Flores Garcia on 7/27/22.
 //
 
 #import <UIKit/UIKit.h>

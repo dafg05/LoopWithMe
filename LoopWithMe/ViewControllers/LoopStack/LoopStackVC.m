@@ -12,6 +12,7 @@
 #import "ShareVC.h"
 #import "PlayStopButton.h"
 #import "TrackFileManager.h"
+#import "RecordingView.h"
 
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *addTrackButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
+@property (strong, nonatomic) RecordingView *recordingview;
 
 @end
 
@@ -110,7 +112,12 @@
 - (IBAction)didTapAddTrack:(id)sender {
     if ([self.loop.tracks count] < MAX_NUM_TRACKS){
         [self.audioEngine stop];
-        [self performSegueWithIdentifier:@"AddTrackSegue" sender:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        RecordingVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"RecordingVC"];
+        UISheetPresentationController *sheet = vc.sheetPresentationController;
+        sheet.detents = [NSArray arrayWithObject:[UISheetPresentationControllerDetent mediumDetent]];
+        vc.loop = self.loop;
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 
@@ -205,4 +212,5 @@
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
 }
+
 @end
