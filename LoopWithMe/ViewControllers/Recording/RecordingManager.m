@@ -74,8 +74,7 @@
     if (self.audioPlayer.playing){
         [self.audioPlayer stop];
         [self.recordingView.playStopButton UIPlay];
-    }
-    else{
+    } else{
         [self.audioPlayer play];
         [self.recordingView.playStopButton UIStop];
     }
@@ -83,7 +82,8 @@
 
 - (void)doneRecording {
     [self.audioPlayer stop];
-    
+    Track *track = [self createTrack];
+    [self.delegate doneRecording:track];
 }
 
 #pragma mark - Private helper methods

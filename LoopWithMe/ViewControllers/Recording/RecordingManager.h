@@ -7,12 +7,14 @@
 
 #import <Foundation/Foundation.h>
 #import "RecordingView.h"
+#import "Track.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol RecordingManagerDelegate
 
 - (void)recordingAlert:(NSString *)message;
+- (void)doneRecording:(Track *)track;
 
 @end
 
