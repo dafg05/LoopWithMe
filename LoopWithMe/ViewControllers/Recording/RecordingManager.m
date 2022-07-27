@@ -9,6 +9,8 @@
 #import "AVFoundation/AVFAudio.h"
 #import "RecordingView.h"
 
+#import "Parse/Parse.h"
+#import "Track.h"
 
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
@@ -80,11 +82,14 @@
 }
 
 - (void)doneRecording {
+    [self.audioPlayer stop];
+    
 }
 
 #pragma mark - Private helper methods
 
 - (void)setUpRecorder {
+    // TODO: Use temporary directory
     self.audioFileUrl = [self getRecordingFileUrl];
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
@@ -139,6 +144,19 @@
 
 - (NSURL *)getRecordingFileUrl {
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
+}
+
+- (Track *)createTrack {
+    NSError *dataError = nil;
+    NSURL *audioFilePFUrl = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@",self.audioFileUrl.absoluteString]];
+    
+    NSData *audioData = [NSData dataWithContentsOfURL:audioFilePFUrl
+                                options:NSDataReadingMappedIfSafe
+                                error:&dataError];
+    Track *track = [Track new];
+    track.audioFilePF = [PFFileObject fileObjectWithData:audioData];
+    track.composer = [PFUser currentUser];
+    return track;
 }
 
 @end
