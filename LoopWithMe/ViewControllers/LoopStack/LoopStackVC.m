@@ -113,7 +113,12 @@
 - (IBAction)didTapAddTrack:(id)sender {
     if ([self.loop.tracks count] < MAX_NUM_TRACKS){
         [self.audioEngine stop];
-        [self performSegueWithIdentifier:@"AddTrackSegue" sender:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        RecordingVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"RecordingVC"];
+        UISheetPresentationController *sheet = vc.sheetPresentationController;
+        sheet.detents = [NSArray arrayWithObject:[UISheetPresentationControllerDetent mediumDetent]];
+        vc.loop = self.loop;
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
 
@@ -207,17 +212,6 @@
     self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
-}
-
-- (IBAction)didTapPrototype:(id)sender {
-    self.recordingview = [[RecordingView alloc] init];
-    [self.recordingview setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.view addSubview:self.recordingview];
-    [self.recordingview.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
-    [self.recordingview.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
-    [self.recordingview.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
-    [self.recordingview.heightAnchor constraintEqualToConstant:250].active = YES;
-    [self.view bringSubviewToFront:self.recordingview];
 }
 
 @end

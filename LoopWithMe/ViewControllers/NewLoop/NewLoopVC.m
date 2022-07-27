@@ -7,7 +7,6 @@
 
 #import "NewLoopVC.h"
 #import "Loop.h"
-#import "RecordingVC.h"
 #import "LoopStackVC.h"
 #import "Parse/Parse.h"
 
@@ -33,25 +32,10 @@
     self.recordingManager.delegate = self;
 }
 
-- (IBAction)didTapStartRecording:(id)sender {
-    NSLog(@"Deprecated!");
-    
-//    if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil){
-//        self.nameErrorLabel.text = @"Please enter a name for your new loop";
-//    }
-//    else{
-//        self.loop = [Loop new];
-//        self.loop.name = self.loopNameField.text;
-//        self.loop.postAuthor = [PFUser currentUser];
-//        [self performSegueWithIdentifier:@"NewLoopRecordingSegue" sender:nil];
-//    }
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
 }
-
 
 #pragma mark - Navigation
 
@@ -70,16 +54,11 @@
     if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil){
         self.nameErrorLabel.text = @"Please enter a name for your new loop";
     } else{
-        if (track == nil){
-            NSLog(@"We're fucked");
-            return;
-        }
         self.loop = [Loop new];
         self.loop.name = self.loopNameField.text;
         self.loop.postAuthor = [PFUser currentUser];
         self.loop.tracks = [NSMutableArray new];
         [self.loop.tracks addObject:track];
-        NSLog(@"%lu", (unsigned long)[self.loop.tracks count]);
         [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
     }
 }
