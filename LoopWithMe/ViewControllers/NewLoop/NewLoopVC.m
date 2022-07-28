@@ -22,6 +22,9 @@
 
 @implementation NewLoopVC
 
+#define RECORDING_ALERT_TITLE @"Recording Alert"
+#define ALERT_ACTION_TITLE @"Ok"
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
@@ -51,10 +54,10 @@
 }
 
 - (void)recordingAlert:(nonnull NSString *)message {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:RECORDING_ALERT_TITLE
                                                             message:message
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:ALERT_ACTION_TITLE
                                              style:UIAlertActionStyleDefault
                                              handler:nil];
     [alertController addAction:actionOk];

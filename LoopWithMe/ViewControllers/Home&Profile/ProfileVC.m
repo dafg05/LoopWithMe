@@ -13,6 +13,8 @@
 #import "LoopStackVC.h"
 #import "PostCell.h"
 
+#import "Home&ProfileStrings.h"
+
 
 @interface ProfileVC ()<UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -34,26 +36,26 @@
         self.user = [PFUser currentUser];
     }
     self.profileImageView.layer.cornerRadius = 5;
-    PFFileObject *imageFile = self.user[@"profilePic"];
+    PFFileObject *imageFile = self.user[USER_PIC_KEY];
     if (imageFile){
         self.profileImageView.image = [UIImage imageWithData:[imageFile getData]];
     }
     else{
-        self.profileImageView.image = [UIImage systemImageNamed:@"person"];
+        self.profileImageView.image = [UIImage systemImageNamed:DEFAULT_PROFILE_PIC_IMAGE];
     }
     self.postTableView.dataSource = self;
     self.postTableView.delegate = self;
     self.usernameLabel.text = self.user.username;
-    self.givennameLabel.text = self.user[@"givenName"];
+    self.givennameLabel.text = self.user[USER_GIVENNAME_KEY];
     [self queryUserPosts];
 }
 
 - (void)queryUserPosts {
-    PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"postAuthor"];
-    [query includeKey:@"tracks"];
-    [query whereKey:@"postAuthor" equalTo:self.user];
+    PFQuery *query = [PFQuery queryWithClassName:QUERY_CLASSNAME];
+    [query orderByDescending:QUERY_ORDER];
+    [query includeKey:QUERY_AUTHOR_KEY];
+    [query includeKey:QUERY_TRACKS_KEY];
+    [query whereKey:QUERY_AUTHOR_KEY equalTo:self.user];
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
             self.userLoops = loops;
@@ -67,7 +69,7 @@
 #pragma mark - UITableViewDataSource methods
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UserPostCell"];
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:USER_POST_CELL_IDENT];
     Loop *cellLoop = self.userLoops[indexPath.row];
     cell.loopNameLabel.text = cellLoop.name;
     cell.captionLabel.text = cellLoop.caption;
@@ -85,7 +87,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Loop *loop = self.userLoops[indexPath.row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"LoopStackNavController"];
+    UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:LOOPSTACK_NAVCONTROL_IDENT];
     LoopStackVC *vc = (LoopStackVC *) navController.topViewController;
     vc.loop = loop;
     vc.newLoop = NO;
@@ -134,7 +136,7 @@
         else{
             SceneDelegate *sceneDelegate = (SceneDelegate *) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            LoginVC *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginVC"];
+            LoginVC *loginViewController = [storyboard instantiateViewControllerWithIdentifier:LOGIN_VC_IDENT];
             sceneDelegate.window.rootViewController = loginViewController;
         }
     }];
