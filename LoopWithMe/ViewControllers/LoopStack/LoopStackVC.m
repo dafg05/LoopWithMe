@@ -221,6 +221,12 @@
     if ([[segue identifier] isEqualToString:@"ShareSegue"]){
         ShareVC *vc = (ShareVC *)segue.destinationViewController;
         vc.loop = self.loop;
+        if (self.newLoop){
+            vc.isLoopReloop = NO;
+        } else{
+            NSAssert(self.loop.parentLoop != nil, @"Not sharing a reloop nor a new loop");
+            vc.isLoopReloop = YES;
+        }
     }
     else if ([[segue identifier] isEqualToString:@"AddTrackSegue"]){
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
@@ -273,6 +279,7 @@
         self.loop = [Loop new];
         self.loop.tracks = [NSMutableArray arrayWithArray:self.parentLoop.tracks];
         self.loop.postAuthor = [PFUser currentUser];
+        self.loop.parentLoop = self.parentLoop;
     }
     [self reloadLoopTableViewData];
     NSAssert (self.loop != self.parentLoop, @"Pointer to loop and parent loop are the same");

@@ -88,6 +88,4 @@
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
 }
 
-
-
 @end
