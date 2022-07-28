@@ -9,9 +9,11 @@
 #import "HomeVC.h"
 
 @interface ShareVC () <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *loopNameField;
 @property (weak, nonatomic) IBOutlet UITextView *captionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *charCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *shareLoopLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nameErrorLabel;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 
 @end
@@ -22,9 +24,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.shareLoopLabel.text = [NSString stringWithFormat:@"Share %@", self.loop.name];
+    if (self.isLoopReloop){
+        self.shareLoopLabel.text = @"Share Reloop";
+    }
+    else{
+        self.shareLoopLabel.text = @"Share Loop";
+    }
     self.captionTextView.layer.cornerRadius = 5;
     self.captionTextView.delegate = self;
+    self.nameErrorLabel.text = @"";
     [self updateCharCountLabel:0];
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
@@ -32,20 +40,26 @@
 }
 
 - (IBAction)didTapPost:(id)sender {
-    [self.spinner startAnimating];
-    self.loop.caption = self.captionTextView.text;
-    [Loop postLoop:self.loop withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (error != nil){
-            NSLog(@"%@,", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Posted loop succesfully!");
-            [self setHomeFeedAsDelegate];
-            [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
-            [self.delegate didShare];
-        }
-        [self.spinner stopAnimating];
-    }];
+    if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil){
+        self.nameErrorLabel.text = @"Please enter a name for your new loop";
+    }
+    else{
+        [self.spinner startAnimating];
+        self.loop.caption = self.captionTextView.text;
+        self.loop.name = self.loopNameField.text;
+        [Loop postLoop:self.loop withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (error != nil){
+                NSLog(@"%@,", error.localizedDescription);
+            }
+            else{
+                NSLog(@"Posted loop succesfully!");
+                [self setHomeFeedAsDelegate];
+                [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
+                [self.delegate didShare];
+            }
+            [self.spinner stopAnimating];
+        }];
+    }
 }
 
 - (void)setHomeFeedAsDelegate {

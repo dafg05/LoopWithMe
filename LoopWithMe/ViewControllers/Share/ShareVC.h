@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) Loop *loop;
 @property (weak, nonatomic) id<ShareVCDelegate> delegate;
+@property BOOL isLoopReloop;
 
 @end
 

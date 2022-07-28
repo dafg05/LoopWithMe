@@ -56,16 +56,17 @@
         self.editButton.hidden = YES;
         self.editMode = YES;
         self.loopStatusLabel.text = NEW_LOOP_STATUS;
+        self.loopNameLabel.text = @"Untitled";
     }
     else {
         self.shareButton.enabled = NO;
         self.addTrackButton.hidden = YES;
         self.editMode = NO;
         self.loopStatusLabel.text = OTHER_LOOP_STATUS;
+        self.loopNameLabel.text = self.loop.name;
     }
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
-    self.loopNameLabel.text = self.loop.name;
     [self.playMixButton initWithColor:[UIColor blackColor]];
     [self.playMixButton UIPlay];
     [self.stopMixButton initWithColor:[UIColor blackColor]];

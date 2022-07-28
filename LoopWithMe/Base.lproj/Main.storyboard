@@ -153,55 +153,25 @@
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqS-Sj-5QG">
-                                <rect key="frame" x="30" y="140" width="78" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" name="custom text color"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pZm-Uq-Vrg">
-                                <rect key="frame" x="128" y="131.5" width="125" height="34"/>
-                                <color key="backgroundColor" name="text field color"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="vC5-rd-dO9"/>
-                                </constraints>
-                                <color key="textColor" name="custom text color"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LoopNameError" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oe-bQ-ig0">
-                                <rect key="frame" x="128" y="170.5" width="89" height="14.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" systemColor="systemRedColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXA-tP-omY" customClass="RecordingView">
-                                <rect key="frame" x="0.0" y="255" width="414" height="558"/>
+                                <rect key="frame" x="0.0" y="260" width="414" height="553"/>
                                 <color key="backgroundColor" name="custom background color"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="A0W-CQ-gJc"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
-                            <constraint firstItem="6oe-bQ-ig0" firstAttribute="top" secondItem="pZm-Uq-Vrg" secondAttribute="bottom" constant="5" id="7XQ-7D-LNa"/>
-                            <constraint firstItem="pZm-Uq-Vrg" firstAttribute="centerY" secondItem="zqS-Sj-5QG" secondAttribute="centerY" id="9ZK-Gh-lfg"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="BXA-tP-omY" secondAttribute="trailing" id="BLO-yo-vk4"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="NtG-OF-ZKg" secondAttribute="trailing" constant="30" id="KPP-kN-ioU"/>
-                            <constraint firstItem="zqS-Sj-5QG" firstAttribute="top" secondItem="NtG-OF-ZKg" secondAttribute="bottom" constant="30" id="M79-wd-Iqb"/>
-                            <constraint firstItem="6oe-bQ-ig0" firstAttribute="leading" secondItem="pZm-Uq-Vrg" secondAttribute="leading" id="XGC-9c-Yyw"/>
+                            <constraint firstItem="BXA-tP-omY" firstAttribute="top" secondItem="NtG-OF-ZKg" secondAttribute="bottom" constant="150" id="RAC-0m-pqq"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="BXA-tP-omY" secondAttribute="bottom" id="b3P-iS-Qta"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="top" secondItem="A0W-CQ-gJc" secondAttribute="top" constant="30" id="cwd-Eg-bUP"/>
                             <constraint firstItem="BXA-tP-omY" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" id="dDM-Q5-Cia"/>
-                            <constraint firstItem="BXA-tP-omY" firstAttribute="top" secondItem="6oe-bQ-ig0" secondAttribute="bottom" constant="70" id="oCk-Ri-mwP"/>
-                            <constraint firstItem="zqS-Sj-5QG" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="pMF-Lo-iQJ"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="rT1-fU-Mhr"/>
-                            <constraint firstItem="pZm-Uq-Vrg" firstAttribute="leading" secondItem="zqS-Sj-5QG" secondAttribute="trailing" constant="20" id="u9E-QI-7E4"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="New Loop" id="00S-f2-tOA"/>
                     <connections>
-                        <outlet property="loopNameField" destination="pZm-Uq-Vrg" id="0Ga-mn-xZZ"/>
-                        <outlet property="nameErrorLabel" destination="6oe-bQ-ig0" id="TRZ-5C-C7c"/>
                         <outlet property="recordingView" destination="BXA-tP-omY" id="mIQ-7d-EwZ"/>
                         <segue destination="dVn-I0-VAo" kind="presentation" identifier="RecordingDoneSegue" id="BMB-yT-ki9"/>
                     </connections>
@@ -225,7 +195,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="h9y-jS-ilo">
-                                <rect key="frame" x="15" y="178.5" width="384" height="150"/>
+                                <rect key="frame" x="15" y="235.5" width="384" height="150"/>
                                 <color key="backgroundColor" name="custom secondary bg color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="IP4-uh-mdW"/>
@@ -235,19 +205,19 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write your caption..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgC-ja-TVm">
-                                <rect key="frame" x="15" y="159" width="114.5" height="14.5"/>
+                                <rect key="frame" x="15" y="216" width="114.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Char Count" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81A-fY-bEf">
-                                <rect key="frame" x="334.5" y="333.5" width="64.5" height="14.5"/>
+                                <rect key="frame" x="334.5" y="388.5" width="64.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1A-oT-QhO">
-                                <rect key="frame" x="180.5" y="373" width="53" height="31"/>
+                                <rect key="frame" x="180.5" y="428" width="53" height="31"/>
                                 <color key="tintColor" name="custom text color"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Post">
@@ -261,23 +231,51 @@
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fMg-se-ul2">
-                                <rect key="frame" x="258.5" y="378.5" width="20" height="20"/>
+                                <rect key="frame" x="258.5" y="433.5" width="20" height="20"/>
                                 <color key="color" name="custom text color"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3h3-jY-thf">
+                                <rect key="frame" x="15" y="163.5" width="37" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" name="custom text color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name error label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LKt-3b-1lM">
+                                <rect key="frame" x="72" y="191" width="95" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xq7-Uj-Sd6">
+                                <rect key="frame" x="72" y="154" width="100" height="34"/>
+                                <color key="backgroundColor" name="custom secondary bg color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="3Y5-Xt-nRg"/>
+                                </constraints>
+                                <color key="textColor" name="custom text color"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NDr-u2-MD4"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
-                            <constraint firstItem="e1A-oT-QhO" firstAttribute="top" secondItem="81A-fY-bEf" secondAttribute="bottom" constant="25" id="9pX-JN-h9o"/>
-                            <constraint firstItem="81A-fY-bEf" firstAttribute="top" secondItem="h9y-jS-ilo" secondAttribute="bottom" constant="5" id="BmK-wj-K1c"/>
+                            <constraint firstItem="LKt-3b-1lM" firstAttribute="leading" secondItem="xq7-Uj-Sd6" secondAttribute="leading" id="0Sb-Od-8YM"/>
+                            <constraint firstItem="e1A-oT-QhO" firstAttribute="top" secondItem="81A-fY-bEf" secondAttribute="bottom" constant="25" id="6fg-JS-iyK"/>
                             <constraint firstItem="h9y-jS-ilo" firstAttribute="top" secondItem="LgC-ja-TVm" secondAttribute="bottom" constant="5" id="DHF-5M-Fa2"/>
-                            <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="81A-fY-bEf" secondAttribute="trailing" constant="15" id="F2q-gF-qyn"/>
+                            <constraint firstItem="LgC-ja-TVm" firstAttribute="top" secondItem="LKt-3b-1lM" secondAttribute="bottom" constant="10" id="K7s-kn-R01"/>
+                            <constraint firstItem="LgC-ja-TVm" firstAttribute="leading" secondItem="3h3-jY-thf" secondAttribute="leading" id="Pdh-DV-znh"/>
+                            <constraint firstItem="xq7-Uj-Sd6" firstAttribute="leading" secondItem="3h3-jY-thf" secondAttribute="trailing" constant="20" id="Rxw-wM-BHm"/>
+                            <constraint firstItem="81A-fY-bEf" firstAttribute="top" secondItem="h9y-jS-ilo" secondAttribute="bottom" constant="3" id="UXw-GU-sEV"/>
                             <constraint firstItem="e1A-oT-QhO" firstAttribute="centerX" secondItem="83L-EE-3HC" secondAttribute="centerX" id="Vn1-ST-O3V"/>
+                            <constraint firstItem="LKt-3b-1lM" firstAttribute="top" secondItem="xq7-Uj-Sd6" secondAttribute="bottom" constant="3" id="YyU-3z-KGb"/>
                             <constraint firstItem="M23-Qg-spS" firstAttribute="top" secondItem="NDr-u2-MD4" secondAttribute="top" constant="15" id="cLf-5G-aUu"/>
                             <constraint firstItem="fMg-se-ul2" firstAttribute="leading" secondItem="e1A-oT-QhO" secondAttribute="trailing" constant="25" id="dwf-m2-JyA"/>
                             <constraint firstItem="LgC-ja-TVm" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="gaw-Di-MnR"/>
                             <constraint firstItem="fMg-se-ul2" firstAttribute="centerY" secondItem="e1A-oT-QhO" secondAttribute="centerY" id="gef-oR-dcm"/>
-                            <constraint firstItem="LgC-ja-TVm" firstAttribute="top" secondItem="M23-Qg-spS" secondAttribute="bottom" constant="20" id="pRU-TI-5oH"/>
+                            <constraint firstItem="xq7-Uj-Sd6" firstAttribute="top" secondItem="M23-Qg-spS" secondAttribute="bottom" constant="15" id="lQM-6h-CYW"/>
+                            <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="81A-fY-bEf" secondAttribute="trailing" constant="15" id="prd-lg-78o"/>
+                            <constraint firstItem="xq7-Uj-Sd6" firstAttribute="centerY" secondItem="3h3-jY-thf" secondAttribute="centerY" id="qNk-3Y-CMB"/>
                             <constraint firstItem="M23-Qg-spS" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="sbj-rN-wlw"/>
                             <constraint firstItem="NDr-u2-MD4" firstAttribute="trailing" secondItem="h9y-jS-ilo" secondAttribute="trailing" constant="15" id="u5V-g4-gim"/>
                             <constraint firstItem="h9y-jS-ilo" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="wo4-pe-MFb"/>
@@ -287,6 +285,8 @@
                     <connections>
                         <outlet property="captionTextView" destination="h9y-jS-ilo" id="NHu-fU-1X8"/>
                         <outlet property="charCountLabel" destination="81A-fY-bEf" id="gDf-ej-3Dc"/>
+                        <outlet property="loopNameField" destination="xq7-Uj-Sd6" id="xt7-2q-fM6"/>
+                        <outlet property="nameErrorLabel" destination="LKt-3b-1lM" id="eFi-9O-aSg"/>
                         <outlet property="shareLoopLabel" destination="M23-Qg-spS" id="ZId-xK-pvv"/>
                         <outlet property="spinner" destination="fMg-se-ul2" id="2MX-we-uYw"/>
                     </connections>
