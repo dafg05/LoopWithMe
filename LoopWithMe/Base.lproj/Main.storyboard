@@ -310,75 +310,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Id-z2-ITc">
-                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4W-Xb-cPS" customClass="PlayStopButton">
-                                        <rect key="frame" x="10" y="34.5" width="51" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Play"/>
-                                        <connections>
-                                            <action selector="didTapPlayMix:" destination="xyn-lb-lQU" eventType="touchUpInside" id="3ft-bc-WIW"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnL-wX-YNx" customClass="PlayStopButton">
-                                        <rect key="frame" x="61" y="34.5" width="54.5" height="31"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Stop"/>
-                                        <connections>
-                                            <action selector="didTapStopMix:" destination="xyn-lb-lQU" eventType="touchUpInside" id="V8c-Pf-CFD"/>
-                                        </connections>
-                                    </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="v5Q-3v-qOE">
-                                        <rect key="frame" x="125.5" y="25.5" width="99.5" height="49"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LoopName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTT-DU-zxp">
-                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                <color key="textColor" name="custom background color"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Mix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdd-wE-7ay">
-                                                <rect key="frame" x="0.0" y="31" width="53.5" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                <color key="textColor" name="custom background color"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-Bj-bYQ">
-                                        <rect key="frame" x="314.5" y="26" width="89.5" height="48"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-zG-X4Z">
-                                                <rect key="frame" x="0.0" y="0.0" width="89.5" height="31"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Add Track"/>
-                                                <connections>
-                                                    <action selector="didTapAddTrack:" destination="xyn-lb-lQU" eventType="touchUpInside" id="1IH-XU-gSM"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3UL-rd-nqF">
-                                                <rect key="frame" x="5" y="31" width="80" height="17"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                                <color key="textColor" name="custom background color"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" name="pink lace"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="xL5-Bj-bYQ" secondAttribute="trailing" constant="10" id="6wV-z4-UCI"/>
-                                    <constraint firstItem="xL5-Bj-bYQ" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="AKz-ZV-bXp"/>
-                                    <constraint firstItem="lnL-wX-YNx" firstAttribute="leading" secondItem="W4W-Xb-cPS" secondAttribute="trailing" id="P3D-bD-TcJ"/>
-                                    <constraint firstAttribute="height" constant="100" id="XTf-d9-adS"/>
-                                    <constraint firstItem="lnL-wX-YNx" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="aPc-aT-gxK"/>
-                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="leading" secondItem="lnL-wX-YNx" secondAttribute="trailing" constant="10" id="bJp-je-Oxd"/>
-                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="eqU-gI-1rm"/>
-                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="leading" secondItem="8Id-z2-ITc" secondAttribute="leading" constant="10" id="kMB-U3-fmo"/>
-                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="pXY-9v-apf"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aly-L4-KOE">
                                 <rect key="frame" x="0.0" y="88" width="414" height="674"/>
                                 <color key="backgroundColor" name="custom secondary bg color"/>
@@ -420,6 +351,85 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Id-z2-ITc">
+                                <rect key="frame" x="0.0" y="762" width="414" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4W-Xb-cPS" customClass="PlayStopButton">
+                                        <rect key="frame" x="10" y="34.5" width="51" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Play"/>
+                                        <connections>
+                                            <action selector="didTapPlayMix:" destination="xyn-lb-lQU" eventType="touchUpInside" id="3ft-bc-WIW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnL-wX-YNx" customClass="PlayStopButton">
+                                        <rect key="frame" x="61" y="34.5" width="54.5" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Stop"/>
+                                        <connections>
+                                            <action selector="didTapStopMix:" destination="xyn-lb-lQU" eventType="touchUpInside" id="V8c-Pf-CFD"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="v5Q-3v-qOE">
+                                        <rect key="frame" x="125.5" y="25.5" width="99.5" height="49"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LoopName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTT-DU-zxp">
+                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <color key="textColor" name="custom background color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Mix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdd-wE-7ay">
+                                                <rect key="frame" x="0.0" y="31" width="53.5" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                <color key="textColor" name="custom background color"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="9fa-6g-MjB">
+                                        <rect key="frame" x="280.5" y="19" width="123.5" height="62"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fbU-3Y-JMc">
+                                                <rect key="frame" x="0.0" y="0.0" width="123.5" height="31"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJM-zG-X4Z">
+                                                        <rect key="frame" x="0.0" y="0.0" width="43.5" height="31"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="didTapAddTrack:" destination="xyn-lb-lQU" eventType="touchUpInside" id="1IH-XU-gSM"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3UL-rd-nqF">
+                                                        <rect key="frame" x="43.5" y="0.0" width="80" height="31"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                        <color key="textColor" name="custom background color"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h3y-tX-QZ6">
+                                                <rect key="frame" x="74.5" y="31" width="49" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Edit"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" name="pink lace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="9fa-6g-MjB" secondAttribute="trailing" constant="10" id="0o1-sr-sj9"/>
+                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="centerY" secondItem="lnL-wX-YNx" secondAttribute="centerY" id="8A3-Lm-Azz"/>
+                                    <constraint firstItem="9fa-6g-MjB" firstAttribute="centerY" secondItem="v5Q-3v-qOE" secondAttribute="centerY" id="CzC-PG-40r"/>
+                                    <constraint firstItem="lnL-wX-YNx" firstAttribute="leading" secondItem="W4W-Xb-cPS" secondAttribute="trailing" id="P3D-bD-TcJ"/>
+                                    <constraint firstAttribute="height" constant="100" id="XTf-d9-adS"/>
+                                    <constraint firstItem="lnL-wX-YNx" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="aPc-aT-gxK"/>
+                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="eqU-gI-1rm"/>
+                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="leading" secondItem="8Id-z2-ITc" secondAttribute="leading" constant="10" id="kMB-U3-fmo"/>
+                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="leading" secondItem="lnL-wX-YNx" secondAttribute="trailing" constant="10" id="rrL-fa-MvC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="llw-qx-Tz1"/>
                         <color key="backgroundColor" name="custom background color"/>
@@ -962,6 +972,7 @@
     </scenes>
     <resources>
         <image name="Logo" width="360" height="360"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
