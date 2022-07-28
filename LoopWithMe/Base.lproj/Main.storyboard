@@ -349,7 +349,7 @@
                                 <rect key="frame" x="0.0" y="762" width="414" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W4W-Xb-cPS" customClass="PlayStopButton">
-                                        <rect key="frame" x="10" y="34.5" width="51" height="31"/>
+                                        <rect key="frame" x="5" y="34.5" width="51" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Play"/>
                                         <connections>
@@ -357,7 +357,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lnL-wX-YNx" customClass="PlayStopButton">
-                                        <rect key="frame" x="61" y="34.5" width="54.5" height="31"/>
+                                        <rect key="frame" x="56" y="34.5" width="54.5" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Stop"/>
                                         <connections>
@@ -365,17 +365,17 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="v5Q-3v-qOE">
-                                        <rect key="frame" x="125.5" y="25.5" width="99.5" height="49"/>
+                                        <rect key="frame" x="115.5" y="27.5" width="91" height="45.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LoopName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTT-DU-zxp">
-                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="24"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LoopName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTT-DU-zxp">
+                                                <rect key="frame" x="0.0" y="0.0" width="91" height="21.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                 <color key="textColor" name="custom background color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Mix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdd-wE-7ay">
-                                                <rect key="frame" x="0.0" y="31" width="53.5" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop mix" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdd-wE-7ay">
+                                                <rect key="frame" x="0.0" y="28.5" width="60" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <color key="textColor" name="custom background color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -423,8 +423,8 @@
                                     <constraint firstAttribute="height" constant="100" id="XTf-d9-adS"/>
                                     <constraint firstItem="lnL-wX-YNx" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="aPc-aT-gxK"/>
                                     <constraint firstItem="W4W-Xb-cPS" firstAttribute="centerY" secondItem="8Id-z2-ITc" secondAttribute="centerY" id="eqU-gI-1rm"/>
-                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="leading" secondItem="8Id-z2-ITc" secondAttribute="leading" constant="10" id="kMB-U3-fmo"/>
-                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="leading" secondItem="lnL-wX-YNx" secondAttribute="trailing" constant="10" id="rrL-fa-MvC"/>
+                                    <constraint firstItem="W4W-Xb-cPS" firstAttribute="leading" secondItem="8Id-z2-ITc" secondAttribute="leading" constant="5" id="kMB-U3-fmo"/>
+                                    <constraint firstItem="v5Q-3v-qOE" firstAttribute="leading" secondItem="lnL-wX-YNx" secondAttribute="trailing" constant="5" id="rrL-fa-MvC"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -456,6 +456,7 @@
                         <outlet property="addTrackButton" destination="mJM-zG-X4Z" id="QTo-M4-TU3"/>
                         <outlet property="editButton" destination="h3y-tX-QZ6" id="jVX-x1-WxN"/>
                         <outlet property="loopNameLabel" destination="PTT-DU-zxp" id="RF9-F6-Or1"/>
+                        <outlet property="loopStatusLabel" destination="hdd-wE-7ay" id="Ygw-rd-TY2"/>
                         <outlet property="playMixButton" destination="W4W-Xb-cPS" id="JhC-ab-bXB"/>
                         <outlet property="shareButton" destination="Fdl-fi-1FJ" id="hHB-5Z-euR"/>
                         <outlet property="stopMixButton" destination="lnL-wX-YNx" id="YdR-14-aTi"/>

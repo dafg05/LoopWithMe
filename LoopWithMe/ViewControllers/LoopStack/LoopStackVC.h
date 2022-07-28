@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) Loop *loop;
 @property BOOL newLoop;
 
--(void)reloadLoopData;
+-(void)reloadLoopTableViewData;
 
 @end
 

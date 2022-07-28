@@ -19,15 +19,19 @@
 @property (weak, nonatomic) IBOutlet UITableView *trackTableView;
 @property (weak, nonatomic) IBOutlet PlayStopButton *playMixButton;
 @property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
-@property AVAudioEngine *audioEngine;
-@property AVAudioMixerNode *mixerNode;
-@property (strong, nonatomic) TrackFileManager *fileManager;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *addTrackButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
-@property (strong, nonatomic) RecordingView *recordingview;
+@property (weak, nonatomic) IBOutlet UILabel *loopStatusLabel;
+
+@property AVAudioEngine *audioEngine;
+@property AVAudioMixerNode *mixerNode;
+@property (strong, nonatomic) TrackFileManager *fileManager;
+/* For relooping*/
 @property BOOL editMode;
+@property (strong, nonatomic) Loop *parentLoop;
+@property (strong, nonatomic) Loop *cachedReloop;
 
 @end
 
@@ -35,6 +39,10 @@
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 #define MAX_NUM_TRACKS 8
+
+#define NEW_LOOP_STATUS @"New Loop Mix"
+#define OTHER_LOOP_STATUS @"Loop Mix"
+#define RELOOP_STATUS @"Reloop mix"
 
 #pragma mark - Initial View Controller Setup
 
@@ -47,11 +55,13 @@
     if (self.newLoop){
         self.editButton.hidden = YES;
         self.editMode = YES;
+        self.loopStatusLabel.text = NEW_LOOP_STATUS;
     }
     else {
         self.shareButton.enabled = NO;
         self.addTrackButton.hidden = YES;
         self.editMode = NO;
+        self.loopStatusLabel.text = OTHER_LOOP_STATUS;
     }
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
@@ -91,8 +101,8 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.editMode) return NO;
     // Cannot delete if there's only one track
-    if (!self.newLoop) return NO;
     return ([self.loop.tracks count] > 1);
 }
 
@@ -138,7 +148,7 @@
 
 - (IBAction)didTapEdit:(id)sender {
     if (self.editMode){
-        [self cannotEditLoop];
+        [self cancelEditLoop];
     }
     else{
         [self canEditLoop];
@@ -163,7 +173,7 @@
 
     if (startError != nil){
         NSLog(@"%@", startError.localizedDescription);
-    }else{
+    } else{
         for (int section = 0; section < [self.trackTableView numberOfSections]; section++){
             for (int row = 0; row < [self.trackTableView numberOfRowsInSection:section]; row++){
                 NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
@@ -218,10 +228,8 @@
     }
 }
 
-#pragma mark - Misc
-
-/* Needs to be called if tableView is reloaded */
-- (void)reloadLoopData {
+/* Needs to be called to reload table view outside of ViewDidLoad */
+- (void)reloadLoopTableViewData {
     // TODO: Refactor so that we don't need to reload the whole table view.
     // need to reinitialize the file manager because every cell is being reloaded
     self.fileManager = nil;
@@ -230,22 +238,50 @@
     [self.trackTableView reloadData];
 }
 
+#pragma mark - Relooping helpers
+
 - (void)canEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
+    [self.audioEngine stop];
+    [self setUpReloop];
     self.editMode = YES;
     [self.editButton setTitle:@"Cancel" forState:UIControlStateNormal];
     self.addTrackButton.hidden = NO;
-    self.addTrackButton.enabled = NO; // TODO: Delete line when relooping is implemented
-    // self.shareButton.enabled = YES; // TODO: Uncomment line when relooping is implemented
+    self.shareButton.enabled = YES;
+    self.loopStatusLabel.text = RELOOP_STATUS;
 }
 
-- (void)cannotEditLoop {
+- (void)cancelEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
+    [self.audioEngine stop];
+    [self discardReloop];
     self.editMode = NO;
     [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
     self.addTrackButton.hidden = YES;
-    // TODO: Delete line when relooping is implemented
-    // self.shareButton.enabled = YES; // TODO: Uncomment line when relooping is implemented
+    self.shareButton.enabled = NO;
+    self.loopStatusLabel.text = self.loopStatusLabel.text = OTHER_LOOP_STATUS;
+}
+
+- (void)setUpReloop {
+    self.parentLoop = self.loop;
+    if (self.cachedReloop){
+        NSLog(@"Did this!");
+        self.loop = self.cachedReloop;
+    }
+    else{
+        self.loop = [Loop new];
+        self.loop.tracks = [NSMutableArray arrayWithArray:self.parentLoop.tracks];
+        self.loop.postAuthor = [PFUser currentUser];
+    }
+    [self reloadLoopTableViewData];
+    NSAssert (self.loop != self.parentLoop, @"Pointer to loop and parent loop are the same");
+}
+
+- (void)discardReloop {
+    self.cachedReloop = self.loop;
+    self.loop = self.parentLoop;
+    [self reloadLoopTableViewData];
+    NSAssert(!self.loop.dirty, @"Original loop was somehow modified");
 }
 
 @end

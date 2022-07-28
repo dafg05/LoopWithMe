@@ -34,7 +34,7 @@
     UINavigationController *navController = (UINavigationController *)self.presentingViewController;
     LoopStackVC *vc = (LoopStackVC *)navController.topViewController;
     vc.loop = self.loop;
-    [vc reloadLoopData];
+    [vc reloadLoopTableViewData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
