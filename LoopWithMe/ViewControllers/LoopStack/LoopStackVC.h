@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LoopStackVC : UIViewController
 
 @property (strong, nonatomic) Loop *loop;
-@property BOOL readOnly;
+@property BOOL newLoop;
 
 -(void)reloadLoopData;
 

@@ -91,7 +91,7 @@
     UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"LoopStackNavController"];
     LoopStackVC *vc = (LoopStackVC *) navController.topViewController;
     vc.loop = loop;
-    vc.readOnly = YES;
+    vc.newLoop = NO;
     [self presentViewController:navController animated:YES completion:nil];
 }
 

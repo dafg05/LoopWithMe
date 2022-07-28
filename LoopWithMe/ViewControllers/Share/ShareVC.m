@@ -48,10 +48,6 @@
     }];
 }
 
-- (IBAction)didTapBack:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)setHomeFeedAsDelegate {
     // TODO: Need to make sure that the delegateVC is a HomeVC
     UITabBarController *tabBarVC = (UITabBarController *)self.view.window.rootViewController;

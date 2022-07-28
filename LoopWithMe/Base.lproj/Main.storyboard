@@ -283,13 +283,7 @@
                             <constraint firstItem="h9y-jS-ilo" firstAttribute="leading" secondItem="NDr-u2-MD4" secondAttribute="leading" constant="15" id="wo4-pe-MFb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Gsp-E7-OHl">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="fpb-TA-FVl">
-                            <connections>
-                                <action selector="didTapBack:" destination="1KE-6U-aKo" id="w8f-nh-eG1"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Gsp-E7-OHl"/>
                     <connections>
                         <outlet property="captionTextView" destination="h9y-jS-ilo" id="NHu-fU-1X8"/>
                         <outlet property="charCountLabel" destination="81A-fY-bEf" id="gDf-ej-3Dc"/>
@@ -300,7 +294,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOg-Sc-utm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="bJM-KP-qZA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2909" y="3058"/>
+            <point key="canvasLocation" x="2909" y="2293"/>
         </scene>
         <!--Loop StackVC-->
         <scene sceneID="8fa-d0-Dh4">
@@ -413,6 +407,9 @@
                                                 <rect key="frame" x="74.5" y="31" width="49" height="31"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Edit"/>
+                                                <connections>
+                                                    <action selector="didTapEdit:" destination="xyn-lb-lQU" eventType="touchUpInside" id="dED-1X-hWc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -457,13 +454,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addTrackButton" destination="mJM-zG-X4Z" id="QTo-M4-TU3"/>
+                        <outlet property="editButton" destination="h3y-tX-QZ6" id="jVX-x1-WxN"/>
                         <outlet property="loopNameLabel" destination="PTT-DU-zxp" id="RF9-F6-Or1"/>
                         <outlet property="playMixButton" destination="W4W-Xb-cPS" id="JhC-ab-bXB"/>
                         <outlet property="shareButton" destination="Fdl-fi-1FJ" id="hHB-5Z-euR"/>
                         <outlet property="stopMixButton" destination="lnL-wX-YNx" id="YdR-14-aTi"/>
                         <outlet property="trackCountLabel" destination="3UL-rd-nqF" id="ldc-EV-zH6"/>
                         <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>
-                        <segue destination="RqG-7O-Bj7" kind="presentation" identifier="ShareSegue" id="7BL-hF-x7X"/>
+                        <segue destination="1KE-6U-aKo" kind="show" identifier="ShareSegue" id="44q-eO-mGI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RxC-Nn-5mE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -900,25 +898,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xww-pd-tcF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1102.8985507246377" y="-633.48214285714278"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="LIR-f7-Y3v">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="RqG-7O-Bj7" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="Mme-WL-yiw"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dtX-Z8-PjG">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="1KE-6U-aKo" kind="relationship" relationship="rootViewController" id="3E7-2S-6IS"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hMQ-4Q-vMi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2909" y="2312"/>
         </scene>
         <!--RecordingVC-->
         <scene sceneID="qKM-yq-cf2">

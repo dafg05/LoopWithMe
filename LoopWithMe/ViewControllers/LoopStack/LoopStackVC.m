@@ -24,8 +24,10 @@
 @property (strong, nonatomic) TrackFileManager *fileManager;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *addTrackButton;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
 @property (strong, nonatomic) RecordingView *recordingview;
+@property BOOL editMode;
 
 @end
 
@@ -42,9 +44,14 @@
 }
 
 - (void)setUpVC {
-    if (self.readOnly){
+    if (self.newLoop){
+        self.editButton.hidden = YES;
+        self.editMode = YES;
+    }
+    else {
         self.shareButton.enabled = NO;
         self.addTrackButton.hidden = YES;
+        self.editMode = NO;
     }
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
@@ -85,7 +92,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Cannot delete if there's only one track
-    if (self.readOnly) return NO;
+    if (!self.newLoop) return NO;
     return ([self.loop.tracks count] > 1);
 }
 
@@ -129,6 +136,15 @@
     [self.view.window.rootViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)didTapEdit:(id)sender {
+    if (self.editMode){
+        [self cannotEditLoop];
+    }
+    else{
+        [self canEditLoop];
+    }
+}
+
 /* LoopTrack cell delegate method: called when LoopTrackCell button is pressed*/
 - (void)playTrack:(NSURL *)trackUrl {
     [self startTrack:trackUrl];
@@ -136,7 +152,7 @@
 
 #pragma mark - Playback
 
--(void)startMix {
+- (void)startMix {
     // TODO: inconsistent audioEngine start between startMix and startTrack
     [self.audioEngine stop];
     [self.audioEngine attachNode:self.mixerNode];
@@ -190,10 +206,9 @@
 
 #pragma mark - Navigation
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"ShareSegue"]){
-        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-        ShareVC *vc = (ShareVC *)navController.topViewController;
+        ShareVC *vc = (ShareVC *)segue.destinationViewController;
         vc.loop = self.loop;
     }
     else if ([[segue identifier] isEqualToString:@"AddTrackSegue"]){
@@ -203,14 +218,34 @@
     }
 }
 
+#pragma mark - Misc
+
 /* Needs to be called if tableView is reloaded */
--(void)reloadLoopData {
+- (void)reloadLoopData {
     // TODO: Refactor so that we don't need to reload the whole table view.
     // need to reinitialize the file manager because every cell is being reloaded
     self.fileManager = nil;
     self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
+}
+
+- (void)canEditLoop {
+    NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
+    self.editMode = YES;
+    [self.editButton setTitle:@"Cancel" forState:UIControlStateNormal];
+    self.addTrackButton.hidden = NO;
+    self.addTrackButton.enabled = NO; // TODO: Delete line when relooping is implemented
+    // self.shareButton.enabled = YES; // TODO: Uncomment line when relooping is implemented
+}
+
+- (void)cannotEditLoop {
+    NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
+    self.editMode = NO;
+    [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
+    self.addTrackButton.hidden = YES;
+    // TODO: Delete line when relooping is implemented
+    // self.shareButton.enabled = YES; // TODO: Uncomment line when relooping is implemented
 }
 
 @end
