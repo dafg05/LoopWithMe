@@ -153,14 +153,6 @@
                                 <color key="textColor" name="custom text color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="apo-9z-Og5">
-                                <rect key="frame" x="146" y="752" width="122" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Start recording"/>
-                                <connections>
-                                    <action selector="didTapStartRecording:" destination="VF1-fz-vae" eventType="touchUpInside" id="dgO-0W-SaN"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loop Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqS-Sj-5QG">
                                 <rect key="frame" x="30" y="140" width="78" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -183,18 +175,24 @@
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BXA-tP-omY" customClass="RecordingView">
+                                <rect key="frame" x="0.0" y="255" width="414" height="558"/>
+                                <color key="backgroundColor" name="custom background color"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="A0W-CQ-gJc"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
                             <constraint firstItem="6oe-bQ-ig0" firstAttribute="top" secondItem="pZm-Uq-Vrg" secondAttribute="bottom" constant="5" id="7XQ-7D-LNa"/>
                             <constraint firstItem="pZm-Uq-Vrg" firstAttribute="centerY" secondItem="zqS-Sj-5QG" secondAttribute="centerY" id="9ZK-Gh-lfg"/>
-                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="apo-9z-Og5" secondAttribute="bottom" constant="30" id="EEb-Pk-HVf"/>
+                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="BXA-tP-omY" secondAttribute="trailing" id="BLO-yo-vk4"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="NtG-OF-ZKg" secondAttribute="trailing" constant="30" id="KPP-kN-ioU"/>
                             <constraint firstItem="zqS-Sj-5QG" firstAttribute="top" secondItem="NtG-OF-ZKg" secondAttribute="bottom" constant="30" id="M79-wd-Iqb"/>
                             <constraint firstItem="6oe-bQ-ig0" firstAttribute="leading" secondItem="pZm-Uq-Vrg" secondAttribute="leading" id="XGC-9c-Yyw"/>
+                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="BXA-tP-omY" secondAttribute="bottom" id="b3P-iS-Qta"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="top" secondItem="A0W-CQ-gJc" secondAttribute="top" constant="30" id="cwd-Eg-bUP"/>
-                            <constraint firstItem="apo-9z-Og5" firstAttribute="centerX" secondItem="wyY-lH-W7N" secondAttribute="centerX" id="jDY-pq-MKo"/>
+                            <constraint firstItem="BXA-tP-omY" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" id="dDM-Q5-Cia"/>
+                            <constraint firstItem="BXA-tP-omY" firstAttribute="top" secondItem="6oe-bQ-ig0" secondAttribute="bottom" constant="70" id="oCk-Ri-mwP"/>
                             <constraint firstItem="zqS-Sj-5QG" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="pMF-Lo-iQJ"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="rT1-fU-Mhr"/>
                             <constraint firstItem="pZm-Uq-Vrg" firstAttribute="leading" secondItem="zqS-Sj-5QG" secondAttribute="trailing" constant="20" id="u9E-QI-7E4"/>
@@ -204,13 +202,13 @@
                     <connections>
                         <outlet property="loopNameField" destination="pZm-Uq-Vrg" id="0Ga-mn-xZZ"/>
                         <outlet property="nameErrorLabel" destination="6oe-bQ-ig0" id="TRZ-5C-C7c"/>
-                        <segue destination="tj9-Td-phI" kind="show" identifier="NewLoopRecordingSegue" id="Bsx-dN-Fbu"/>
+                        <outlet property="recordingView" destination="BXA-tP-omY" id="mIQ-7d-EwZ"/>
                         <segue destination="dVn-I0-VAo" kind="presentation" identifier="RecordingDoneSegue" id="BMB-yT-ki9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kkC-yt-GtU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2942.0289855072465" y="876.5625"/>
+            <point key="canvasLocation" x="2032" y="877"/>
         </scene>
         <!--ShareVC-->
         <scene sceneID="Irr-UT-quj">
@@ -302,7 +300,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KOg-Sc-utm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="bJM-KP-qZA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2032" y="3076"/>
+            <point key="canvasLocation" x="2909" y="3058"/>
         </scene>
         <!--Loop StackVC-->
         <scene sceneID="8fa-d0-Dh4">
@@ -456,72 +454,11 @@
                         <outlet property="trackCountLabel" destination="3UL-rd-nqF" id="ldc-EV-zH6"/>
                         <outlet property="trackTableView" destination="aly-L4-KOE" id="C2i-aZ-qMD"/>
                         <segue destination="RqG-7O-Bj7" kind="presentation" identifier="ShareSegue" id="7BL-hF-x7X"/>
-                        <segue destination="tj9-Td-phI" kind="show" identifier="AddTrackSegue" id="IIA-qI-f9s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RxC-Nn-5mE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1151" y="2352"/>
-        </scene>
-        <!--RecordingVC-->
-        <scene sceneID="YDb-Uz-6Y1">
-            <objects>
-                <viewController id="MnC-97-ftA" customClass="RecordingVC" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="TNV-rQ-T6h">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kb-p5-Re8">
-                                <rect key="frame" x="172" y="771" width="70" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Record"/>
-                                <connections>
-                                    <action selector="didTapRecord:" destination="MnC-97-ftA" eventType="touchUpInside" id="Vfs-5Y-4to"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0L-qP-zGb">
-                                <rect key="frame" x="152.5" y="731.5" width="109.5" height="19.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" name="custom text color"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfc-fM-A7g" customClass="PlayStopButton">
-                                <rect key="frame" x="181.5" y="680.5" width="51" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Play"/>
-                                <connections>
-                                    <action selector="didTapPlayStop:" destination="MnC-97-ftA" eventType="touchUpInside" id="X1p-0G-KQl"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="wRO-SS-Zya"/>
-                        <color key="backgroundColor" name="recording screen color"/>
-                        <constraints>
-                            <constraint firstItem="0kb-p5-Re8" firstAttribute="centerX" secondItem="b0L-qP-zGb" secondAttribute="centerX" id="DfC-WZ-0p1"/>
-                            <constraint firstItem="0kb-p5-Re8" firstAttribute="top" secondItem="b0L-qP-zGb" secondAttribute="bottom" constant="20" id="PdE-Re-SqC"/>
-                            <constraint firstItem="b0L-qP-zGb" firstAttribute="centerX" secondItem="lfc-fM-A7g" secondAttribute="centerX" id="ojc-Gp-b1J"/>
-                            <constraint firstItem="0kb-p5-Re8" firstAttribute="centerX" secondItem="TNV-rQ-T6h" secondAttribute="centerX" id="qzr-x1-Dnr"/>
-                            <constraint firstItem="b0L-qP-zGb" firstAttribute="top" secondItem="lfc-fM-A7g" secondAttribute="bottom" constant="20" id="xaF-xz-7Gv"/>
-                            <constraint firstItem="wRO-SS-Zya" firstAttribute="bottom" secondItem="0kb-p5-Re8" secondAttribute="bottom" constant="60" id="ze2-tL-h2T"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="EFv-tC-gH7">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="1U3-6T-iwp">
-                            <connections>
-                                <action selector="didTapDone:" destination="MnC-97-ftA" id="Mzs-Jz-WT8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="doneButton" destination="1U3-6T-iwp" id="bvD-dr-fF1"/>
-                        <outlet property="playStopButton" destination="lfc-fM-A7g" id="10Z-R4-Xep"/>
-                        <outlet property="recordButton" destination="0kb-p5-Re8" id="mci-da-9rU"/>
-                        <outlet property="timerLabel" destination="b0L-qP-zGb" id="VI4-9f-NVH"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2di-eB-Grl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2032" y="2352"/>
+            <point key="canvasLocation" x="2909" y="1605"/>
         </scene>
         <!--Profile-->
         <scene sceneID="1Dc-bn-RsD">
@@ -919,25 +856,6 @@
             <point key="canvasLocation" x="3971.0144927536235" y="-633.48214285714278"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="cPC-Bt-G5O">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tj9-Td-phI" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="v7j-E4-37Y"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="B1a-5a-Kwe">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="MnC-97-ftA" kind="relationship" relationship="rootViewController" id="Kfo-7e-zTW"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hna-5U-YIb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2032" y="1590"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="06j-3a-94R">
             <objects>
                 <navigationController storyboardIdentifier="LoopStackNavController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="dVn-I0-VAo" sceneMemberID="viewController">
@@ -953,7 +871,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LLF-5Z-P1r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="1590"/>
+            <point key="canvasLocation" x="2032" y="1605"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xD0-9p-Igi">
@@ -990,7 +908,37 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMQ-4Q-vMi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1151" y="3076"/>
+            <point key="canvasLocation" x="2909" y="2312"/>
+        </scene>
+        <!--RecordingVC-->
+        <scene sceneID="qKM-yq-cf2">
+            <objects>
+                <viewController storyboardIdentifier="RecordingVC" id="Q9c-gV-6Uz" customClass="RecordingVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FQB-u2-vdQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GXI-Kw-Lrm" customClass="RecordingView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="s1k-VE-AUV"/>
+                        <color key="backgroundColor" name="recording screen color"/>
+                        <constraints>
+                            <constraint firstItem="s1k-VE-AUV" firstAttribute="bottom" secondItem="GXI-Kw-Lrm" secondAttribute="bottom" id="2Nw-ZD-y3E"/>
+                            <constraint firstItem="s1k-VE-AUV" firstAttribute="trailing" secondItem="GXI-Kw-Lrm" secondAttribute="trailing" id="Za0-ia-doj"/>
+                            <constraint firstItem="GXI-Kw-Lrm" firstAttribute="leading" secondItem="s1k-VE-AUV" secondAttribute="leading" id="td3-SK-qAC"/>
+                            <constraint firstItem="GXI-Kw-Lrm" firstAttribute="top" secondItem="s1k-VE-AUV" secondAttribute="top" id="vfM-lF-oEs"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="recordingView" destination="GXI-Kw-Lrm" id="6Pa-ku-5I8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-k3-16r" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3900" y="1604"/>
         </scene>
         <!--Home-->
         <scene sceneID="0Ok-zB-VrX">
@@ -1012,9 +960,6 @@
             <point key="canvasLocation" x="185.50724637681162" y="876.5625"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="IIA-qI-f9s"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="360" height="360"/>
         <namedColor name="AccentColor">
@@ -1039,11 +984,14 @@
             <color red="0.92199999094009399" green="0.83899998664855957" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="recording screen color">
-            <color red="0.037000000476837158" green="0.083999998867511749" blue="0.21299999952316284" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.063000001013278961" green="0.10999999940395355" blue="0.28200000524520874" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="text field color">
             <color red="0.16899999976158142" green="0.16899999976158142" blue="0.18999999761581421" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
