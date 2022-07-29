@@ -13,6 +13,7 @@
 #import "ProfileVC.h"
 
 #import "LoopStackVC.h"
+#import "Home&ProfileStrings.h"
 
 @interface HomeVC () <UITableViewDataSource, UITableViewDelegate, PostCellDelegate>;
 
@@ -29,10 +30,10 @@
 
 /* Refresh control should be nil if not refreshing*/
 - (void)queryLoops:(nullable UIRefreshControl *)refreshControl {
-    PFQuery *query = [PFQuery queryWithClassName:@"Loop"];
-    [query orderByDescending:@"createdAt"];
-    [query includeKey:@"postAuthor"];
-    [query includeKey:@"tracks"];
+    PFQuery *query = [PFQuery queryWithClassName:QUERY_CLASSNAME];
+    [query orderByDescending:QUERY_ORDER];
+    [query includeKey:QUERY_AUTHOR_KEY];
+    [query includeKey:QUERY_TRACKS_KEY];
     query.limit = 10;
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {
@@ -61,7 +62,7 @@
 #pragma mark - UITableViewDataSourceMethods
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedCell"];
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:FEED_CELL_IDENT];
     cell.layer.cornerRadius = 5;
     cell.delegate = self;
     Loop *cellLoop = self.loops[indexPath.row];
@@ -74,7 +75,7 @@
         cell.profileImageView.image = [UIImage imageWithData:[imageFile getData]];
     }
     else{
-        cell.profileImageView.image = [UIImage systemImageNamed:@"person"];
+        cell.profileImageView.image = [UIImage systemImageNamed:DEFAULT_PROFILE_PIC_IMAGE];
     }
     return cell;
 }
@@ -88,10 +89,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Loop *loop = self.loops[indexPath.row];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:@"LoopStackNavController"];
+    UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:LOOPSTACK_NAVCONTROL_IDENT];
     LoopStackVC *vc = (LoopStackVC *) navController.topViewController;
     vc.loop = loop;
-    vc.readOnly = YES;
+    vc.newLoop = NO;
     [self presentViewController:navController animated:YES completion:nil];
 }
 
@@ -108,7 +109,7 @@
 
 - (void)postCell:(nonnull PostCell *)postCell didTap:(nonnull PFUser *)user {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ProfileVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"ProfileVC"];
+    ProfileVC *vc = [storyboard instantiateViewControllerWithIdentifier:PROFILE_VC_IDENT];
     vc.user = user;
     [[self navigationController] pushViewController:vc animated:YES];
 }

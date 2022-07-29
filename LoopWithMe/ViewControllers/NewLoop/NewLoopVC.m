@@ -13,10 +13,8 @@
 #import "RecordingView.h"
 #import "RecordingManager.h"
 
-@interface NewLoopVC () <UITextFieldDelegate, RecordingManagerDelegate>
+@interface NewLoopVC () <RecordingManagerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *loopNameField;
-@property (weak, nonatomic) IBOutlet UILabel *nameErrorLabel;
 @property (weak, nonatomic) IBOutlet RecordingView *recordingView;
 @property (strong, nonatomic) RecordingManager *recordingManager;
 
@@ -24,17 +22,13 @@
 
 @implementation NewLoopVC
 
+#define RECORDING_ALERT_TITLE @"Recording Alert"
+#define ALERT_ACTION_TITLE @"Ok"
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.nameErrorLabel.text = @"";
-    self.loopNameField.delegate = self;
     self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
     self.recordingManager.delegate = self;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return YES;
 }
 
 #pragma mark - Navigation
@@ -44,30 +38,26 @@
         UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
         LoopStackVC *vc = (LoopStackVC *)navController.topViewController;
         vc.loop = self.loop;
-        vc.readOnly = NO;
+        vc.newLoop = YES;
     }
 }
 
 #pragma mark - RecordingManagerDelegate Methods
 
 - (void)doneRecording:(nonnull Track *)track {
-    if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil){
-        self.nameErrorLabel.text = @"Please enter a name for your new loop";
-    } else{
-        self.loop = [Loop new];
-        self.loop.name = self.loopNameField.text;
-        self.loop.postAuthor = [PFUser currentUser];
-        self.loop.tracks = [NSMutableArray new];
-        [self.loop.tracks addObject:track];
-        [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
-    }
+    self.loop = [Loop new];
+    self.loop.postAuthor = [PFUser currentUser];
+    self.loop.tracks = [NSMutableArray new];
+    [self.loop.tracks addObject:track];
+    [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
+    
 }
 
 - (void)recordingAlert:(nonnull NSString *)message {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Recording Alert"
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:RECORDING_ALERT_TITLE
                                                             message:message
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"Ok"
+    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:ALERT_ACTION_TITLE
                                              style:UIAlertActionStyleDefault
                                              handler:nil];
     [alertController addAction:actionOk];
