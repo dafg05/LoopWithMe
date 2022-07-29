@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		05D110E6F0521463910A88F6 /* Pods_LoopWithMe_LoopWithMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */; };
 		1F95AB038BD28820930E6E98 /* Pods_LoopWithMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85A0C5DCC7F707CB42A8BFC0 /* Pods_LoopWithMeTests.framework */; };
+		291E46262891E39F00AE3F30 /* LoopFeedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 291E46252891E39F00AE3F30 /* LoopFeedVC.m */; };
 		294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 294B937E2891BD3A0042BEC1 /* RecordingVC.m */; };
 		29506C94288F5C5A007231CD /* RecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29506C93288F5C5A007231CD /* RecordingView.xib */; };
 		29506C97288F5C71007231CD /* RecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29506C96288F5C71007231CD /* RecordingView.m */; };
@@ -62,6 +63,8 @@
 /* Begin PBXFileReference section */
 		06624472343DC8FC72E1C4EC /* Pods-LoopWithMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMeTests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMeTests/Pods-LoopWithMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		0E539C0BCF8B8F9469D9F974 /* Pods_LoopWithMe_LoopWithMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LoopWithMe_LoopWithMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		291E46242891E39F00AE3F30 /* LoopFeedVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopFeedVC.h; sourceTree = "<group>"; };
+		291E46252891E39F00AE3F30 /* LoopFeedVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopFeedVC.m; sourceTree = "<group>"; };
 		294B937D2891BD3A0042BEC1 /* RecordingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingVC.h; sourceTree = "<group>"; };
 		294B937E2891BD3A0042BEC1 /* RecordingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingVC.m; sourceTree = "<group>"; };
 		29506C93288F5C5A007231CD /* RecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordingView.xib; sourceTree = "<group>"; };
@@ -288,6 +291,8 @@
 				29B7962D28888064001E4ED6 /* PostCell.m */,
 				29F2C4C6287CA49800861B7B /* ProfileVC.h */,
 				29F2C4C7287CA49800861B7B /* ProfileVC.m */,
+				291E46242891E39F00AE3F30 /* LoopFeedVC.h */,
+				291E46252891E39F00AE3F30 /* LoopFeedVC.m */,
 			);
 			path = "Home&Profile";
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 				29958C7C287BA2120004D8D1 /* LoopStackVC.m in Sources */,
 				29853DBC28909E2400314962 /* RecordingManager.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
+				291E46262891E39F00AE3F30 /* LoopFeedVC.m in Sources */,
 				29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */,
 				294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */,
 				29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */,

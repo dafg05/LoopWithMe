@@ -69,8 +69,8 @@
     cell.loop = cellLoop;
     cell.loopNameLabel.text = cellLoop.name;
     cell.captionLabel.text = cellLoop.caption;
-    cell.authorLabel.text = cellLoop.postAuthor.username;
-    PFFileObject *imageFile = cellLoop.postAuthor[USER_PIC_KEY];
+    cell.authorDescription.attributedText = [self getAuthorDescriptionString:cellLoop];
+    PFFileObject *imageFile = cellLoop.postAuthor[@"profilePic"];
     if (imageFile){
         cell.profileImageView.image = [UIImage imageWithData:[imageFile getData]];
     }
@@ -106,7 +106,6 @@
 - (void)didShare {
     [self queryLoops:nil];
 }
-
 
 - (void)postCell:(nonnull PostCell *)postCell didTap:(nonnull PFUser *)user {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
