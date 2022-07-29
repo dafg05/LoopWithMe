@@ -138,8 +138,8 @@
         else{
             SceneDelegate *sceneDelegate = (SceneDelegate *) UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            LoginVC *loginViewController = [storyboard instantiateViewControllerWithIdentifier:LOGIN_VC_IDENT];
-            sceneDelegate.window.rootViewController = loginViewController;
+            UINavigationController *navController = [storyboard instantiateViewControllerWithIdentifier:LOGIN_NAVC_IDENT];
+            sceneDelegate.window.rootViewController = navController;
         }
     }];
 }

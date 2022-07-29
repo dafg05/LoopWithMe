@@ -8,7 +8,7 @@
 #import "ShareVC.h"
 #import "HomeVC.h"
 
-@interface ShareVC () <UITextViewDelegate>
+@interface ShareVC () <UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *loopNameField;
 @property (weak, nonatomic) IBOutlet UITextView *captionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *charCountLabel;
@@ -36,6 +36,7 @@
     [self.loopNameField addTarget:self
                   action:@selector(textFieldDidChange:)
         forControlEvents:UIControlEventEditingChanged];
+    self.loopNameField.delegate = self;
     [self updateCharCountLabel:0];
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
@@ -81,11 +82,15 @@
     [self.view endEditing:YES];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
 - (void)textFieldDidChange:(UITextField *)textField {
     if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil) return;
     self.nameErrorLabel.text = @"";
 }
-    
 
 - (void)textViewDidChange:(UITextView *)textView {
     int charCount = (int)[self.captionTextView.text length];

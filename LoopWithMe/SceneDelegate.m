@@ -29,7 +29,7 @@
         self.window.rootViewController = mainTBC;
     }
     else{
-        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavigationController"];
+        self.window.rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginNavController"];
     }
 }
 
