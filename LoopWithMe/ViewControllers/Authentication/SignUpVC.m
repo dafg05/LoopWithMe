@@ -77,10 +77,6 @@
     return NO;
 }
 
-- (IBAction)didTapCancel:(id)sender {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;

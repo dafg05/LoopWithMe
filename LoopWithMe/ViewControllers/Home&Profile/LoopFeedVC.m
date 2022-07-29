@@ -18,7 +18,7 @@
 #define RELOOP_ACTION @" relooped "
 #define RELOOP_BY @" by "
 
-#define FONT_SIZE 14
+#define FONT_SIZE 12
 
 - (NSAttributedString *)getAuthorDescriptionString:(Loop *)loop {
     // TODO: Can't test with parent loop until relooping is implemented
