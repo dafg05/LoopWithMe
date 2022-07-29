@@ -33,6 +33,9 @@
     self.captionTextView.layer.cornerRadius = 5;
     self.captionTextView.delegate = self;
     self.nameErrorLabel.text = @"";
+    [self.loopNameField addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
     [self updateCharCountLabel:0];
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
@@ -77,6 +80,12 @@
 -(void)dismissKeyboard {
     [self.view endEditing:YES];
 }
+
+-(void)textFieldDidChange:(UITextField *)textField {
+    if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil) return;
+    self.nameErrorLabel.text = @"";
+}
+    
 
 -(void)textViewDidChange:(UITextView *)textView {
     int charCount = (int)[self.captionTextView.text length];
