@@ -77,22 +77,22 @@
     return newText.length <= CHAR_LIMIT;
 }
 
--(void)dismissKeyboard {
+- (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
 
--(void)textFieldDidChange:(UITextField *)textField {
+- (void)textFieldDidChange:(UITextField *)textField {
     if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil) return;
     self.nameErrorLabel.text = @"";
 }
     
 
--(void)textViewDidChange:(UITextView *)textView {
+- (void)textViewDidChange:(UITextView *)textView {
     int charCount = (int)[self.captionTextView.text length];
     [self updateCharCountLabel:charCount];
 }
 
--(void)updateCharCountLabel:(int)charCount {
+- (void)updateCharCountLabel:(int)charCount {
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
 }
 

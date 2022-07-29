@@ -22,6 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpTextFields];
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
 - (IBAction)didTapLogin:(id)sender {
@@ -66,6 +69,10 @@
     self.passwordField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: UIColor.systemGray2Color}];
     self.usernameField.delegate = self;
     self.passwordField.delegate = self;
+}
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
 }
 
 - (void)segue {
