@@ -11,6 +11,8 @@
 #define QUERY_CLASSNAME @"Loop"
 #define QUERY_ORDER @"createdAt"
 #define QUERY_TRACKS_KEY @"tracks"
+#define QUERY_PARENTLOOP_KEY @"parentLoop"
+#define PARENT_USERNAME_KEY @"parentLoop.postAuthor"
 #define QUERY_AUTHOR_KEY @"postAuthor"
 #define USER_PIC_KEY @"profilePic"
 #define USER_GIVENNAME_KEY @"givenName"

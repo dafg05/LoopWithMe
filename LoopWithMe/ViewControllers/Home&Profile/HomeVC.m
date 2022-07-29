@@ -34,6 +34,8 @@
     [query orderByDescending:QUERY_ORDER];
     [query includeKey:QUERY_AUTHOR_KEY];
     [query includeKey:QUERY_TRACKS_KEY];
+    [query includeKey:QUERY_PARENTLOOP_KEY];
+    [query includeKey:PARENT_USERNAME_KEY];
     query.limit = 10;
     [query findObjectsInBackgroundWithBlock:^(NSArray *loops, NSError *error) {
         if (loops != nil) {

@@ -117,6 +117,7 @@
 		29B7962D28888064001E4ED6 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
 		29F2C4C6287CA49800861B7B /* ProfileVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
 		29F2C4C7287CA49800861B7B /* ProfileVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
+		29F55F082894408100495D5F /* Home&ProfileStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Home&ProfileStrings.h"; sourceTree = "<group>"; };
 		29F8CE042881E32900E85780 /* PlayStopButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayStopButton.h; sourceTree = "<group>"; };
 		29F8CE052881E32900E85780 /* PlayStopButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayStopButton.m; sourceTree = "<group>"; };
 		2DE70749BCD390CAE652195C /* Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-LoopWithMe-LoopWithMeUITests/Pods-LoopWithMe-LoopWithMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -285,6 +286,7 @@
 		29B7962828887F47001E4ED6 /* Home&Profile */ = {
 			isa = PBXGroup;
 			children = (
+				29F55F082894408100495D5F /* Home&ProfileStrings.h */,
 				29B7962928887F88001E4ED6 /* HomeVC.h */,
 				29B7962A28887F88001E4ED6 /* HomeVC.m */,
 				29B7962C28888064001E4ED6 /* PostCell.h */,
