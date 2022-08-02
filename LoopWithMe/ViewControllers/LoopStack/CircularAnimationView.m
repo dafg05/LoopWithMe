@@ -71,6 +71,14 @@ static float const endPoint = 3 * M_PI / 2;
     [self.layer addSublayer:self.progressLayer];
 }
 
-
+- (void)animate {
+    CABasicAnimation *progressAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    // hard coded for now
+    progressAnimation.duration = 10;
+    progressAnimation.toValue = @1.0;
+    progressAnimation.fillMode = kCAFillModeForwards;
+    [progressAnimation setRemovedOnCompletion:NO];
+    [self.progressLayer addAnimation:progressAnimation forKey:@"progressAnim"];
+}
 
 @end
