@@ -8,7 +8,7 @@
 #import "ShareVC.h"
 #import "HomeVC.h"
 
-@interface ShareVC () <UITextViewDelegate>
+@interface ShareVC () <UITextViewDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *loopNameField;
 @property (weak, nonatomic) IBOutlet UITextView *captionTextView;
 @property (weak, nonatomic) IBOutlet UILabel *charCountLabel;
@@ -33,6 +33,10 @@
     self.captionTextView.layer.cornerRadius = 5;
     self.captionTextView.delegate = self;
     self.nameErrorLabel.text = @"";
+    [self.loopNameField addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
+    self.loopNameField.delegate = self;
     [self updateCharCountLabel:0];
     UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
     [self.view addGestureRecognizer:gestureRecognizer];
@@ -65,8 +69,7 @@
 - (void)setHomeFeedAsDelegate {
     // TODO: Need to make sure that the delegateVC is a HomeVC
     UITabBarController *tabBarVC = (UITabBarController *)self.view.window.rootViewController;
-    UINavigationController *navController = tabBarVC.viewControllers[0];
-    HomeVC *delegateVC = (HomeVC *) navController.topViewController;
+    HomeVC *delegateVC = (HomeVC *) tabBarVC.viewControllers[0];
     self.delegate = delegateVC;
 }
 
@@ -75,16 +78,26 @@
     return newText.length <= CHAR_LIMIT;
 }
 
--(void)dismissKeyboard {
+- (void)dismissKeyboard {
     [self.view endEditing:YES];
 }
 
--(void)textViewDidChange:(UITextView *)textView {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidChange:(UITextField *)textField {
+    if ([self.loopNameField.text isEqualToString:@""] || self.loopNameField.text == nil) return;
+    self.nameErrorLabel.text = @"";
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
     int charCount = (int)[self.captionTextView.text length];
     [self updateCharCountLabel:charCount];
 }
 
--(void)updateCharCountLabel:(int)charCount {
+- (void)updateCharCountLabel:(int)charCount {
     self.charCountLabel.text = [NSString stringWithFormat:@"%d/%d", charCount, CHAR_LIMIT];
 }
 

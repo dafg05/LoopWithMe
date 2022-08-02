@@ -21,7 +21,7 @@
 #define DEFAULT_PROFILE_PIC_IMAGE @"person"
 #define LOOPSTACK_NAVCONTROL_IDENT @"LoopStackNavController"
 #define PROFILE_VC_IDENT @"ProfileVC"
-#define LOGIN_VC_IDENT @"LoginVC"
+#define LOGIN_NAVC_IDENT @"LoginNavController"
 
 
 #endif /* Home_ProfileStrings_h */

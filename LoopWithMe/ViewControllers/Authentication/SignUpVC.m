@@ -31,6 +31,9 @@
         textField.delegate = self;
     }
     [self setUpTextFieldsPlaceholders];
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
 - (IBAction)didTapSignUp:(id)sender {
@@ -38,7 +41,6 @@
 }
 
 - (void)registerUser {
-    
     if (self.checkForEmptyFields){
         self.errorLabel.text = @"One or more fields are empty.";
         return;
@@ -77,13 +79,13 @@
     return NO;
 }
 
-- (IBAction)didTapCancel:(id)sender {
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     return YES;
+}
+
+- (void)dismissKeyboard {
+    [self.view endEditing:YES];
 }
 
 - (void)setUpTextFieldsPlaceholders {
