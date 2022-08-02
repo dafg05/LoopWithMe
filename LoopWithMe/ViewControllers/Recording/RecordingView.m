@@ -13,7 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
 @end
-
+    
 @implementation RecordingView
 
 #pragma mark - Initialization
@@ -50,6 +50,7 @@
     [self.playStopButton initWithColor:[UIColor systemGray2Color]];
     self.doneButton.enabled = NO;
     [self resetTimerLabel];
+    self.countInLabel.hidden = YES;
     [self.playStopButton UIPlay];
     [self recordingUnavailableUI];
 }

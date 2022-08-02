@@ -16,14 +16,21 @@
 
 @property AVAudioSession *recordingSession;
 @property AVAudioRecorder *audioRecorder;
+@property (strong, nonatomic) AVAudioPlayer *countInPlayer;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+
 @property (strong, nonatomic) NSTimer *recordingTimer;
 @property (strong, nonatomic) NSURL *audioFileUrl;
 @property (strong, nonatomic) RecordingView *recordingView;
 
+@property (nonatomic, getter = isPlaying) BOOL playing;
+@property (assign, nonatomic) int bpm;
+
 @end
 
-@implementation RecordingManager
+@implementation RecordingManager {
+    int _tickCount;
+}
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
@@ -35,6 +42,7 @@
         self.recordingView = recordingView;
         self.recordingView.delegate = self;
         [self customInit];
+        [self.countInPlayer prepareToPlay];
     }
     return self;
 }
@@ -84,6 +92,17 @@
     [self.audioPlayer stop];
     Track *track = [self createTrack];
     [self.delegate doneRecording:track];
+}
+
+#pragma mark - Count-in feature
+
+- (void)setPlaying:(BOOL)playing {
+    [self.countInPlayer stop];
+    _tickCount = 0;
+    if (playing) {
+        BOOL success = [self.countInPlayer play];
+        NSLog(@"Started counnt in: :%d", success);
+    }
 }
 
 #pragma mark - Private helper methods
