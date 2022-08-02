@@ -73,6 +73,7 @@
 - (void)playbackToggle {
     if (self.audioPlayer.playing){
         [self.audioPlayer stop];
+        [self.audioPlayer setCurrentTime:0];
         [self.recordingView.playStopButton UIPlay];
         [self.recordingView.progressAnimationView resetAnimation];
     } else{
