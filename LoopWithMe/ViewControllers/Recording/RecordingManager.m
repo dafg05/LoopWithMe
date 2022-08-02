@@ -12,6 +12,8 @@
 #import "Parse/Parse.h"
 #import "Track.h"
 
+static NSString *const COUNT_IN_FILE = @"countin-short";
+
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
 @property AVAudioSession *recordingSession;
@@ -23,14 +25,13 @@
 @property (strong, nonatomic) NSURL *audioFileUrl;
 @property (strong, nonatomic) RecordingView *recordingView;
 
-@property (nonatomic, getter = isPlaying) BOOL playing;
+/* For count-in */
 @property (assign, nonatomic) int bpm;
+@property int counter;
 
 @end
 
-@implementation RecordingManager {
-    int _tickCount;
-}
+@implementation RecordingManager
 
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
 
@@ -41,8 +42,10 @@
     if (self){
         self.recordingView = recordingView;
         self.recordingView.delegate = self;
-        [self customInit];
+        // TODO: Load player with countin audio file
+        self.countInPlayer.delegate = self;
         [self.countInPlayer prepareToPlay];
+        [self customInit];
     }
     return self;
 }
@@ -94,15 +97,29 @@
     [self.delegate doneRecording:track];
 }
 
+#pragma mark - AVAudioPlayerDelegate
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    if (player == self.countInPlayer) {
+        if (self.counter == 4) {
+            // TODO: Start recording
+        }
+        else {
+            // TODO: Schedule run player using delay
+        }
+        return;
+    }
+    if (player == self.audioPlayer) {
+        [self.recordingView.playStopButton UIPlay];
+    }
+}
+
 #pragma mark - Count-in feature
 
-- (void)setPlaying:(BOOL)playing {
-    [self.countInPlayer stop];
-    _tickCount = 0;
-    if (playing) {
-        BOOL success = [self.countInPlayer play];
-        NSLog(@"Started counnt in: :%d", success);
-    }
+- (void)runPlayer:(AVAudioPlayer *)player delay:(NSTimeInterval)delay {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [player play];
+    });
 }
 
 #pragma mark - Private helper methods
@@ -165,10 +182,6 @@
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
 
-/* AVAudioPlayer delegate method*/
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    [self.recordingView.playStopButton UIPlay];
-}
 
 - (Track *)createTrack {
     NSError *dataError = nil;

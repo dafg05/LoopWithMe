@@ -13,7 +13,6 @@
 		294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 294B937E2891BD3A0042BEC1 /* RecordingVC.m */; };
 		29506C94288F5C5A007231CD /* RecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29506C93288F5C5A007231CD /* RecordingView.xib */; };
 		29506C97288F5C71007231CD /* RecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29506C96288F5C71007231CD /* RecordingView.m */; };
-		296BA92B28988438000FCC7C /* countin-sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 296BA92A28988438000FCC7C /* countin-sound.wav */; };
 		298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */; };
 		298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F8287F4465001CB7D8 /* NewLoopVC.m */; };
 		29853DBC28909E2400314962 /* RecordingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29853DBB28909E2400314962 /* RecordingManager.m */; };
@@ -39,6 +38,7 @@
 		29A376FF28821CA90075D518 /* TrackFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A376FE28821CA90075D518 /* TrackFileManager.m */; };
 		29B7962B28887F88001E4ED6 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B7962A28887F88001E4ED6 /* HomeVC.m */; };
 		29B7962E28888064001E4ED6 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B7962D28888064001E4ED6 /* PostCell.m */; };
+		29EEDA482899C99500C3B47C /* countin-short.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29EEDA472899C99500C3B47C /* countin-short.wav */; };
 		29F2C4C8287CA49800861B7B /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2C4C7287CA49800861B7B /* ProfileVC.m */; };
 		29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F8CE052881E32900E85780 /* PlayStopButton.m */; };
 		2FDE26B5A4C00C5AC58F16AE /* Pods_LoopWithMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D091F9520F96FEB40B60FF51 /* Pods_LoopWithMe.framework */; };
@@ -71,7 +71,6 @@
 		29506C93288F5C5A007231CD /* RecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordingView.xib; sourceTree = "<group>"; };
 		29506C95288F5C71007231CD /* RecordingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingView.h; sourceTree = "<group>"; };
 		29506C96288F5C71007231CD /* RecordingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingView.m; sourceTree = "<group>"; };
-		296BA92A28988438000FCC7C /* countin-sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "countin-sound.wav"; sourceTree = "<group>"; };
 		298421F4287F3D1C001CB7D8 /* LoopTrackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopTrackCell.h; sourceTree = "<group>"; };
 		298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopTrackCell.m; sourceTree = "<group>"; };
 		298421F7287F4465001CB7D8 /* NewLoopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLoopVC.h; sourceTree = "<group>"; };
@@ -117,6 +116,7 @@
 		29B7962A28887F88001E4ED6 /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
 		29B7962C28888064001E4ED6 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
 		29B7962D28888064001E4ED6 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
+		29EEDA472899C99500C3B47C /* countin-short.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "countin-short.wav"; sourceTree = "<group>"; };
 		29F2C4C6287CA49800861B7B /* ProfileVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
 		29F2C4C7287CA49800861B7B /* ProfileVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
 		29F55F082894408100495D5F /* Home&ProfileStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Home&ProfileStrings.h"; sourceTree = "<group>"; };
@@ -324,7 +324,7 @@
 		29FEFDE2288624ED009A693B /* Recording */ = {
 			isa = PBXGroup;
 			children = (
-				296BA92A28988438000FCC7C /* countin-sound.wav */,
+				29EEDA472899C99500C3B47C /* countin-short.wav */,
 				29853DBA28909E2400314962 /* RecordingManager.h */,
 				29853DBB28909E2400314962 /* RecordingManager.m */,
 				29506C93288F5C5A007231CD /* RecordingView.xib */,
@@ -453,7 +453,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				296BA92B28988438000FCC7C /* countin-sound.wav in Resources */,
+				29EEDA482899C99500C3B47C /* countin-short.wav in Resources */,
 				299C22F728788CB60022D102 /* Keys.plist in Resources */,
 				299C22CF2878833E0022D102 /* LaunchScreen.storyboard in Resources */,
 				299C22CC2878833E0022D102 /* Assets.xcassets in Resources */,
