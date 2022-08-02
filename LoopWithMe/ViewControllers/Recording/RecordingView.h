@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)recordingAvailableUI;
 - (void)recordingUnavailableUI;
 - (void)startCountInUI;
+- (void)updateCountInLabel:(int)counter;
+- (void)resetCountInLabel;
 - (void)currentlyRecordingUI;
 - (void)doneRecordingUI;
 - (void)playbackEnabledUI;

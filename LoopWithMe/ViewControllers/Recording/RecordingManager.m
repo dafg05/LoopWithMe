@@ -14,6 +14,7 @@
 
 static NSString *const COUNT_IN_FILE = @"countin-short";
 static NSString *const COUNT_IN_FILE_TYPE = @"wav";
+static int const HARDCODED_TEMPO = 150;
 
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
@@ -29,6 +30,7 @@ static NSString *const COUNT_IN_FILE_TYPE = @"wav";
 /* For count-in */
 @property (assign, nonatomic) int bpm;
 @property int counter;
+@property float duration;
 
 @end
 
@@ -51,8 +53,9 @@ static NSString *const COUNT_IN_FILE_TYPE = @"wav";
         self.countInPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:countInUrl error:nil];
         self.countInPlayer.delegate = self;
         [self.countInPlayer prepareToPlay];
+        NSLog(@"%f", self.duration);
         // TODO: remove hard code;
-        self.bpm = 100;
+        self.bpm = HARDCODED_TEMPO;
         
         [self customInit];
     }
@@ -85,8 +88,9 @@ static NSString *const COUNT_IN_FILE_TYPE = @"wav";
     if (self.audioRecorder.recording){
         [self finishRecording:YES];
     } else{
-        [self.recordingView startCountInUI];
         self.counter = 1;
+        [self.recordingView startCountInUI];
+        [self.recordingView updateCountInLabel:self.counter];
         [self.countInPlayer play];
     }
 }
@@ -110,13 +114,15 @@ static NSString *const COUNT_IN_FILE_TYPE = @"wav";
 #pragma mark - AVAudioPlayerDelegate
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    float delay = 60 / (float)self.bpm - self.countInPlayer.duration;
+    float delay = (60 / (float)self.bpm) - self.countInPlayer.duration;
     if (player == self.countInPlayer) {
         if (self.counter == 4) {
             [self scheduleRecording:delay];
         }
         else {
             [self runPlayer:player delay:delay];
+            self.counter += 1;
+            [self.recordingView updateCountInLabel:self.counter];
         }
     } else if (player == self.audioPlayer) {
         [self.recordingView.playStopButton UIPlay];
@@ -126,8 +132,8 @@ static NSString *const COUNT_IN_FILE_TYPE = @"wav";
 #pragma mark - Count-in feature
 
 - (void)runPlayer:(AVAudioPlayer *)player delay:(NSTimeInterval)delay {
-    self.counter += 1;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
         [player play];
     });
 }
