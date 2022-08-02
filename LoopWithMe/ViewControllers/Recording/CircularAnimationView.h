@@ -11,7 +11,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CircularAnimationView : UIView
 
-- (void)animate;
+- (void)createAnimationWithDuration:(float)duration;
+- (void)startAnimation;
+- (void)resetAnimation;
+- (void)deleteAnimation;
 
 @end
 

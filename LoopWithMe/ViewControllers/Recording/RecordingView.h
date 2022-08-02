@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PlayStopButton.h"
+#import "CircularAnimationView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet CircularAnimationView *progressAnimationView;
 @property (weak, nonatomic) id<RecordingViewDelegate> delegate;
 
 - (IBAction)didTapRecord:(id)sender;

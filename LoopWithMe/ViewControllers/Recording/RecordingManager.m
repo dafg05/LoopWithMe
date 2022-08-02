@@ -74,9 +74,11 @@
     if (self.audioPlayer.playing){
         [self.audioPlayer stop];
         [self.recordingView.playStopButton UIPlay];
+        [self.recordingView.progressAnimationView resetAnimation];
     } else{
         [self.audioPlayer play];
         [self.recordingView.playStopButton UIStop];
+        [self.recordingView.progressAnimationView startAnimation];
     }
 }
 
@@ -108,6 +110,7 @@
 
 - (void)startRecording {
     self.audioPlayer = nil;
+    [self.recordingView.progressAnimationView deleteAnimation];
     @try {
         [self.audioRecorder record];
         [self.recordingView currentlyRecordingUI];
@@ -136,6 +139,7 @@
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
     [self.recordingView playbackEnabledUI];
+    [self.recordingView.progressAnimationView createAnimationWithDuration:self.audioPlayer.duration];
 }
 
 - (void) viewUpdateTimer {

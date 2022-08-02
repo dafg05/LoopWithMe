@@ -14,6 +14,7 @@ static float const endPoint = 3 * M_PI / 2;
 
 @property CAShapeLayer *circleLayer;
 @property CAShapeLayer *progressLayer;
+@property CABasicAnimation *progressAnimation;
 
 @end
 
@@ -51,34 +52,49 @@ static float const endPoint = 3 * M_PI / 2;
 }
 
 - (void)createCircularPath {
+    float radius = (0.9 * self.frame.size.height)/2.0;
     UIBezierPath *circularPath = [UIBezierPath bezierPath];
-    [circularPath addArcWithCenter:CGPointMake(self.frame.size.width/2.0, self.frame.size.height/2.0) radius:40 startAngle:startPoint endAngle:endPoint clockwise:YES];
+    [circularPath addArcWithCenter:CGPointMake(self.frame.size.width/2.0, self.frame.size.height/2.0) radius:radius startAngle:startPoint endAngle:endPoint clockwise:YES];
     
     [self.circleLayer setPath:circularPath.CGPath];
     self.circleLayer.fillColor = [[UIColor clearColor] CGColor];
     self.circleLayer.lineCap = kCALineCapRound;
-    self.circleLayer.lineWidth = 20;
+    self.circleLayer.lineWidth = 0.15 * self.frame.size.height;
     self.circleLayer.strokeEnd = 1.0;
-    self.circleLayer.strokeColor = [[UIColor blueColor] CGColor];
+    self.circleLayer.strokeColor = [[UIColor colorNamed:@"animation-color"] CGColor];
     [self.layer addSublayer:self.circleLayer];
     
     [self.progressLayer setPath:circularPath.CGPath];
     self.progressLayer.fillColor = [[UIColor clearColor] CGColor];
     self.progressLayer.lineCap = kCALineCapRound;
-    self.progressLayer.lineWidth = 10;
+    self.progressLayer.lineWidth = 0.075 * self.frame.size.height;
     self.progressLayer.strokeEnd = 0;
     self.progressLayer.strokeColor = [[UIColor whiteColor] CGColor];
     [self.layer addSublayer:self.progressLayer];
 }
 
-- (void)animate {
-    CABasicAnimation *progressAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    // hard coded for now
-    progressAnimation.duration = 10;
-    progressAnimation.toValue = @1.0;
-    progressAnimation.fillMode = kCAFillModeForwards;
-    [progressAnimation setRemovedOnCompletion:NO];
-    [self.progressLayer addAnimation:progressAnimation forKey:@"progressAnim"];
+- (void)createAnimationWithDuration:(float)duration {
+    self.progressAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    self.progressAnimation.duration = duration;
+    self.progressAnimation.toValue = @1.0;
+    self.progressAnimation.fillMode = kCAFillModeForwards;
+    [self.progressAnimation setRemovedOnCompletion:NO];
+}
+
+- (void)startAnimation {
+    if (!self.progressAnimation) {
+        [NSException raise:@"AnimationException" format:@"No animation has been created"];
+    }
+    [self.progressLayer addAnimation:self.progressAnimation forKey:@"progressAnim"];
+}
+
+- (void)resetAnimation {
+    [self.progressLayer removeAllAnimations];
+}
+
+- (void)deleteAnimation {
+    [self.progressLayer removeAllAnimations];
+    self.progressAnimation = nil;
 }
 
 @end
