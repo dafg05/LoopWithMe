@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecordingView">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="P7Q-oc-pFC"/>
-                <outlet property="countInLabel" destination="eYR-B0-gpp" id="bXd-8q-gx0"/>
+                <outlet property="countInLabel" destination="SSJ-EB-YW6" id="ozD-lN-ffm"/>
                 <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
                 <outlet property="playStopButton" destination="aDL-et-o3I" id="XUz-yg-5DD"/>
                 <outlet property="recordButton" destination="Eyw-K2-UlO" id="hAc-et-SJJ"/>
@@ -24,16 +24,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="c1U-yC-g5N">
-                    <rect key="frame" x="159" y="85" width="96.5" height="187"/>
+                    <rect key="frame" x="172" y="135.5" width="70" height="136.5"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYR-B0-gpp">
-                            <rect key="frame" x="0.0" y="0.0" width="96.5" height="23.5"/>
-                            <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="20"/>
-                            <color key="textColor" name="secondary text color"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDL-et-o3I" customClass="PlayStopButton">
-                            <rect key="frame" x="22.5" y="50.5" width="51" height="31"/>
+                            <rect key="frame" x="9.5" y="0.0" width="51" height="31"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Play"/>
                             <connections>
@@ -41,13 +35,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-hT-Wkd">
-                            <rect key="frame" x="26" y="108.5" width="44" height="20.5"/>
+                            <rect key="frame" x="13" y="58" width="44" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" name="custom text color"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyw-K2-UlO">
-                            <rect key="frame" x="13" y="156" width="70" height="31"/>
+                            <rect key="frame" x="0.0" y="105.5" width="70" height="31"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Record"/>
                             <connections>
@@ -64,6 +58,12 @@
                         <action selector="didTapDone:" destination="-1" eventType="touchUpInside" id="0hN-eD-gSI"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count-in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSJ-EB-YW6">
+                    <rect key="frame" x="15" y="15" width="77" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" name="secondary text color"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
@@ -71,6 +71,8 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="c1U-yC-g5N" secondAttribute="bottom" constant="30" id="6mn-ER-aBp"/>
                 <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ioj-yd-q7F"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
+                <constraint firstItem="SSJ-EB-YW6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="RfL-fz-Pvm"/>
+                <constraint firstItem="SSJ-EB-YW6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="UXQ-J8-K4s"/>
                 <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

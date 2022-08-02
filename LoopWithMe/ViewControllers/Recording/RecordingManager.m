@@ -13,6 +13,7 @@
 #import "Track.h"
 
 static NSString *const COUNT_IN_FILE = @"countin-short";
+static NSString *const COUNT_IN_FILE_TYPE = @"wav";
 
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
@@ -40,11 +41,19 @@ static NSString *const COUNT_IN_FILE = @"countin-short";
 - (instancetype)initWithRecordingView:(RecordingView *)recordingView {
     self = [super init];
     if (self){
+        /* Set up recordingView*/
         self.recordingView = recordingView;
         self.recordingView.delegate = self;
-        // TODO: Load player with countin audio file
+        
+        /* Set up countInPlayer */
+        NSString *path = [[NSBundle mainBundle] pathForResource:COUNT_IN_FILE ofType:COUNT_IN_FILE_TYPE];
+        NSURL *countInUrl = [NSURL fileURLWithPath:path];
+        self.countInPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:countInUrl error:nil];
         self.countInPlayer.delegate = self;
         [self.countInPlayer prepareToPlay];
+        // TODO: remove hard code;
+        self.bpm = 100;
+        
         [self customInit];
     }
     return self;
@@ -76,8 +85,9 @@ static NSString *const COUNT_IN_FILE = @"countin-short";
     if (self.audioRecorder.recording){
         [self finishRecording:YES];
     } else{
-        [self.recordingView resetTimerLabel];
-        [self startRecording];
+        [self.recordingView startCountInUI];
+        self.counter = 1;
+        [self.countInPlayer play];
     }
 }
 
@@ -100,16 +110,15 @@ static NSString *const COUNT_IN_FILE = @"countin-short";
 #pragma mark - AVAudioPlayerDelegate
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    float delay = 60 / (float)self.bpm - self.countInPlayer.duration;
     if (player == self.countInPlayer) {
         if (self.counter == 4) {
-            // TODO: Start recording
+            [self scheduleRecording:delay];
         }
         else {
-            // TODO: Schedule run player using delay
+            [self runPlayer:player delay:delay];
         }
-        return;
-    }
-    if (player == self.audioPlayer) {
+    } else if (player == self.audioPlayer) {
         [self.recordingView.playStopButton UIPlay];
     }
 }
@@ -117,8 +126,15 @@ static NSString *const COUNT_IN_FILE = @"countin-short";
 #pragma mark - Count-in feature
 
 - (void)runPlayer:(AVAudioPlayer *)player delay:(NSTimeInterval)delay {
+    self.counter += 1;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [player play];
+    });
+}
+
+- (void)scheduleRecording:(NSTimeInterval)delay {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self startRecording];
     });
 }
 

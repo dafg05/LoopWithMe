@@ -50,7 +50,7 @@
     [self.playStopButton initWithColor:[UIColor systemGray2Color]];
     self.doneButton.enabled = NO;
     [self resetTimerLabel];
-    self.countInLabel.hidden = YES;
+    [self resetCountInLabel];
     [self.playStopButton UIPlay];
     [self recordingUnavailableUI];
 }
@@ -85,7 +85,24 @@
     [self.playStopButton disable];
 }
 
+- (void)startCountInUI {
+    [self resetTimerLabel];
+    self.doneButton.enabled = NO;
+    [self.playStopButton disable];
+    self.recordButton.enabled = NO;
+    [self.recordButton setTitle:@"Starting" forState:UIControlStateDisabled];
+}
+
+- (void)updateCountInLabel:(int)counter {
+    self.countInLabel.text = [NSString stringWithFormat:@"%d", counter];
+}
+
+- (void)resetCountInLabel {
+    self.countInLabel.text = @"";
+}
+
 - (void)currentlyRecordingUI {
+    self.recordButton.enabled = YES;
     self.doneButton.enabled = NO;
     [self.playStopButton disable];
     [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];
