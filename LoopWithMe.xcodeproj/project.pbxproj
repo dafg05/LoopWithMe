@@ -13,6 +13,7 @@
 		294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 294B937E2891BD3A0042BEC1 /* RecordingVC.m */; };
 		29506C94288F5C5A007231CD /* RecordingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 29506C93288F5C5A007231CD /* RecordingView.xib */; };
 		29506C97288F5C71007231CD /* RecordingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29506C96288F5C71007231CD /* RecordingView.m */; };
+		296BA92E2898C1F6000FCC7C /* CircularAnimationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 296BA92D2898C1F6000FCC7C /* CircularAnimationView.m */; };
 		298421F6287F3D1C001CB7D8 /* LoopTrackCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */; };
 		298421F9287F4465001CB7D8 /* NewLoopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 298421F8287F4465001CB7D8 /* NewLoopVC.m */; };
 		29853DBC28909E2400314962 /* RecordingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29853DBB28909E2400314962 /* RecordingManager.m */; };
@@ -70,6 +71,8 @@
 		29506C93288F5C5A007231CD /* RecordingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordingView.xib; sourceTree = "<group>"; };
 		29506C95288F5C71007231CD /* RecordingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingView.h; sourceTree = "<group>"; };
 		29506C96288F5C71007231CD /* RecordingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingView.m; sourceTree = "<group>"; };
+		296BA92C2898C1F6000FCC7C /* CircularAnimationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CircularAnimationView.h; sourceTree = "<group>"; };
+		296BA92D2898C1F6000FCC7C /* CircularAnimationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CircularAnimationView.m; sourceTree = "<group>"; };
 		298421F4287F3D1C001CB7D8 /* LoopTrackCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoopTrackCell.h; sourceTree = "<group>"; };
 		298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoopTrackCell.m; sourceTree = "<group>"; };
 		298421F7287F4465001CB7D8 /* NewLoopVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewLoopVC.h; sourceTree = "<group>"; };
@@ -189,6 +192,8 @@
 				298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */,
 				29A376FD28821CA90075D518 /* TrackFileManager.h */,
 				29A376FE28821CA90075D518 /* TrackFileManager.m */,
+				296BA92C2898C1F6000FCC7C /* CircularAnimationView.h */,
+				296BA92D2898C1F6000FCC7C /* CircularAnimationView.m */,
 			);
 			path = LoopStack;
 			sourceTree = "<group>";
@@ -592,6 +597,7 @@
 				29853DBC28909E2400314962 /* RecordingManager.m in Sources */,
 				299C22D22878833E0022D102 /* main.m in Sources */,
 				291E46262891E39F00AE3F30 /* LoopFeedVC.m in Sources */,
+				296BA92E2898C1F6000FCC7C /* CircularAnimationView.m in Sources */,
 				29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */,
 				294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */,
 				29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */,
