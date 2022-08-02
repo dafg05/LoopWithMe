@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,6 +14,7 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="P7Q-oc-pFC"/>
                 <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
                 <outlet property="playStopButton" destination="aDL-et-o3I" id="XUz-yg-5DD"/>
+                <outlet property="progressAnimationView" destination="16g-io-FmL" id="8O7-Gg-FQP"/>
                 <outlet property="recordButton" destination="Eyw-K2-UlO" id="hAc-et-SJJ"/>
                 <outlet property="timerLabel" destination="xo0-hT-Wkd" id="k0A-wN-XNt"/>
             </connections>
@@ -57,6 +59,14 @@
                         <action selector="didTapDone:" destination="-1" eventType="touchUpInside" id="0hN-eD-gSI"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16g-io-FmL" customClass="CircularAnimationView">
+                    <rect key="frame" x="177" y="60.5" width="60" height="60"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="16g-io-FmL" secondAttribute="height" multiplier="1:1" id="oI2-cN-hK3"/>
+                        <constraint firstAttribute="width" constant="60" id="ziP-dm-2Cc"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
@@ -64,6 +74,8 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="c1U-yC-g5N" secondAttribute="bottom" constant="30" id="6mn-ER-aBp"/>
                 <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ioj-yd-q7F"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
+                <constraint firstItem="c1U-yC-g5N" firstAttribute="top" secondItem="16g-io-FmL" secondAttribute="bottom" constant="15" id="Sem-sN-WpD"/>
+                <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="16g-io-FmL" secondAttribute="centerX" id="qRJ-fg-sr7"/>
                 <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -75,7 +87,10 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="recording screen color">
-            <color red="0.046999998390674591" green="0.1080000028014183" blue="0.27700001001358032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.063000001013278961" green="0.10999999940395355" blue="0.28200000524520874" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
