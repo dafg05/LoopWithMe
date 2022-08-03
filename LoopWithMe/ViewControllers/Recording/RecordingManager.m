@@ -12,16 +12,25 @@
 #import "Parse/Parse.h"
 #import "Track.h"
 
+static float const TIMER_TOLERANCE = 0.003;
+static float const TIMER_MULTIPLIER = 0.01;
+static NSString const * BPM_KEY = @"bpm";
+/* DON'T CHANGE */
+static float const SECONDS_IN_MINUTE = 60.0;
+
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
 @property AVAudioSession *recordingSession;
 @property AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
-@property (strong, nonatomic) AVAudioPlayer *metronomePlayer;
+@property (strong, nonatomic) AVAudioPlayer *countInPlayer;
 @property (strong, nonatomic) NSTimer *recordingTimer;
 @property (strong, nonatomic) NSURL *audioFileUrl;
 @property (strong, nonatomic) RecordingView *recordingView;
+
 @property CFAbsoluteTime lastTick;
+@property int counter;
+@property int bpm;
 
 @end
 
@@ -46,8 +55,10 @@
     // set up metronome
     NSString *path = [[NSBundle mainBundle] pathForResource:@"count-in-short" ofType:@"wav"];
     NSURL *url = [NSURL fileURLWithPath:path];
-    self.metronomePlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    [self.metronomePlayer prepareToPlay];
+    self.countInPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [self.countInPlayer prepareToPlay];
+    // hardcoded for now
+    self.bpm = 150;
     
     // set up recording session
     self.recordingSession = [AVAudioSession sharedInstance];
@@ -95,17 +106,24 @@
 
 - (void)tick:(NSTimer *)timer {
     CFAbsoluteTime elapsedTime = CFAbsoluteTimeGetCurrent() - self.lastTick;
-    float targetTime = 60.0/[(NSNumber *)[timer.userInfo objectForKey:@"bpm"] floatValue];
-    if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < 0.003)) {
+    float targetTime = 60.0/[(NSNumber *)[timer.userInfo objectForKey:BPM_KEY] floatValue];
+    if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < TIMER_TOLERANCE)) {
+        if (self.counter > 4){
+            [timer invalidate];
+            // start recording
+            return;
+        }
         self.lastTick = CFAbsoluteTimeGetCurrent();
-        [self.metronomePlayer play];
+        [self.countInPlayer play];
+        self.counter += 1;
     }
 }
 
 - (void)metronomeToggle {
-    float bpm = 200.0;
-    NSTimer *metronomeTimer = [NSTimer timerWithTimeInterval:60.0/bpm*0.01  target:self selector:@selector(tick:) userInfo:@{@"bpm":[NSNumber numberWithFloat:bpm]} repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:metronomeTimer forMode:NSDefaultRunLoopMode];
+    self.counter = 1;
+    float bpm = (float) self.bpm;
+    NSTimer *countInTimer = [NSTimer timerWithTimeInterval:SECONDS_IN_MINUTE/bpm*TIMER_MULTIPLIER  target:self selector:@selector(tick:) userInfo:@{BPM_KEY:[NSNumber numberWithFloat:bpm]} repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:countInTimer forMode:NSDefaultRunLoopMode];
 }
 
 - (void)doneRecording {
