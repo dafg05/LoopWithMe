@@ -93,7 +93,15 @@
     }
 }
 
+- (void)startingCountInUI {
+    self.doneButton.enabled = NO;
+    [self.playStopButton disable];
+    self.recordButton.enabled = NO;
+    [self.recordButton setTitle:@"Starting" forState:UIControlStateDisabled];
+}
+
 - (void)currentlyRecordingUI {
+    self.recordButton.enabled = YES;
     self.doneButton.enabled = NO;
     [self.playStopButton disable];
     [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];

@@ -86,8 +86,10 @@ static float const SECONDS_IN_MINUTE = 60.0;
     if (self.audioRecorder.recording){
         [self finishRecording:YES];
     } else{
-        [self.recordingView resetTimerLabel];
         self.audioPlayer = nil;
+        [self.recordingView startingCountInUI];
+        [self.recordingView resetTimerLabel];
+        [self.recordingView.progressAnimationView deleteAnimation];
         [self countIn];
     }
 }
@@ -157,7 +159,6 @@ static float const SECONDS_IN_MINUTE = 60.0;
 }
 
 - (void)startRecording {
-    [self.recordingView.progressAnimationView deleteAnimation];
     @try {
         [self.audioRecorder record];
         [self.recordingView currentlyRecordingUI];
