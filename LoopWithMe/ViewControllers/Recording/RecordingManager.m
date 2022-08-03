@@ -115,12 +115,14 @@ static float const SECONDS_IN_MINUTE = 60.0;
         }
         self.lastTick = CFAbsoluteTimeGetCurrent();
         [self.countInPlayer play];
+        self.recordingView.countInLabel.text = [NSString stringWithFormat:@"%d", self.counter];
         self.counter += 1;
     }
 }
 
 - (void)metronomeToggle {
     self.counter = 1;
+    self.recordingView.countInLabel.text = @"";
     float bpm = (float) self.bpm;
     NSTimer *countInTimer = [NSTimer timerWithTimeInterval:SECONDS_IN_MINUTE/bpm*TIMER_MULTIPLIER  target:self selector:@selector(tick:) userInfo:@{BPM_KEY:[NSNumber numberWithFloat:bpm]} repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:countInTimer forMode:NSDefaultRunLoopMode];

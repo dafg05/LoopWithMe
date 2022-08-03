@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecordingView">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="P7Q-oc-pFC"/>
+                <outlet property="countInLabel" destination="ery-Aa-3Eb" id="acr-dH-CPk"/>
                 <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
                 <outlet property="metronomeButton" destination="5LO-RW-HVS" id="0ZG-S8-AKa"/>
                 <outlet property="playStopButton" destination="aDL-et-o3I" id="XUz-yg-5DD"/>
@@ -77,6 +78,13 @@
                         <action selector="didTapMetronome:" destination="-1" eventType="touchUpInside" id="H5X-yC-4WK"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="count-in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ery-Aa-3Eb">
+                    <rect key="frame" x="33" y="54" width="64" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" name="custom text color"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
