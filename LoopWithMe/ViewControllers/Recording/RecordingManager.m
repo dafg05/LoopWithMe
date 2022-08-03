@@ -30,7 +30,6 @@ static float const SECONDS_IN_MINUTE = 60.0;
 
 @property CFAbsoluteTime lastTick;
 @property int counter;
-@property int bpm;
 
 @end
 
@@ -56,9 +55,11 @@ static float const SECONDS_IN_MINUTE = 60.0;
     NSURL *url = [NSURL fileURLWithPath:path];
     self.countInPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     [self.countInPlayer prepareToPlay];
-    // hardcoded for now
-    self.bpm = 150;
     [self.recordingView updateCountInLabel:0];
+    
+    if (!self.bpm) {
+        self.bpm = 100;
+    }
     
     // set up recording session
     self.recordingSession = [AVAudioSession sharedInstance];
@@ -125,6 +126,8 @@ static float const SECONDS_IN_MINUTE = 60.0;
     }
 }
 
+#pragma mark - Count-in
+
 - (void)countIn {
     self.counter = 1;
     float bpm = (float) self.bpm;
@@ -136,6 +139,10 @@ static float const SECONDS_IN_MINUTE = 60.0;
     [self.audioPlayer stop];
     Track *track = [self createTrack];
     [self.delegate doneRecording:track];
+}
+
+- (BOOL)recording {
+    return self.audioRecorder.isRecording;
 }
 
 #pragma mark - Private helper methods

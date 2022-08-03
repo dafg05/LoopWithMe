@@ -68,9 +68,8 @@
                         <constraint firstAttribute="width" constant="60" id="ziP-dm-2Cc"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="count-in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ery-Aa-3Eb">
-                    <rect key="frame" x="33" y="54" width="64" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count-in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ery-Aa-3Eb">
+                    <rect key="frame" x="15" y="15" width="64" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" name="custom text color"/>
                     <nil key="highlightedColor"/>
@@ -82,6 +81,8 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="c1U-yC-g5N" secondAttribute="bottom" constant="30" id="6mn-ER-aBp"/>
                 <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ioj-yd-q7F"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
+                <constraint firstItem="ery-Aa-3Eb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="NCr-Ae-CE4"/>
+                <constraint firstItem="ery-Aa-3Eb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="SOe-1X-aRo"/>
                 <constraint firstItem="c1U-yC-g5N" firstAttribute="top" secondItem="16g-io-FmL" secondAttribute="bottom" constant="15" id="Sem-sN-WpD"/>
                 <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="16g-io-FmL" secondAttribute="centerX" id="qRJ-fg-sr7"/>
                 <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>

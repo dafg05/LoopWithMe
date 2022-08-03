@@ -157,21 +157,41 @@
                                 <rect key="frame" x="0.0" y="260" width="414" height="553"/>
                                 <color key="backgroundColor" name="custom background color"/>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="100" minValue="40" maxValue="200" translatesAutoresizingMaskIntoConstraints="NO" id="gRA-w8-ye8">
+                                <rect key="frame" x="28" y="135" width="358" height="85"/>
+                                <connections>
+                                    <action selector="sliderDidChange:" destination="VF1-fz-vae" eventType="valueChanged" id="5t8-NQ-Kxt"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BPM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QoV-is-SSM">
+                                <rect key="frame" x="189" y="229" width="36" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="secondary text color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="A0W-CQ-gJc"/>
                         <color key="backgroundColor" name="custom background color"/>
                         <constraints>
+                            <constraint firstItem="QoV-is-SSM" firstAttribute="centerX" secondItem="wyY-lH-W7N" secondAttribute="centerX" id="51A-RJ-jUk"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="BXA-tP-omY" secondAttribute="trailing" id="BLO-yo-vk4"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="NtG-OF-ZKg" secondAttribute="trailing" constant="30" id="KPP-kN-ioU"/>
+                            <constraint firstItem="gRA-w8-ye8" firstAttribute="top" secondItem="NtG-OF-ZKg" secondAttribute="bottom" constant="25" id="Kak-04-x7T"/>
+                            <constraint firstItem="QoV-is-SSM" firstAttribute="top" secondItem="gRA-w8-ye8" secondAttribute="bottom" constant="10" id="Oct-Ud-S0A"/>
                             <constraint firstItem="BXA-tP-omY" firstAttribute="top" secondItem="NtG-OF-ZKg" secondAttribute="bottom" constant="150" id="RAC-0m-pqq"/>
                             <constraint firstItem="A0W-CQ-gJc" firstAttribute="bottom" secondItem="BXA-tP-omY" secondAttribute="bottom" id="b3P-iS-Qta"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="top" secondItem="A0W-CQ-gJc" secondAttribute="top" constant="30" id="cwd-Eg-bUP"/>
                             <constraint firstItem="BXA-tP-omY" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" id="dDM-Q5-Cia"/>
+                            <constraint firstItem="BXA-tP-omY" firstAttribute="top" secondItem="QoV-is-SSM" secondAttribute="bottom" constant="10" id="hD0-ko-Dto"/>
+                            <constraint firstItem="A0W-CQ-gJc" firstAttribute="trailing" secondItem="gRA-w8-ye8" secondAttribute="trailing" constant="30" id="oLX-gP-zil"/>
+                            <constraint firstItem="gRA-w8-ye8" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="oRg-Ek-p6d"/>
                             <constraint firstItem="NtG-OF-ZKg" firstAttribute="leading" secondItem="A0W-CQ-gJc" secondAttribute="leading" constant="30" id="rT1-fU-Mhr"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="New Loop" id="00S-f2-tOA"/>
                     <connections>
+                        <outlet property="bpmLabel" destination="QoV-is-SSM" id="UaZ-xh-58K"/>
+                        <outlet property="bpmSlider" destination="gRA-w8-ye8" id="apN-13-ZiX"/>
                         <outlet property="recordingView" destination="BXA-tP-omY" id="mIQ-7d-EwZ"/>
                         <segue destination="dVn-I0-VAo" kind="presentation" identifier="RecordingDoneSegue" id="BMB-yT-ki9"/>
                     </connections>
