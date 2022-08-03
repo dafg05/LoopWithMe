@@ -24,6 +24,9 @@
     NSAssert(self.presentingViewController != nil, @"This view controller must be presented");
     [super viewDidLoad];
     self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
+    if (self.loop.bpm) {
+        self.recordingManager.bpm = self.loop.bpm;
+    }
     self.recordingManager.delegate = self;
 }
 
