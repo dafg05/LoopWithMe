@@ -29,6 +29,7 @@
     [super viewDidLoad];
     self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
     self.recordingManager.delegate = self;
+    self.recordingManager.isNewLoop = YES;
 }
 
 #pragma mark - Navigation
@@ -48,9 +49,9 @@
     self.loop = [Loop new];
     self.loop.postAuthor = [PFUser currentUser];
     self.loop.tracks = [NSMutableArray new];
+    self.loop.length = self.recordingManager.recordingLength;
     [self.loop.tracks addObject:track];
     [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
-    
 }
 
 - (void)recordingAlert:(nonnull NSString *)message {

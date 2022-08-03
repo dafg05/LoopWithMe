@@ -12,6 +12,8 @@
 #import "Parse/Parse.h"
 #import "Track.h"
 
+static int const DEFAULT_RECORDING_LENGTH = 20.0;
+
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
 @property AVAudioSession *recordingSession;
@@ -40,8 +42,14 @@
 }
 
 - (void)customInit{
+    if (!self.isNewLoop) {
+        if (!self.recordingLength) {
+            self.recordingLength = DEFAULT_RECORDING_LENGTH;
+        }
+    }
+    
     self.recordingSession = [AVAudioSession sharedInstance];
-    // TODO: Deal with errors
+    // TODO: Handle errors
     NSError *setCategoryError = nil;
     NSError *setActiveError = nil;
     [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
@@ -112,13 +120,31 @@
 - (void)startRecording {
     self.audioPlayer = nil;
     [self.recordingView.progressAnimationView deleteAnimation];
-    @try {
-        [self.audioRecorder record];
-        [self.recordingView currentlyRecordingUI];
-        self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
-    } @catch (NSException *exception) {
-        [self finishRecording:NO];
+    if (!self.isNewLoop) {
+        NSAssert(self.recordingLength, @"Not a new loop but recordingLength is nil");
+        @try {
+            [self.audioRecorder recordForDuration:self.recordingLength];
+        } @catch (NSException *exception) {
+            NSLog(@"Didn't finish recording successfully");
+            [self finishRecording:NO];
+            return;
+        }
     }
+    else {
+        @try {
+            [self.audioRecorder record];
+        } @catch (NSException *exception) {
+            [self finishRecording:NO];
+            return;
+        }
+    }
+    [self.recordingView currentlyRecordingUI];
+    self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
+}
+
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder
+                           successfully:(BOOL)flag {
+    [self finishRecording:flag];
 }
 
 - (void)finishRecording:(BOOL)success {
@@ -129,6 +155,9 @@
     if (success){
         [self.recordingView doneRecordingUI];
         [self initializeAudioPlayer];
+        if (self.isNewLoop){
+            self.recordingLength = self.audioPlayer.duration;
+        }
     } else{
         [self.delegate recordingAlert:@"An error occurred while recording, try again"];
         [self.recordingView recordingAvailableUI];
