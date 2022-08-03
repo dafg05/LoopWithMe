@@ -68,10 +68,6 @@
     [self.delegate recordToggle];
 }
 
-- (IBAction)didTapMetronome:(id)sender {
-    [self.delegate metronomeToggle];
-}
-
 #pragma mark - UI
 
 - (void)recordingAvailableUI {
@@ -86,6 +82,15 @@
     [self.recordButton setTitle:@"Recording Unavailable" forState:UIControlStateNormal];
     [self.recordButton setTitleColor:UIColor.systemGrayColor forState:UIControlStateDisabled];
     [self.playStopButton disable];
+}
+
+- (void)updateCountInLabel:(int)counter {
+    if (!counter){
+        self.countInLabel.text = @"";
+    }
+    else {
+        self.countInLabel.text = [NSString stringWithFormat:@"%d", counter];
+    }
 }
 
 - (void)currentlyRecordingUI {

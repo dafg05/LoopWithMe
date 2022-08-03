@@ -51,7 +51,6 @@ static float const SECONDS_IN_MINUTE = 60.0;
 }
 
 - (void)customInit{
-    
     // set up metronome
     NSString *path = [[NSBundle mainBundle] pathForResource:@"count-in-short" ofType:@"wav"];
     NSURL *url = [NSURL fileURLWithPath:path];
@@ -59,6 +58,7 @@ static float const SECONDS_IN_MINUTE = 60.0;
     [self.countInPlayer prepareToPlay];
     // hardcoded for now
     self.bpm = 150;
+    [self.recordingView updateCountInLabel:0];
     
     // set up recording session
     self.recordingSession = [AVAudioSession sharedInstance];
@@ -87,7 +87,8 @@ static float const SECONDS_IN_MINUTE = 60.0;
         [self finishRecording:YES];
     } else{
         [self.recordingView resetTimerLabel];
-        [self startRecording];
+        self.audioPlayer = nil;
+        [self countIn];
     }
 }
 
@@ -110,19 +111,20 @@ static float const SECONDS_IN_MINUTE = 60.0;
     if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < TIMER_TOLERANCE)) {
         if (self.counter > 4){
             [timer invalidate];
-            // start recording
-            return;
+            [self.recordingView updateCountInLabel:0];
+            [self startRecording];
         }
-        self.lastTick = CFAbsoluteTimeGetCurrent();
-        [self.countInPlayer play];
-        self.recordingView.countInLabel.text = [NSString stringWithFormat:@"%d", self.counter];
-        self.counter += 1;
+        else{
+            self.lastTick = CFAbsoluteTimeGetCurrent();
+            [self.countInPlayer play];
+            [self.recordingView updateCountInLabel:self.counter];
+            self.counter += 1;
+        }
     }
 }
 
-- (void)metronomeToggle {
+- (void)countIn {
     self.counter = 1;
-    self.recordingView.countInLabel.text = @"";
     float bpm = (float) self.bpm;
     NSTimer *countInTimer = [NSTimer timerWithTimeInterval:SECONDS_IN_MINUTE/bpm*TIMER_MULTIPLIER  target:self selector:@selector(tick:) userInfo:@{BPM_KEY:[NSNumber numberWithFloat:bpm]} repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:countInTimer forMode:NSDefaultRunLoopMode];
@@ -155,7 +157,6 @@ static float const SECONDS_IN_MINUTE = 60.0;
 }
 
 - (void)startRecording {
-    self.audioPlayer = nil;
     [self.recordingView.progressAnimationView deleteAnimation];
     @try {
         [self.audioRecorder record];

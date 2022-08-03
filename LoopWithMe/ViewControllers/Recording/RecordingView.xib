@@ -14,7 +14,6 @@
                 <outlet property="contentView" destination="iN0-l3-epB" id="P7Q-oc-pFC"/>
                 <outlet property="countInLabel" destination="ery-Aa-3Eb" id="acr-dH-CPk"/>
                 <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
-                <outlet property="metronomeButton" destination="5LO-RW-HVS" id="0ZG-S8-AKa"/>
                 <outlet property="playStopButton" destination="aDL-et-o3I" id="XUz-yg-5DD"/>
                 <outlet property="progressAnimationView" destination="16g-io-FmL" id="8O7-Gg-FQP"/>
                 <outlet property="recordButton" destination="Eyw-K2-UlO" id="hAc-et-SJJ"/>
@@ -69,15 +68,6 @@
                         <constraint firstAttribute="width" constant="60" id="ziP-dm-2Cc"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5LO-RW-HVS">
-                    <rect key="frame" x="25" y="15" width="58" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Metr."/>
-                    <connections>
-                        <action selector="didTapMetronome:" destination="-1" eventType="touchUpInside" id="H5X-yC-4WK"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="count-in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ery-Aa-3Eb">
                     <rect key="frame" x="33" y="54" width="64" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

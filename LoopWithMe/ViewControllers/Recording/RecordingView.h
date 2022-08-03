@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
 @property (weak, nonatomic) IBOutlet UILabel *timerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *countInLabel;
-@property (weak, nonatomic) IBOutlet UIButton *metronomeButton;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet CircularAnimationView *progressAnimationView;
@@ -27,10 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)didTapRecord:(id)sender;
 - (IBAction)didTapPlayStop:(id)sender;
 - (IBAction)didTapDone:(id)sender;
-- (IBAction)didTapMetronome:(id)sender;
 
 - (void)recordingAvailableUI;
 - (void)recordingUnavailableUI;
+- (void)updateCountInLabel:(int)counter;
 - (void)currentlyRecordingUI;
 - (void)doneRecordingUI;
 - (void)playbackEnabledUI;
@@ -43,7 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 /* Takes care of playback and recording, updates UI of recordingView appropriately*/
 - (void)recordToggle;
 - (void)playbackToggle;
-- (void)metronomeToggle;
 - (void)doneRecording;
 
 @end
