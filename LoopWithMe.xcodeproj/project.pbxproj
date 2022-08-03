@@ -39,6 +39,7 @@
 		29A376FF28821CA90075D518 /* TrackFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A376FE28821CA90075D518 /* TrackFileManager.m */; };
 		29B7962B28887F88001E4ED6 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B7962A28887F88001E4ED6 /* HomeVC.m */; };
 		29B7962E28888064001E4ED6 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B7962D28888064001E4ED6 /* PostCell.m */; };
+		29DCB5E3289AE9BA0026349D /* count-in-short.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29DCB5E2289AE9BA0026349D /* count-in-short.wav */; };
 		29F2C4C8287CA49800861B7B /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2C4C7287CA49800861B7B /* ProfileVC.m */; };
 		29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F8CE052881E32900E85780 /* PlayStopButton.m */; };
 		2FDE26B5A4C00C5AC58F16AE /* Pods_LoopWithMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D091F9520F96FEB40B60FF51 /* Pods_LoopWithMe.framework */; };
@@ -118,6 +119,7 @@
 		29B7962A28887F88001E4ED6 /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
 		29B7962C28888064001E4ED6 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
 		29B7962D28888064001E4ED6 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
+		29DCB5E2289AE9BA0026349D /* count-in-short.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "count-in-short.wav"; sourceTree = "<group>"; };
 		29F2C4C6287CA49800861B7B /* ProfileVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
 		29F2C4C7287CA49800861B7B /* ProfileVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
 		29F55F082894408100495D5F /* Home&ProfileStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Home&ProfileStrings.h"; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				294B937E2891BD3A0042BEC1 /* RecordingVC.m */,
 				296BA92C2898C1F6000FCC7C /* CircularAnimationView.h */,
 				296BA92D2898C1F6000FCC7C /* CircularAnimationView.m */,
+				29DCB5E2289AE9BA0026349D /* count-in-short.wav */,
 			);
 			path = Recording;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				299C22CF2878833E0022D102 /* LaunchScreen.storyboard in Resources */,
 				299C22CC2878833E0022D102 /* Assets.xcassets in Resources */,
 				299C22C72878833D0022D102 /* Main.storyboard in Resources */,
+				29DCB5E3289AE9BA0026349D /* count-in-short.wav in Resources */,
 				29506C94288F5C5A007231CD /* RecordingView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

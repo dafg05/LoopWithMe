@@ -68,6 +68,10 @@
     [self.delegate recordToggle];
 }
 
+- (IBAction)didTapMetronome:(id)sender {
+    [self.delegate metronomeToggle];
+}
+
 #pragma mark - UI
 
 - (void)recordingAvailableUI {
