@@ -25,6 +25,8 @@
     [super viewDidLoad];
     self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
     self.recordingManager.delegate = self;
+    self.recordingManager.newLoop = NO;
+    self.recordingManager.recordingDuration = self.loop.duration;
 }
 
 # pragma mark - RecordingManagerDelegate methods
