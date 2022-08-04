@@ -19,6 +19,7 @@ static float const DEFAULT_BPM = 100;
 static float const NUM_OF_COUNTIN_BEATS = 4;
 /* DON'T CHANGE */
 static float const SECONDS_IN_MINUTE = 60.0;
+static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
@@ -65,7 +66,7 @@ static float const SECONDS_IN_MINUTE = 60.0;
     
     // set up recording session
     self.recordingSession = [AVAudioSession sharedInstance];
-    // TODO: Deal with errors
+    // TODO: Handle errors
     NSError *setCategoryError = nil;
     NSError *setActiveError = nil;
     [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
@@ -168,13 +169,25 @@ static float const SECONDS_IN_MINUTE = 60.0;
 }
 
 - (void)startRecording {
-    @try {
-        [self.audioRecorder record];
-        [self.recordingView currentlyRecordingUI];
-        self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
-    } @catch (NSException *exception) {
-        [self finishRecording:NO];
+    if (!self.recordingDuration || self.newLoop) {
+        self.recordingDuration = DEFAULT_RECORDING_DURATION;
     }
+    self.audioPlayer = nil;
+    [self.recordingView.progressAnimationView deleteAnimation];
+    @try {
+        [self.audioRecorder recordForDuration:self.recordingDuration];
+    } @catch (NSException *exception) {
+        NSLog(@"Didn't finish recording successfully");
+        [self finishRecording:NO];
+        return;
+    }
+    [self.recordingView currentlyRecordingUI];
+    self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
+}
+
+- (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder
+                           successfully:(BOOL)flag {
+    [self finishRecording:flag];
 }
 
 - (void)finishRecording:(BOOL)success {
@@ -185,6 +198,9 @@ static float const SECONDS_IN_MINUTE = 60.0;
     if (success){
         [self.recordingView doneRecordingUI];
         [self initializeAudioPlayer];
+        if (self.newLoop){
+            self.recordingDuration = self.audioPlayer.duration;
+        }
     } else{
         [self.delegate recordingAlert:@"An error occurred while recording, try again"];
         [self.recordingView recordingAvailableUI];

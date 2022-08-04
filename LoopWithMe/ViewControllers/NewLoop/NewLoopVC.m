@@ -36,6 +36,7 @@ static int const DEFAULT_BPM = 100;
     self.recordingManager.bpm = DEFAULT_BPM;
     self.bpmSlider.value = DEFAULT_BPM;
     self.bpmLabel.text = [NSString stringWithFormat:@"%d bpm", DEFAULT_BPM];
+    self.recordingManager.newLoop = YES;
 }
 
 #pragma mark - Navigation
@@ -56,9 +57,9 @@ static int const DEFAULT_BPM = 100;
     self.loop.bpm = self.bpmSlider.value;
     self.loop.postAuthor = [PFUser currentUser];
     self.loop.tracks = [NSMutableArray new];
+    self.loop.duration = (float) self.recordingManager.recordingDuration;
     [self.loop.tracks addObject:track];
     [self performSegueWithIdentifier:@"RecordingDoneSegue" sender:nil];
-    
 }
 
 - (void)recordingAlert:(nonnull NSString *)message {

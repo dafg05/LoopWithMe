@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) PFUser *postAuthor;
 @property (nonatomic, strong) TempoAssistSettings *taSettings;
 @property int bpm;
+@property float duration;
 
 + (void)postLoop:(Loop *)loop withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 

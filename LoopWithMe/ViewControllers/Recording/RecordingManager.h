@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RecordingManager : NSObject  <RecordingViewDelegate>
 
 @property int bpm;
+@property float recordingDuration;
+@property BOOL newLoop;
 @property (weak, nonatomic) id<RecordingManagerDelegate> delegate;
 
 - (instancetype)initWithRecordingView:(RecordingView *)recordingView;

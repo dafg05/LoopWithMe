@@ -28,6 +28,8 @@
         self.recordingManager.bpm = self.loop.bpm;
     }
     self.recordingManager.delegate = self;
+    self.recordingManager.newLoop = NO;
+    self.recordingManager.recordingDuration = self.loop.duration;
 }
 
 # pragma mark - RecordingManagerDelegate methods
