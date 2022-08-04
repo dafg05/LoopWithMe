@@ -29,7 +29,7 @@
     [super viewDidLoad];
     self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
     self.recordingManager.delegate = self;
-    self.recordingManager.isNewLoop = YES;
+    self.recordingManager.newLoop = YES;
 }
 
 #pragma mark - Navigation

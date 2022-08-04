@@ -12,7 +12,7 @@
 #import "Parse/Parse.h"
 #import "Track.h"
 
-static float const DEFAULT_RECORDING_LENGTH = 20.0;
+static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
@@ -112,32 +112,17 @@ static float const DEFAULT_RECORDING_LENGTH = 20.0;
 }
 
 - (void)startRecording {
-    if (!self.isNewLoop){
-        if (!self.recordingDuration) {
-            self.recordingDuration = DEFAULT_RECORDING_LENGTH;
-        }
+    if (!self.recordingDuration || self.newLoop) {
+        self.recordingDuration = DEFAULT_RECORDING_DURATION;
     }
     self.audioPlayer = nil;
-    [self.recordingView.progressAnimationView createAnimationWithDuration:self.recordingDuration];
-    
-    if (!self.isNewLoop) {
-        NSAssert(self.recordingDuration > 0, @"Not a new loop but recordingDuration is nil");
-        @try {
-            [self.audioRecorder recordForDuration:self.recordingDuration];
-            [self.recordingView.progressAnimationView startAnimation];
-        } @catch (NSException *exception) {
-            NSLog(@"Didn't finish recording successfully");
-            [self finishRecording:NO];
-            return;
-        }
-    }
-    else {
-        @try {
-            [self.audioRecorder record];
-        } @catch (NSException *exception) {
-            [self finishRecording:NO];
-            return;
-        }
+    [self.recordingView.progressAnimationView deleteAnimation];
+    @try {
+        [self.audioRecorder recordForDuration:self.recordingDuration];
+    } @catch (NSException *exception) {
+        NSLog(@"Didn't finish recording successfully");
+        [self finishRecording:NO];
+        return;
     }
     [self.recordingView currentlyRecordingUI];
     self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
@@ -156,7 +141,7 @@ static float const DEFAULT_RECORDING_LENGTH = 20.0;
     if (success){
         [self.recordingView doneRecordingUI];
         [self initializeAudioPlayer];
-        if (self.isNewLoop){
+        if (self.newLoop){
             self.recordingDuration = self.audioPlayer.duration;
         }
     } else{
