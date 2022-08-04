@@ -12,12 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RecordingView">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="P7Q-oc-pFC"/>
-                <outlet property="countInLabel" destination="ery-Aa-3Eb" id="acr-dH-CPk"/>
                 <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
-                <outlet property="playStopButton" destination="aDL-et-o3I" id="XUz-yg-5DD"/>
-                <outlet property="progressAnimationView" destination="16g-io-FmL" id="8O7-Gg-FQP"/>
-                <outlet property="recordButton" destination="Eyw-K2-UlO" id="hAc-et-SJJ"/>
-                <outlet property="timerLabel" destination="xo0-hT-Wkd" id="k0A-wN-XNt"/>
+                <outlet property="magicButton" destination="KJX-6w-F1J" id="wad-3g-r1H"/>
+                <outlet property="magicLabel" destination="UXM-gk-cmN" id="q41-el-oFV"/>
+                <outlet property="progressAnimationView" destination="Pej-eb-f7Y" id="RLj-bY-3Ih"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -25,33 +23,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="302"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="c1U-yC-g5N">
-                    <rect key="frame" x="172" y="135.5" width="70" height="136.5"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aDL-et-o3I" customClass="PlayStopButton">
-                            <rect key="frame" x="9.5" y="0.0" width="51" height="31"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="Play"/>
-                            <connections>
-                                <action selector="didTapPlayStop:" destination="-1" eventType="touchUpInside" id="cWR-4n-RHM"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xo0-hT-Wkd">
-                            <rect key="frame" x="13" y="58" width="44" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" name="custom text color"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eyw-K2-UlO">
-                            <rect key="frame" x="0.0" y="105.5" width="70" height="31"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="Record"/>
-                            <connections>
-                                <action selector="didTapRecord:" destination="-1" eventType="touchUpInside" id="wS5-4K-KXB"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1L3-oC-Cjz">
                     <rect key="frame" x="340.5" y="15" width="58.5" height="31"/>
                     <state key="normal" title="Button"/>
@@ -60,16 +31,28 @@
                         <action selector="didTapDone:" destination="-1" eventType="touchUpInside" id="0hN-eD-gSI"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16g-io-FmL" customClass="CircularAnimationView">
-                    <rect key="frame" x="177" y="60.5" width="60" height="60"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pej-eb-f7Y" customClass="CircularAnimationView">
+                    <rect key="frame" x="182" y="212" width="50" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KJX-6w-F1J">
+                            <rect key="frame" x="2.5" y="9.5" width="45" height="31"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
+                            <connections>
+                                <action selector="didTapMagicButton:" destination="-1" eventType="touchUpInside" id="WdG-bF-ntQ"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="16g-io-FmL" secondAttribute="height" multiplier="1:1" id="oI2-cN-hK3"/>
-                        <constraint firstAttribute="width" constant="60" id="ziP-dm-2Cc"/>
+                        <constraint firstAttribute="height" constant="50" id="5ic-k0-QKD"/>
+                        <constraint firstItem="KJX-6w-F1J" firstAttribute="centerX" secondItem="Pej-eb-f7Y" secondAttribute="centerX" id="ZSa-SZ-FlK"/>
+                        <constraint firstAttribute="width" secondItem="Pej-eb-f7Y" secondAttribute="height" multiplier="1:1" id="fpX-0b-Qxj"/>
+                        <constraint firstItem="KJX-6w-F1J" firstAttribute="centerY" secondItem="Pej-eb-f7Y" secondAttribute="centerY" id="ta2-zn-qsS"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="count-in" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ery-Aa-3Eb">
-                    <rect key="frame" x="15" y="15" width="64" height="20.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UXM-gk-cmN">
+                    <rect key="frame" x="186" y="181" width="42" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" name="custom text color"/>
                     <nil key="highlightedColor"/>
@@ -78,20 +61,19 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="c1U-yC-g5N" secondAttribute="bottom" constant="30" id="6mn-ER-aBp"/>
-                <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ioj-yd-q7F"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pej-eb-f7Y" secondAttribute="bottom" constant="40" id="5W8-XD-QuQ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
-                <constraint firstItem="ery-Aa-3Eb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="15" id="NCr-Ae-CE4"/>
-                <constraint firstItem="ery-Aa-3Eb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="SOe-1X-aRo"/>
-                <constraint firstItem="c1U-yC-g5N" firstAttribute="top" secondItem="16g-io-FmL" secondAttribute="bottom" constant="15" id="Sem-sN-WpD"/>
-                <constraint firstItem="c1U-yC-g5N" firstAttribute="centerX" secondItem="16g-io-FmL" secondAttribute="centerX" id="qRJ-fg-sr7"/>
+                <constraint firstItem="UXM-gk-cmN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="i21-iR-cKu"/>
+                <constraint firstItem="Pej-eb-f7Y" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="o5d-5g-mZM"/>
                 <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>
+                <constraint firstItem="Pej-eb-f7Y" firstAttribute="top" secondItem="UXM-gk-cmN" secondAttribute="bottom" constant="10" id="yy0-gQ-8RE"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="131.8840579710145" y="336.16071428571428"/>
         </view>
     </objects>
     <resources>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <namedColor name="custom text color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

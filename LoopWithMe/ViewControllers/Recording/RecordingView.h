@@ -15,34 +15,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RecordingView : UIView
 
-@property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
-@property (weak, nonatomic) IBOutlet UILabel *timerLabel;
-@property (weak, nonatomic) IBOutlet UILabel *countInLabel;
-@property (weak, nonatomic) IBOutlet UIButton *recordButton;
+@property (weak, nonatomic) IBOutlet UIButton *magicButton;
+@property (weak, nonatomic) IBOutlet UILabel *magicLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet CircularAnimationView *progressAnimationView;
 @property (weak, nonatomic) id<RecordingViewDelegate> delegate;
 
-- (IBAction)didTapRecord:(id)sender;
-- (IBAction)didTapPlayStop:(id)sender;
+- (IBAction)didTapMagicButton:(id)sender;
 - (IBAction)didTapDone:(id)sender;
 
-- (void)recordingAvailableUI;
-- (void)recordingUnavailableUI;
-- (void)updateCountInLabel:(int)counter;
-- (void)startingCountInUI;
-- (void)currentlyRecordingUI;
-- (void)doneRecordingUI;
-- (void)playbackEnabledUI;
-- (void)updateTimerLabel:(NSTimeInterval)timeElapsed;
-- (void)resetTimerLabel;
+- (void)initialState:(BOOL)recordingAvailable;
+- (void)countInState:(int)beats :(float)bpm;
+- (void)recordingState:(float)duration;
+- (void)playbackState:(float)duration;
+
+- (void)updateMagicLabelWithCountIn:(int)counter;
+- (void)updateMagicLabelWithTimer:(NSTimeInterval)timeElapsed;
 
 @end
 
 @protocol RecordingViewDelegate
 /* Takes care of playback and recording, updates UI of recordingView appropriately*/
-- (void)recordToggle;
-- (void)playbackToggle;
+- (void)startRecordingProcess;
+- (void)stopRecordingStartPlayback;
 - (void)doneRecording;
 
 @end

@@ -46,19 +46,19 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     self = [super init];
     if (self){
         self.recordingView = recordingView;
-        self.recordingView.delegate = self;
         [self customInit];
     }
     return self;
 }
 
 - (void)customInit{
+    self.recordingView.delegate = self;
     // set up metronome
     NSString *path = [[NSBundle mainBundle] pathForResource:@"count-in-short" ofType:@"wav"];
     NSURL *url = [NSURL fileURLWithPath:path];
     self.countInPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     [self.countInPlayer prepareToPlay];
-    [self.recordingView updateCountInLabel:0];
+    [self.recordingView updateMagicLabelWithCountIn:0];
     
     if (!self.bpm) {
         self.bpm = DEFAULT_BPM;
@@ -75,7 +75,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     [self.recordingSession requestRecordPermission:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (granted){
-                [self.recordingView recordingAvailableUI];
+                [self.recordingView initialState:YES];
                 [self setUpRecorder];
             } else{
                 [self.delegate recordingAlert:@"Make sure to enable recording via microphone on your System Settings."];
@@ -86,48 +86,22 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 #pragma mark - RecordingViewDelegate methods
 
-- (void)recordToggle{
-    if (self.audioRecorder.recording){
-        [self finishRecording:YES];
-    } else{
-        self.audioPlayer = nil;
-        [self.recordingView startingCountInUI];
-        [self.recordingView resetTimerLabel];
-        [self.recordingView.progressAnimationView deleteAnimation];
-        [self countIn];
-    }
+- (void)startRecordingProcess {
+    self.audioPlayer = nil;
+    [self.recordingView countInState:NUM_OF_COUNTIN_BEATS :self.bpm];
+    [self countIn];
 }
 
-- (void)playbackToggle {
-    if (self.audioPlayer.playing){
-        [self.audioPlayer stop];
-        [self.audioPlayer setCurrentTime:0];
-        [self.recordingView.playStopButton UIPlay];
-        [self.recordingView.progressAnimationView resetAnimation];
-    } else{
-        [self.audioPlayer play];
-        [self.recordingView.playStopButton UIStop];
-        [self.recordingView.progressAnimationView startAnimation];
-    }
+- (void)stopRecordingStartPlayback {
+    [self finishRecording:YES];
 }
 
-- (void)tick:(NSTimer *)timer {
-    CFAbsoluteTime elapsedTime = CFAbsoluteTimeGetCurrent() - self.lastTick;
-    float targetTime = SECONDS_IN_MINUTE/[(NSNumber *)[timer.userInfo objectForKey:BPM_KEY] floatValue];
-    if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < TIMER_TOLERANCE)) {
-        if (self.counter > NUM_OF_COUNTIN_BEATS){
-            [timer invalidate];
-            [self.recordingView updateCountInLabel:0];
-            [self startRecording];
-        }
-        else{
-            self.lastTick = CFAbsoluteTimeGetCurrent();
-            [self.countInPlayer play];
-            [self.recordingView updateCountInLabel:self.counter];
-            self.counter += 1;
-        }
-    }
+- (void)doneRecording {
+    [self.audioPlayer stop];
+    Track *track = [self createTrack];
+    [self.delegate doneRecording:track];
 }
+
 
 #pragma mark - Count-in
 
@@ -138,10 +112,22 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     [[NSRunLoop mainRunLoop] addTimer:countInTimer forMode:NSDefaultRunLoopMode];
 }
 
-- (void)doneRecording {
-    [self.audioPlayer stop];
-    Track *track = [self createTrack];
-    [self.delegate doneRecording:track];
+- (void)tick:(NSTimer *)timer {
+    CFAbsoluteTime elapsedTime = CFAbsoluteTimeGetCurrent() - self.lastTick;
+    float targetTime = SECONDS_IN_MINUTE/[(NSNumber *)[timer.userInfo objectForKey:BPM_KEY] floatValue];
+    if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < TIMER_TOLERANCE)) {
+        if (self.counter > NUM_OF_COUNTIN_BEATS){
+            [timer invalidate];
+            [self.recordingView updateMagicLabelWithCountIn:0];
+            [self countInDone];
+        }
+        else{
+            self.lastTick = CFAbsoluteTimeGetCurrent();
+            [self.countInPlayer play];
+            [self.recordingView updateMagicLabelWithCountIn:self.counter];
+            self.counter += 1;
+        }
+    }
 }
 
 - (BOOL)recording {
@@ -168,20 +154,19 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     self.audioRecorder.delegate = self;
 }
 
-- (void)startRecording {
+- (void)countInDone {
     if (!self.recordingDuration || self.newLoop) {
         self.recordingDuration = DEFAULT_RECORDING_DURATION;
     }
-    self.audioPlayer = nil;
-    [self.recordingView.progressAnimationView deleteAnimation];
     @try {
         [self.audioRecorder recordForDuration:self.recordingDuration];
+        [self.recordingView recordingState:self.recordingDuration];
     } @catch (NSException *exception) {
         NSLog(@"Didn't finish recording successfully");
         [self finishRecording:NO];
+        [self.recordingView initialState:YES];
         return;
     }
-    [self.recordingView currentlyRecordingUI];
     self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
 }
 
@@ -196,36 +181,32 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
         [self.recordingTimer invalidate];
     }
     if (success){
-        [self.recordingView doneRecordingUI];
         [self initializeAudioPlayer];
         if (self.newLoop){
             self.recordingDuration = self.audioPlayer.duration;
         }
     } else{
         [self.delegate recordingAlert:@"An error occurred while recording, try again"];
-        [self.recordingView recordingAvailableUI];
+        [self.recordingView initialState:YES];
+        return;
     }
+    [self.audioPlayer prepareToPlay];
+    [self.recordingView playbackState:[self.audioPlayer duration]];
+    [self.audioPlayer play];
 }
 
 - (void) initializeAudioPlayer {
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
-    [self.recordingView playbackEnabledUI];
-    [self.recordingView.progressAnimationView createAnimationWithDuration:self.audioPlayer.duration];
 }
 
 - (void) viewUpdateTimer {
-    [self.recordingView updateTimerLabel:self.audioRecorder.currentTime];
+    [self.recordingView updateMagicLabelWithTimer:self.audioRecorder.currentTime];
 }
 
 - (NSURL *)getRecordingFileUrl {
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
-}
-
-/* AVAudioPlayer delegate method*/
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    [self.recordingView.playStopButton UIPlay];
 }
 
 - (Track *)createTrack {

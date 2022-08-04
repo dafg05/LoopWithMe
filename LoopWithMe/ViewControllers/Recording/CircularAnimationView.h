@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startAnimation;
 - (void)resetAnimation;
 - (void)deleteAnimation;
+- (void)setCirleLayerColor:(UIColor *)color;
 
 @end
 

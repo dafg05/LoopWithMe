@@ -59,7 +59,7 @@ static float const endPoint = 3 * M_PI / 2;
     [self.circleLayer setPath:circularPath.CGPath];
     self.circleLayer.fillColor = [[UIColor clearColor] CGColor];
     self.circleLayer.lineCap = kCALineCapRound;
-    self.circleLayer.lineWidth = 0.15 * self.frame.size.height;
+    self.circleLayer.lineWidth = 0.1 * self.frame.size.height;
     self.circleLayer.strokeEnd = 1.0;
     self.circleLayer.strokeColor = [[UIColor colorNamed:@"animation-color"] CGColor];
     [self.layer addSublayer:self.circleLayer];
@@ -95,6 +95,10 @@ static float const endPoint = 3 * M_PI / 2;
 - (void)deleteAnimation {
     [self.progressLayer removeAllAnimations];
     self.progressAnimation = nil;
+}
+
+- (void)setCirleLayerColor:(UIColor *)color {
+    self.circleLayer.strokeColor = [color CGColor];
 }
 
 @end
