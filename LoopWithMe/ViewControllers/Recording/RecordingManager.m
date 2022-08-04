@@ -15,7 +15,7 @@
 static float const TIMER_TOLERANCE = 0.003;
 static float const TIMER_MULTIPLIER = 0.01;
 static NSString const * BPM_KEY = @"bpm";
-static float const DEFAULT_BPM;
+static float const DEFAULT_BPM = 100;
 static float const NUM_OF_COUNTIN_BEATS = 4;
 /* DON'T CHANGE */
 static float const SECONDS_IN_MINUTE = 60.0;
