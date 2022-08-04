@@ -84,7 +84,24 @@
     [self.playStopButton disable];
 }
 
+- (void)updateCountInLabel:(int)counter {
+    if (!counter){
+        self.countInLabel.text = @"";
+    }
+    else {
+        self.countInLabel.text = [NSString stringWithFormat:@"%d", counter];
+    }
+}
+
+- (void)startingCountInUI {
+    self.doneButton.enabled = NO;
+    [self.playStopButton disable];
+    self.recordButton.enabled = NO;
+    [self.recordButton setTitle:@"Starting" forState:UIControlStateDisabled];
+}
+
 - (void)currentlyRecordingUI {
+    self.recordButton.enabled = YES;
     self.doneButton.enabled = NO;
     [self.playStopButton disable];
     [self.recordButton setTitle:@"Stop recording" forState:UIControlStateNormal];

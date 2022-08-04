@@ -12,6 +12,13 @@
 #import "Parse/Parse.h"
 #import "Track.h"
 
+static float const TIMER_TOLERANCE = 0.003;
+static float const TIMER_MULTIPLIER = 0.01;
+static NSString const * BPM_KEY = @"bpm";
+static float const DEFAULT_BPM = 100;
+static float const NUM_OF_COUNTIN_BEATS = 4;
+/* DON'T CHANGE */
+static float const SECONDS_IN_MINUTE = 60.0;
 static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
@@ -19,9 +26,13 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 @property AVAudioSession *recordingSession;
 @property AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
+@property (strong, nonatomic) AVAudioPlayer *countInPlayer;
 @property (strong, nonatomic) NSTimer *recordingTimer;
 @property (strong, nonatomic) NSURL *audioFileUrl;
 @property (strong, nonatomic) RecordingView *recordingView;
+
+@property CFAbsoluteTime lastTick;
+@property int counter;
 
 @end
 
@@ -42,6 +53,18 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 }
 
 - (void)customInit{
+    // set up metronome
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"count-in-short" ofType:@"wav"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.countInPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    [self.countInPlayer prepareToPlay];
+    [self.recordingView updateCountInLabel:0];
+    
+    if (!self.bpm) {
+        self.bpm = DEFAULT_BPM;
+    }
+    
+    // set up recording session
     self.recordingSession = [AVAudioSession sharedInstance];
     // TODO: Handle errors
     NSError *setCategoryError = nil;
@@ -67,8 +90,11 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     if (self.audioRecorder.recording){
         [self finishRecording:YES];
     } else{
+        self.audioPlayer = nil;
+        [self.recordingView startingCountInUI];
         [self.recordingView resetTimerLabel];
-        [self startRecording];
+        [self.recordingView.progressAnimationView deleteAnimation];
+        [self countIn];
     }
 }
 
@@ -85,10 +111,41 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     }
 }
 
+- (void)tick:(NSTimer *)timer {
+    CFAbsoluteTime elapsedTime = CFAbsoluteTimeGetCurrent() - self.lastTick;
+    float targetTime = SECONDS_IN_MINUTE/[(NSNumber *)[timer.userInfo objectForKey:BPM_KEY] floatValue];
+    if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < TIMER_TOLERANCE)) {
+        if (self.counter > NUM_OF_COUNTIN_BEATS){
+            [timer invalidate];
+            [self.recordingView updateCountInLabel:0];
+            [self startRecording];
+        }
+        else{
+            self.lastTick = CFAbsoluteTimeGetCurrent();
+            [self.countInPlayer play];
+            [self.recordingView updateCountInLabel:self.counter];
+            self.counter += 1;
+        }
+    }
+}
+
+#pragma mark - Count-in
+
+- (void)countIn {
+    self.counter = 1;
+    float bpm = (float) self.bpm;
+    NSTimer *countInTimer = [NSTimer timerWithTimeInterval:SECONDS_IN_MINUTE/bpm*TIMER_MULTIPLIER  target:self selector:@selector(tick:) userInfo:@{BPM_KEY:[NSNumber numberWithFloat:bpm]} repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:countInTimer forMode:NSDefaultRunLoopMode];
+}
+
 - (void)doneRecording {
     [self.audioPlayer stop];
     Track *track = [self createTrack];
     [self.delegate doneRecording:track];
+}
+
+- (BOOL)recording {
+    return self.audioRecorder.isRecording;
 }
 
 #pragma mark - Private helper methods

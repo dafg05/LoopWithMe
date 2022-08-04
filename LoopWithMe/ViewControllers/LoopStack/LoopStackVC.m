@@ -277,6 +277,7 @@
     }
     else{
         self.loop = [Loop new];
+        self.loop.bpm = self.parentLoop.bpm;
         self.loop.tracks = [NSMutableArray arrayWithArray:self.parentLoop.tracks];
         self.loop.duration = self.parentLoop.duration;
         self.loop.postAuthor = [PFUser currentUser];
