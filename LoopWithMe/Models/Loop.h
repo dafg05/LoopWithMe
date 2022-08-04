@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<Loop *> *childrenLoops;
 @property (nonatomic, strong) PFUser *postAuthor;
 @property (nonatomic, strong) TempoAssistSettings *taSettings;
-@property float length;
+@property float duration;
 
 + (void)postLoop:(Loop *)loop withCompletion:(PFBooleanResultBlock  _Nullable)completion;
 

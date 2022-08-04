@@ -12,7 +12,7 @@
 #import "Parse/Parse.h"
 #import "Track.h"
 
-static int const DEFAULT_RECORDING_LENGTH = 20.0;
+static float const DEFAULT_RECORDING_LENGTH = 20.0;
 
 @interface RecordingManager () <AVAudioRecorderDelegate, AVAudioPlayerDelegate, RecordingViewDelegate>
 
@@ -42,12 +42,6 @@ static int const DEFAULT_RECORDING_LENGTH = 20.0;
 }
 
 - (void)customInit{
-    if (!self.isNewLoop) {
-        if (!self.recordingLength) {
-            self.recordingLength = DEFAULT_RECORDING_LENGTH;
-        }
-    }
-    
     self.recordingSession = [AVAudioSession sharedInstance];
     // TODO: Handle errors
     NSError *setCategoryError = nil;
@@ -118,12 +112,19 @@ static int const DEFAULT_RECORDING_LENGTH = 20.0;
 }
 
 - (void)startRecording {
+    if (!self.isNewLoop){
+        if (!self.recordingDuration) {
+            self.recordingDuration = DEFAULT_RECORDING_LENGTH;
+        }
+    }
     self.audioPlayer = nil;
-    [self.recordingView.progressAnimationView deleteAnimation];
+    [self.recordingView.progressAnimationView createAnimationWithDuration:self.recordingDuration];
+    
     if (!self.isNewLoop) {
-        NSAssert(self.recordingLength, @"Not a new loop but recordingLength is nil");
+        NSAssert(self.recordingDuration > 0, @"Not a new loop but recordingDuration is nil");
         @try {
-            [self.audioRecorder recordForDuration:self.recordingLength];
+            [self.audioRecorder recordForDuration:self.recordingDuration];
+            [self.recordingView.progressAnimationView startAnimation];
         } @catch (NSException *exception) {
             NSLog(@"Didn't finish recording successfully");
             [self finishRecording:NO];
@@ -156,7 +157,7 @@ static int const DEFAULT_RECORDING_LENGTH = 20.0;
         [self.recordingView doneRecordingUI];
         [self initializeAudioPlayer];
         if (self.isNewLoop){
-            self.recordingLength = self.audioPlayer.duration;
+            self.recordingDuration = self.audioPlayer.duration;
         }
     } else{
         [self.delegate recordingAlert:@"An error occurred while recording, try again"];

@@ -18,7 +18,7 @@
 @dynamic childrenLoops;
 @dynamic postAuthor;
 @dynamic taSettings;
-@dynamic length;
+@dynamic duration;
 
 + (nonnull NSString *)parseClassName {
     return @"Loop";
