@@ -15,6 +15,8 @@
 static float const TIMER_TOLERANCE = 0.003;
 static float const TIMER_MULTIPLIER = 0.01;
 static NSString const * BPM_KEY = @"bpm";
+static float const DEFAULT_BPM;
+static float const NUM_OF_COUNTIN_BEATS = 4;
 /* DON'T CHANGE */
 static float const SECONDS_IN_MINUTE = 60.0;
 
@@ -58,7 +60,7 @@ static float const SECONDS_IN_MINUTE = 60.0;
     [self.recordingView updateCountInLabel:0];
     
     if (!self.bpm) {
-        self.bpm = 100;
+        self.bpm = DEFAULT_BPM;
     }
     
     // set up recording session
@@ -110,9 +112,9 @@ static float const SECONDS_IN_MINUTE = 60.0;
 
 - (void)tick:(NSTimer *)timer {
     CFAbsoluteTime elapsedTime = CFAbsoluteTimeGetCurrent() - self.lastTick;
-    float targetTime = 60.0/[(NSNumber *)[timer.userInfo objectForKey:BPM_KEY] floatValue];
+    float targetTime = SECONDS_IN_MINUTE/[(NSNumber *)[timer.userInfo objectForKey:BPM_KEY] floatValue];
     if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < TIMER_TOLERANCE)) {
-        if (self.counter > 4){
+        if (self.counter > NUM_OF_COUNTIN_BEATS){
             [timer invalidate];
             [self.recordingView updateCountInLabel:0];
             [self startRecording];
