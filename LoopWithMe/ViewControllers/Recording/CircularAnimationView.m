@@ -92,7 +92,7 @@ static float const endPoint = 3 * M_PI / 2;
         self.progressAnimation.repeatCount = INFINITY;
     }
     else {
-        self.progressAnimation.repeatCount = INFINITY;
+        self.progressAnimation.repeatCount = repeatCount;
     }
     [self.progressLayer addAnimation:self.progressAnimation forKey:@"progressAnim"];
 }
