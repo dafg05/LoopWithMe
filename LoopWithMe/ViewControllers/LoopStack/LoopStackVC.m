@@ -14,6 +14,11 @@
 #import "TrackFileManager.h"
 #import "RecordingView.h"
 
+static int const MAX_NUM_TRACKS = 8;
+static NSString *const NEW_LOOP_STATUS = @"New Loop Mix";
+static NSString *const OTHER_LOOP_STATUS = @"Loop Mix";
+static NSString *const RELOOP_STATUS = @"Reloop mix";
+
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *trackTableView;
@@ -36,13 +41,6 @@
 @end
 
 @implementation LoopStackVC
-
-#define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
-#define MAX_NUM_TRACKS 8
-
-#define NEW_LOOP_STATUS @"New Loop Mix"
-#define OTHER_LOOP_STATUS @"Loop Mix"
-#define RELOOP_STATUS @"Reloop mix"
 
 #pragma mark - Initial View Controller Setup
 
@@ -73,7 +71,7 @@
     [self.stopMixButton UIStop];
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
-    self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
+    self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
     [self updateTrackCountLabel];
 }
 
@@ -164,7 +162,7 @@
 #pragma mark - Playback
 
 - (void)startMix {
-    // TODO: inconsistent audioEngine start between startMix and startTrack
+    // TODO: looping playback
     [self.audioEngine stop];
     [self.audioEngine attachNode:self.mixerNode];
     [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
@@ -237,10 +235,9 @@
 
 /* Needs to be called to reload table view outside of ViewDidLoad */
 - (void)reloadLoopTableViewData {
-    // TODO: Refactor so that we don't need to reload the whole table view.
     // need to reinitialize the file manager because every cell is being reloaded
     self.fileManager = nil;
-    self.fileManager = [[TrackFileManager alloc] initWithPath:DOCUMENTS_FOLDER withSize:MAX_NUM_TRACKS];
+    self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
 }

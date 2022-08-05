@@ -38,8 +38,6 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 @implementation RecordingManager
 
-#define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]
-
 #pragma mark - Initialization
 
 - (instancetype)initWithRecordingView:(RecordingView *)recordingView {
@@ -151,7 +149,6 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 #pragma mark - Private helper methods
 
 - (void)setUpRecorder {
-    // TODO: Use temporary directory
     self.audioFileUrl = [self getRecordingFileUrl];
     NSDictionary *recordSettings = [[NSMutableDictionary alloc] init];
     [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
@@ -220,7 +217,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 }
 
 - (NSURL *)getRecordingFileUrl {
-    return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
+    return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", NSTemporaryDirectory()]];
 }
 
 /* AVAudioPlayer delegate method*/
