@@ -53,6 +53,7 @@ static NSString *const PLAYBACK_STATE = @"playback";
     [self addSubview:self.contentView];
     self.contentView.frame = self.bounds;
     self.contentView.layer.cornerRadius = 10;
+    [self.playStopButton initWithColor:[UIColor colorNamed:@"light blue"]];
     [self initialState:NO];
 }
 
@@ -74,7 +75,11 @@ static NSString *const PLAYBACK_STATE = @"playback";
     } else if ([state isEqualToString:PLAYBACK_STATE]) {
         [self.delegate startRecordingProcess];
     }
-    
+}
+
+- (IBAction)didTapPlayStop:(id)sender {
+    NSAssert([[self getCurrentState] isEqualToString:PLAYBACK_STATE], @"Cannot play/stop outside of playback state");
+    [self.delegate playbackToggle];
 }
 
 #pragma mark - States
@@ -101,7 +106,7 @@ static NSString *const PLAYBACK_STATE = @"playback";
     [self setRecordingState:COUNTIN_STATE];
     self.doneButton.enabled = NO;
     self.magicButton.enabled = NO;
-    [self.progressAnimationView resetAnimation];
+    [self.progressAnimationView deleteAnimation];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-count-in"]];
     [self.magicButton setImage:[UIImage systemImageNamed:@"square"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"animiation-color-count-in"]];
@@ -120,6 +125,8 @@ static NSString *const PLAYBACK_STATE = @"playback";
 
 - (void)playbackState:(float)duration {
     [self setRecordingState:PLAYBACK_STATE];
+    self.playStopButton.enabled = YES;
+    [self.playStopButton UIPause];
     self.doneButton.enabled = YES;
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-playback"]];
     [self.progressAnimationView createAnimationWithDuration:duration];
@@ -149,13 +156,24 @@ static NSString *const PLAYBACK_STATE = @"playback";
 #pragma mark - Helpers
 
 - (void)setRecordingState:(NSString *)currentState {
-    NSLog(@"here");
+    if (![currentState isEqualToString:PLAYBACK_STATE]){
+        self.playStopButton.enabled = NO;
+    }
     _recordingState = currentState;
-    NSLog(@"hello ther");
 }
 
 - (NSString *)getCurrentState {
     return _recordingState;
+}
+
+- (void)playStopUI:(BOOL)play {
+    if (play){
+        [self.playStopButton UIPlay];
+        [self.progressAnimationView pauseAnimation];
+    } else {
+        [self.playStopButton UIPause];
+        [self.progressAnimationView resumeAnimation];
+    }
 }
 
 @end

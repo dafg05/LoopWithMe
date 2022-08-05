@@ -18,11 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *magicButton;
 @property (weak, nonatomic) IBOutlet UILabel *magicLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
 @property (weak, nonatomic) IBOutlet CircularAnimationView *progressAnimationView;
 @property (weak, nonatomic) id<RecordingViewDelegate> delegate;
 
-- (IBAction)didTapMagicButton:(id)sender;
-- (IBAction)didTapDone:(id)sender;
 
 - (void)initialState:(BOOL)recordingAvailable;
 - (void)countInState:(int)beats :(float)bpm;
@@ -32,10 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateMagicLabelWithCountIn:(int)counter;
 - (void)updateMagicLabelWithTimer:(NSTimeInterval)timeElapsed;
 
+-(void)playStopUI:(BOOL)play;
+
 @end
 
 @protocol RecordingViewDelegate
 /* Takes care of playback and recording, updates UI of recordingView appropriately*/
+- (void)playbackToggle;
 - (void)startRecordingProcess;
 - (void)stopRecordingStartPlayback;
 - (void)doneRecording;

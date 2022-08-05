@@ -85,6 +85,17 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 }
 
 #pragma mark - RecordingViewDelegate methods
+- (void)playbackToggle {
+    BOOL play;
+    if (self.audioPlayer.playing){
+        [self.audioPlayer pause];
+        play = YES;
+    } else {
+        [self.audioPlayer play];
+        play = NO;
+    }
+    [self.recordingView playStopUI:play];
+}
 
 - (void)startRecordingProcess {
     self.audioPlayer = nil;

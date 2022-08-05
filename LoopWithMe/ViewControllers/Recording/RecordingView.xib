@@ -15,6 +15,7 @@
                 <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
                 <outlet property="magicButton" destination="KJX-6w-F1J" id="wad-3g-r1H"/>
                 <outlet property="magicLabel" destination="UXM-gk-cmN" id="q41-el-oFV"/>
+                <outlet property="playStopButton" destination="ChG-qN-4zS" id="dtu-KV-MEm"/>
                 <outlet property="progressAnimationView" destination="Pej-eb-f7Y" id="RLj-bY-3Ih"/>
             </connections>
         </placeholder>
@@ -57,12 +58,22 @@
                     <color key="textColor" name="custom text color"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ChG-qN-4zS" customClass="PlayStopButton">
+                    <rect key="frame" x="173.5" y="140" width="67" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="didTapPlayStop:" destination="-1" eventType="touchUpInside" id="HIv-kQ-ljC"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pej-eb-f7Y" secondAttribute="bottom" constant="40" id="5W8-XD-QuQ"/>
+                <constraint firstItem="ChG-qN-4zS" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="6Q1-2g-RuY"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
+                <constraint firstItem="UXM-gk-cmN" firstAttribute="top" secondItem="ChG-qN-4zS" secondAttribute="bottom" constant="10" id="Pl0-vf-N91"/>
                 <constraint firstItem="UXM-gk-cmN" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="i21-iR-cKu"/>
                 <constraint firstItem="Pej-eb-f7Y" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="o5d-5g-mZM"/>
                 <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>

@@ -74,6 +74,9 @@ static float const endPoint = 3 * M_PI / 2;
 }
 
 - (void)createAnimationWithDuration:(float)duration {
+    self.progressLayer.speed = 1.0;
+    self.progressLayer.timeOffset = 0.0;
+    self.progressLayer.beginTime = 0.0;
     self.progressAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     self.progressAnimation.duration = duration;
     self.progressAnimation.toValue = @1.0;
@@ -89,6 +92,21 @@ static float const endPoint = 3 * M_PI / 2;
         self.progressAnimation.repeatCount = INFINITY;
     }
     [self.progressLayer addAnimation:self.progressAnimation forKey:@"progressAnim"];
+}
+
+- (void)pauseAnimation {
+    CFTimeInterval pausedTime = [self.progressLayer convertTime:CACurrentMediaTime() fromLayer:nil];
+    self.progressLayer.speed = 0.0;
+    self.progressLayer.timeOffset = pausedTime;
+}
+
+- (void)resumeAnimation {
+    CFTimeInterval pausedTime = [self.progressLayer timeOffset];
+    self.progressLayer.speed = 1.0;
+    self.progressLayer.timeOffset = 0.0;
+    self.progressLayer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [self.progressLayer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    self.progressLayer.beginTime = timeSincePause;
 }
 
 - (void)resetAnimation {

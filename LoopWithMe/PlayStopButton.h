@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)UIPlay;
 
-- (void)disable;
+- (void)UIPause;
 
 @end
 
