@@ -19,6 +19,7 @@
 @dynamic postAuthor;
 @dynamic taSettings;
 @dynamic duration;
+@dynamic bpm;
 
 + (nonnull NSString *)parseClassName {
     return @"Loop";

@@ -32,7 +32,10 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
+
+/* track management*/
 @property (strong, nonatomic) TrackFileManager *fileManager;
+@property (strong, nonatomic) NSMutableDictionary *trackUrlDict;
 /* For relooping*/
 @property BOOL editMode;
 @property (strong, nonatomic) Loop *parentLoop;
@@ -72,6 +75,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
     self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
+    self.trackUrlDict = [NSMutableDictionary new];
     [self updateTrackCountLabel];
 }
 
@@ -87,7 +91,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     [cell.playTrackButton UIPlay];
     cell.trackNumberLabel.text = @"Track";
     NSData *audioData = [cell.track.audioFilePF getData];
-    cell.trackAudioUrl = [self.fileManager writeToAvailableUrl:audioData];
+    NSValue *trackValue = [NSValue valueWithNonretainedObject:cell.track];
+    [self.trackUrlDict setObject:[self.fileManager writeToAvailableUrl:audioData] forKey:trackValue];
     return cell;
 }
 
@@ -108,7 +113,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
-        [self.fileManager freeUrl:cellToDelete.trackAudioUrl];
+        [self.fileManager freeUrl:[self getUrlFromTrack:cellToDelete.track]];
         [self.loop.tracks removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self updateTrackCountLabel];
@@ -155,8 +160,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 }
 
 /* LoopTrack cell delegate method: called when LoopTrackCell button is pressed*/
-- (void)playTrack:(NSURL *)trackUrl {
-    [self startTrack:trackUrl];
+- (void)playTrack:(Track *)track {
+    [self startTrack:[self getUrlFromTrack:track]];
 }
 
 #pragma mark - Playback
@@ -177,7 +182,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
             for (int row = 0; row < [self.trackTableView numberOfRowsInSection:section]; row++){
                 NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
                 LoopTrackCell* cell = [self.trackTableView cellForRowAtIndexPath:cellPath];
-                NSURL *trackUrl = cell.trackAudioUrl;
+                NSURL *trackUrl = [self getUrlFromTrack:cell.track];
                 AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
                 [self.audioEngine attachNode:playerNode];
                 NSError *readingError = NULL;
@@ -242,7 +247,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     [self.trackTableView reloadData];
 }
 
-#pragma mark - Relooping helpers
+#pragma mark - Relooping
 
 - (void)canEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
@@ -289,6 +294,13 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     self.loop = self.parentLoop;
     [self reloadLoopTableViewData];
     NSAssert(!self.loop.dirty, @"Original loop was somehow modified");
+}
+
+# pragma mark - Helpers
+
+- (NSURL *) getUrlFromTrack:(Track *)track{
+    NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
+    return [self.trackUrlDict objectForKey:trackValue];
 }
 
 @end
