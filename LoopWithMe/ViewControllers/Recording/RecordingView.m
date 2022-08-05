@@ -13,6 +13,8 @@ static NSString *const COUNTIN_STATE = @"count-in";
 static NSString *const RECORDING_STATE = @"recording";
 static NSString *const PLAYBACK_STATE = @"playback";
 
+static float const SECONDS_IN_MINUTE = 60;
+
 @interface RecordingView ()
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
@@ -85,9 +87,9 @@ static NSString *const PLAYBACK_STATE = @"playback";
 #pragma mark - States
 
 - (void)initialState:(BOOL)recordingAvailable {
-    NSLog(@"maybe here");
     [self setRecordingState:INITIAL_STATE];
     self.doneButton.enabled = NO;
+    self.magicLabel.text = @"";
     [self.progressAnimationView deleteAnimation];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-initial"]];
     [self.magicButton setImage:[UIImage systemImageNamed:@"circle.fill"] forState:UIControlStateNormal];
@@ -108,6 +110,8 @@ static NSString *const PLAYBACK_STATE = @"playback";
     self.magicButton.enabled = NO;
     [self.progressAnimationView deleteAnimation];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-count-in"]];
+    [self.progressAnimationView createAnimationWithDuration:SECONDS_IN_MINUTE/bpm];
+    [self.progressAnimationView startAnimation:beats - 1];
     [self.magicButton setImage:[UIImage systemImageNamed:@"square"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"animiation-color-count-in"]];
 }
@@ -118,7 +122,7 @@ static NSString *const PLAYBACK_STATE = @"playback";
     self.magicButton.enabled = YES;
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-recording"]];
     [self.progressAnimationView createAnimationWithDuration:duration];
-    [self.progressAnimationView startAnimation:NO];
+    [self.progressAnimationView startAnimation:0];
     [self.magicButton setImage:[UIImage systemImageNamed:@"square.fill"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"magic-button-initial"]];
 }
@@ -128,9 +132,11 @@ static NSString *const PLAYBACK_STATE = @"playback";
     self.playStopButton.enabled = YES;
     [self.playStopButton UIPause];
     self.doneButton.enabled = YES;
+    self.magicLabel.text = @"";
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-playback"]];
     [self.progressAnimationView createAnimationWithDuration:duration];
-    [self.progressAnimationView startAnimation:YES];
+    // animation repeat count: infinity
+    [self.progressAnimationView startAnimation:-1];
     [self.magicButton setImage:[UIImage systemImageNamed:@"circle.fill"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"magic-button-initial"]];
 }

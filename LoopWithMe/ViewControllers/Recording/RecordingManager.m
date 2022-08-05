@@ -12,6 +12,8 @@
 #import "Parse/Parse.h"
 #import "Track.h"
 
+NSDate *pauseStart, *previousFireDate;
+
 static float const TIMER_TOLERANCE = 0.003;
 static float const TIMER_MULTIPLIER = 0.01;
 static NSString const * BPM_KEY = @"bpm";
@@ -27,7 +29,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 @property AVAudioRecorder *audioRecorder;
 @property (strong, nonatomic) AVAudioPlayer *audioPlayer;
 @property (strong, nonatomic) AVAudioPlayer *countInPlayer;
-@property (strong, nonatomic) NSTimer *recordingTimer;
+@property (strong, nonatomic) NSTimer *timer;
 @property (strong, nonatomic) NSURL *audioFileUrl;
 @property (strong, nonatomic) RecordingView *recordingView;
 
@@ -173,13 +175,13 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     @try {
         [self.audioRecorder recordForDuration:self.recordingDuration];
         [self.recordingView recordingState:self.recordingDuration];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateRecordingTimer)userInfo:nil repeats:YES];
     } @catch (NSException *exception) {
         NSLog(@"Didn't finish recording successfully");
         [self finishRecording:NO];
         [self.recordingView initialState:YES];
         return;
     }
-    self.recordingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(viewUpdateTimer)userInfo:nil repeats:YES];
 }
 
 - (void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder
@@ -189,8 +191,8 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 - (void)finishRecording:(BOOL)success {
     [self.audioRecorder stop];
-    if (self.recordingTimer){
-        [self.recordingTimer invalidate];
+    if (self.timer){
+        [self.timer invalidate];
     }
     if (success){
         [self initializeAudioPlayer];
@@ -214,10 +216,9 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     self.audioPlayer.numberOfLoops = -1;
 }
 
-- (void) viewUpdateTimer {
+- (void) updateRecordingTimer{
     [self.recordingView updateMagicLabelWithTimer:self.audioRecorder.currentTime];
 }
-
 - (NSURL *)getRecordingFileUrl {
     return [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/recording.m4a", DOCUMENTS_FOLDER]];
 }
