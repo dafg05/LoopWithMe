@@ -59,7 +59,7 @@ static float const endPoint = 3 * M_PI / 2;
     [self.circleLayer setPath:circularPath.CGPath];
     self.circleLayer.fillColor = [[UIColor clearColor] CGColor];
     self.circleLayer.lineCap = kCALineCapRound;
-    self.circleLayer.lineWidth = 0.15 * self.frame.size.height;
+    self.circleLayer.lineWidth = 0.1 * self.frame.size.height;
     self.circleLayer.strokeEnd = 1.0;
     self.circleLayer.strokeColor = [[UIColor colorNamed:@"animation-color"] CGColor];
     [self.layer addSublayer:self.circleLayer];
@@ -74,6 +74,9 @@ static float const endPoint = 3 * M_PI / 2;
 }
 
 - (void)createAnimationWithDuration:(float)duration {
+    self.progressLayer.speed = 1.0;
+    self.progressLayer.timeOffset = 0.0;
+    self.progressLayer.beginTime = 0.0;
     self.progressAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     self.progressAnimation.duration = duration;
     self.progressAnimation.toValue = @1.0;
@@ -81,11 +84,32 @@ static float const endPoint = 3 * M_PI / 2;
     [self.progressAnimation setRemovedOnCompletion:NO];
 }
 
-- (void)startAnimation {
+- (void)startAnimation:(int)repeatCount {
     if (!self.progressAnimation) {
         [NSException raise:@"AnimationException" format:@"No animation has been created"];
     }
+    if (repeatCount == -1) {
+        self.progressAnimation.repeatCount = INFINITY;
+    }
+    else {
+        self.progressAnimation.repeatCount = repeatCount;
+    }
     [self.progressLayer addAnimation:self.progressAnimation forKey:@"progressAnim"];
+}
+
+- (void)pauseAnimation {
+    CFTimeInterval pausedTime = [self.progressLayer convertTime:CACurrentMediaTime() fromLayer:nil];
+    self.progressLayer.speed = 0.0;
+    self.progressLayer.timeOffset = pausedTime;
+}
+
+- (void)resumeAnimation {
+    CFTimeInterval pausedTime = [self.progressLayer timeOffset];
+    self.progressLayer.speed = 1.0;
+    self.progressLayer.timeOffset = 0.0;
+    self.progressLayer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [self.progressLayer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    self.progressLayer.beginTime = timeSincePause;
 }
 
 - (void)resetAnimation {
@@ -95,6 +119,10 @@ static float const endPoint = 3 * M_PI / 2;
 - (void)deleteAnimation {
     [self.progressLayer removeAllAnimations];
     self.progressAnimation = nil;
+}
+
+- (void)setCirleLayerColor:(UIColor *)color {
+    self.circleLayer.strokeColor = [color CGColor];
 }
 
 @end

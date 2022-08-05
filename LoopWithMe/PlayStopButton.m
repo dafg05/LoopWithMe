@@ -12,21 +12,26 @@
 - (void)initWithColor:(UIColor *)color {
     [self setTintColor:color];
     [self setTitle:@"" forState:UIControlStateNormal];
+    [self setImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateDisabled];
+    self.enabled = NO;
 }
 
 -(void)UIPlay {
+    self.enabled = YES;
     [self setImage:[UIImage systemImageNamed:@"play.fill"] forState:UIControlStateNormal];
     [self setImage:[UIImage systemImageNamed:@"play.fill"] forState:UIControlStateHighlighted];
 }
 
 -(void)UIStop {
+    self.enabled = YES;
     [self setImage:[UIImage systemImageNamed:@"stop.fill"] forState:UIControlStateNormal];
     [self setImage:[UIImage systemImageNamed:@"stop.fill"] forState:UIControlStateHighlighted];
 }
 
--(void)disable {
-    self.enabled = NO;
-    [self setImage:[UIImage systemImageNamed:@"play"] forState:UIControlStateDisabled];
+-(void)UIPause {
+    self.enabled = YES;
+    [self setImage:[UIImage systemImageNamed:@"pause.fill"] forState:UIControlStateNormal];
+    [self setImage:[UIImage systemImageNamed:@"pause.fill"] forState:UIControlStateHighlighted];
 }
 
 @end
