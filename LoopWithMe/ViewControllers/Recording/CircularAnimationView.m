@@ -81,9 +81,12 @@ static float const endPoint = 3 * M_PI / 2;
     [self.progressAnimation setRemovedOnCompletion:NO];
 }
 
-- (void)startAnimation {
+- (void)startAnimation:(BOOL)loop {
     if (!self.progressAnimation) {
         [NSException raise:@"AnimationException" format:@"No animation has been created"];
+    }
+    if (loop) {
+        self.progressAnimation.repeatCount = INFINITY;
     }
     [self.progressLayer addAnimation:self.progressAnimation forKey:@"progressAnim"];
 }

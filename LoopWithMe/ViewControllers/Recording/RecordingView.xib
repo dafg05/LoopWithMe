@@ -71,6 +71,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="131.8840579710145" y="336.16071428571428"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="DFJ-5S-E07">
+            <rect key="frame" x="0.0" y="0.0" width="67" height="31"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="Button"/>
+            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+            <point key="canvasLocation" x="-210" y="219"/>
+        </button>
     </objects>
     <resources>
         <image name="circle" catalog="system" width="128" height="121"/>

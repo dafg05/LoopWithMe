@@ -155,6 +155,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 }
 
 - (void)countInDone {
+    [self.recordingView updateMagicLabelWithTimer:0];
     if (!self.recordingDuration || self.newLoop) {
         self.recordingDuration = DEFAULT_RECORDING_DURATION;
     }
@@ -199,6 +200,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
+    self.audioPlayer.numberOfLoops = -1;
 }
 
 - (void) viewUpdateTimer {

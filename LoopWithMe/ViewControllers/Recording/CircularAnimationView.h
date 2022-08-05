@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CircularAnimationView : UIView
 
 - (void)createAnimationWithDuration:(float)duration;
-- (void)startAnimation;
+- (void)startAnimation:(BOOL)loop;
 - (void)resetAnimation;
 - (void)deleteAnimation;
 - (void)setCirleLayerColor:(UIColor *)color;

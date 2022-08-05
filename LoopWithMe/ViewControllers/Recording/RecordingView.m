@@ -83,6 +83,7 @@ static NSString *const PLAYBACK_STATE = @"playback";
     NSLog(@"maybe here");
     [self setRecordingState:INITIAL_STATE];
     self.doneButton.enabled = NO;
+    [self.progressAnimationView deleteAnimation];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-initial"]];
     [self.magicButton setImage:[UIImage systemImageNamed:@"circle.fill"] forState:UIControlStateNormal];
     if (recordingAvailable) {
@@ -99,6 +100,8 @@ static NSString *const PLAYBACK_STATE = @"playback";
 - (void)countInState:(int)beats :(float)bpm {
     [self setRecordingState:COUNTIN_STATE];
     self.doneButton.enabled = NO;
+    self.magicButton.enabled = NO;
+    [self.progressAnimationView resetAnimation];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-count-in"]];
     [self.magicButton setImage:[UIImage systemImageNamed:@"square"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"animiation-color-count-in"]];
@@ -107,9 +110,10 @@ static NSString *const PLAYBACK_STATE = @"playback";
 - (void)recordingState:(float)duration {
     [self setRecordingState:RECORDING_STATE];
     self.doneButton.enabled = NO;
+    self.magicButton.enabled = YES;
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-recording"]];
     [self.progressAnimationView createAnimationWithDuration:duration];
-    [self.progressAnimationView startAnimation];
+    [self.progressAnimationView startAnimation:NO];
     [self.magicButton setImage:[UIImage systemImageNamed:@"square.fill"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"magic-button-initial"]];
 }
@@ -119,7 +123,7 @@ static NSString *const PLAYBACK_STATE = @"playback";
     self.doneButton.enabled = YES;
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-playback"]];
     [self.progressAnimationView createAnimationWithDuration:duration];
-    [self.progressAnimationView startAnimation];
+    [self.progressAnimationView startAnimation:YES];
     [self.magicButton setImage:[UIImage systemImageNamed:@"circle.fill"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"magic-button-initial"]];
 }
