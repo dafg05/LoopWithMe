@@ -132,6 +132,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (IBAction)didTapStopMix:(id)sender {
     [self.audioEngine stop];
+    [self.audioEngine prepare];
 }
 
 - (IBAction)didTapAddTrack:(id)sender {
@@ -199,10 +200,13 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 //        }
 //    }
     
+    
     [self.audioEngine stop];
+    
     [self.audioEngine startAndReturnError:nil];
     for (id key in self.trackPlayerDict) {
         TrackPlayerModel *tpModel = (TrackPlayerModel *) self.trackPlayerDict[key];
+        [tpModel.player stop];
         [tpModel.player scheduleBuffer:tpModel.buffer atTime:nil options:AVAudioPlayerNodeBufferLoops completionHandler:nil];
         [tpModel.player play];
     }
