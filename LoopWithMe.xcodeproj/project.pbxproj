@@ -39,6 +39,7 @@
 		29A376FF28821CA90075D518 /* TrackFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A376FE28821CA90075D518 /* TrackFileManager.m */; };
 		29B7962B28887F88001E4ED6 /* HomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B7962A28887F88001E4ED6 /* HomeVC.m */; };
 		29B7962E28888064001E4ED6 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B7962D28888064001E4ED6 /* PostCell.m */; };
+		29C4BE6B28A18786003F546E /* TrackPlayerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 29C4BE6A28A18786003F546E /* TrackPlayerModel.m */; };
 		29DCB5E3289AE9BA0026349D /* count-in-short.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29DCB5E2289AE9BA0026349D /* count-in-short.wav */; };
 		29F2C4C8287CA49800861B7B /* ProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2C4C7287CA49800861B7B /* ProfileVC.m */; };
 		29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F8CE052881E32900E85780 /* PlayStopButton.m */; };
@@ -119,6 +120,8 @@
 		29B7962A28887F88001E4ED6 /* HomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeVC.m; sourceTree = "<group>"; };
 		29B7962C28888064001E4ED6 /* PostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostCell.h; sourceTree = "<group>"; };
 		29B7962D28888064001E4ED6 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = "<group>"; };
+		29C4BE6928A18786003F546E /* TrackPlayerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrackPlayerModel.h; sourceTree = "<group>"; };
+		29C4BE6A28A18786003F546E /* TrackPlayerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrackPlayerModel.m; sourceTree = "<group>"; };
 		29DCB5E2289AE9BA0026349D /* count-in-short.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "count-in-short.wav"; sourceTree = "<group>"; };
 		29F2C4C6287CA49800861B7B /* ProfileVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProfileVC.h; sourceTree = "<group>"; };
 		29F2C4C7287CA49800861B7B /* ProfileVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProfileVC.m; sourceTree = "<group>"; };
@@ -194,6 +197,8 @@
 				298421F5287F3D1C001CB7D8 /* LoopTrackCell.m */,
 				29A376FD28821CA90075D518 /* TrackFileManager.h */,
 				29A376FE28821CA90075D518 /* TrackFileManager.m */,
+				29C4BE6928A18786003F546E /* TrackPlayerModel.h */,
+				29C4BE6A28A18786003F546E /* TrackPlayerModel.m */,
 			);
 			path = LoopStack;
 			sourceTree = "<group>";
@@ -603,6 +608,7 @@
 				291E46262891E39F00AE3F30 /* LoopFeedVC.m in Sources */,
 				296BA92E2898C1F6000FCC7C /* CircularAnimationView.m in Sources */,
 				29F8CE062881E32900E85780 /* PlayStopButton.m in Sources */,
+				29C4BE6B28A18786003F546E /* TrackPlayerModel.m in Sources */,
 				294B937F2891BD3A0042BEC1 /* RecordingVC.m in Sources */,
 				29958C7F287BA25C0004D8D1 /* ShareVC.m in Sources */,
 				29958C76287B6BCC0004D8D1 /* SignUpVC.m in Sources */,
