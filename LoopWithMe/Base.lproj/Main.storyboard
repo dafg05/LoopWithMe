@@ -336,7 +336,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUy-VK-EfY" customClass="PlayStopButton">
-                                                    <rect key="frame" x="20" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="20" y="-2.5" width="50" height="48.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="Ng4-EY-6R5"/>
+                                                    </constraints>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Play"/>
                                                     <connections>
@@ -344,7 +347,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDB-93-5Vg">
-                                                    <rect key="frame" x="81" y="13" width="99.5" height="18"/>
+                                                    <rect key="frame" x="80" y="13" width="99.5" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                     <color key="textColor" name="custom background color"/>
                                                     <nil key="highlightedColor"/>
@@ -359,7 +362,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="light blue"/>
                                         <connections>
-                                            <outlet property="playTrackButton" destination="YUy-VK-EfY" id="FIx-Td-MMy"/>
+                                            <outlet property="playStopTrackButton" destination="YUy-VK-EfY" id="FIx-Td-MMy"/>
                                             <outlet property="trackNumberLabel" destination="gDB-93-5Vg" id="w7K-Sm-pII"/>
                                         </connections>
                                     </tableViewCell>

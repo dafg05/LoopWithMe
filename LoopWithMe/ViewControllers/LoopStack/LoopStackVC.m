@@ -35,6 +35,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 @property (strong, nonatomic) NSMutableDictionary *trackPlayerDict;
 @property (strong, nonatomic) TrackFileManager *fileManager;
 @property long long mixFrameCount;
+@property LoopTrackCell *playingNowCell;
+@property BOOL isMixPlaying;
 /* For relooping*/
 @property BOOL editMode;
 @property (strong, nonatomic) Loop *parentLoop;
@@ -86,8 +88,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     cell.layer.cornerRadius = 5;
     cell.track = self.loop.tracks[indexPath.row];
     cell.delegate = self;
-    [cell.playTrackButton initWithColor:[UIColor blackColor]];
-    [cell.playTrackButton UIPlay];
+    [cell.playStopTrackButton initWithColor:[UIColor blackColor]];
+    [cell.playStopTrackButton UIPlay];
     cell.trackNumberLabel.text = @"Track";
     return cell;
 }
@@ -108,7 +110,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self stopMix];
+        [self stopPlayback];
         LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
         NSURL *urlToFree = [self getTPModelFromTrack:cellToDelete.track].url;
         [self.fileManager freeUrl:urlToFree];
@@ -123,12 +125,12 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 #pragma mark - Button Actions
 
 - (IBAction)didTapPlayStopMix:(id)sender {
-    if (self.audioEngine.isRunning){
-        [self stopMix];
+    if (self.audioEngine.isRunning && self.playingNowCell == nil){
+        NSAssert(self.audioEngine.isRunning, @"Stopping mix playback but the audio engine isn't running");
+        [self stopPlayback];
     }
     else {
         [self startMix];
-        
     }
 }
 
@@ -162,36 +164,51 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 }
 
 /* LoopTrack cell delegate method: called when LoopTrackCell button is pressed */
-- (void)playTrack:(Track *)track {
-    [self.audioEngine stop];
-    NSLog(@"Not refactored yet!");
+- (void)playStopTrack:(LoopTrackCell *)cell {
+    if (self.audioEngine.isRunning && self.playingNowCell == cell){
+        [self stopPlayback];
+    }
+    else {
+        self.isMixPlaying = FALSE;
+        [self startTrack:cell];
+    }
 }
 
 #pragma mark - Playback
 
 - (void)startMix {
-    [self.audioEngine stop];
+    [self stopPlayback];
     [self.audioEngine startAndReturnError:nil];
     for (id key in self.trackPlayerDict) {
         TrackPlayerModel *tpModel = (TrackPlayerModel *) self.trackPlayerDict[key];
-        [tpModel.player stop];
         [tpModel.player scheduleBuffer:tpModel.buffer atTime:nil options:AVAudioPlayerNodeBufferLoops completionHandler:nil];
         [tpModel.player play];
-        NSLog(@"%d", tpModel.player.isPlaying);
     }
     [self.playStopMixButton UIStop];
 }
 
-- (void)stopMix {
+- (void)startTrack:(LoopTrackCell *)cell{
+    [self stopPlayback];
+    [self.audioEngine startAndReturnError:nil];
+    TrackPlayerModel *tpModel = [self getTPModelFromTrack:cell.track];
+    [tpModel.player scheduleBuffer:tpModel.buffer atTime:nil options:AVAudioPlayerNodeBufferLoops completionHandler:nil];
+    [tpModel.player play];
+    self.playingNowCell = cell;
+    [cell.playStopTrackButton UIStop];
+}
+
+- (void)stopPlayback {
     [self.audioEngine stop];
+    for (id key in self.trackPlayerDict) {
+        TrackPlayerModel *tpModel = (TrackPlayerModel *) self.trackPlayerDict[key];
+        [tpModel.player stop];
+    }
     [self.playStopMixButton UIPlay];
+    if (self.playingNowCell){
+        [self.playingNowCell.playStopTrackButton UIPlay];
+        self.playingNowCell = nil;
+    }
 }
-
-- (void)startTrack:(NSURL *)trackUrl {
-    [self.audioEngine stop];
-    NSLog(@"Not refactored yet!");
-}
-
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -226,7 +243,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)canEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
-    [self stopMix];
+    [self stopPlayback];
     [self setUpReloop];
     self.editMode = YES;
     [self.editButton setTitle:@"Cancel" forState:UIControlStateNormal];
@@ -237,7 +254,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)cancelEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
-    [self stopMix];
+    [self stopPlayback];
     [self discardReloop];
     self.editMode = NO;
     [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
