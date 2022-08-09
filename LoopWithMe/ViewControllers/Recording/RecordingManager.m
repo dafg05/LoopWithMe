@@ -195,6 +195,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
         [self initializeAudioPlayer];
         if (self.newLoop){
             self.recordingDuration = self.audioPlayer.duration;
+            NSLog(@"%fcbn", self.recordingDuration);
         }
     } else{
         [self.delegate recordingAlert:@"An error occurred while recording, try again"];

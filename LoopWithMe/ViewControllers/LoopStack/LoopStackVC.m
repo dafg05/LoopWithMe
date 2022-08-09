@@ -38,6 +38,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 @property (strong, nonatomic) TrackFileManager *fileManager;
 //@property (strong, nonatomic) NSMutableDictionary *trackUrlDict;
 @property (strong, nonatomic) NSMutableDictionary *trackPlayerDict;
+@property long long mixFrameCount;
 /* For relooping*/
 @property BOOL editMode;
 @property (strong, nonatomic) Loop *parentLoop;
@@ -119,6 +120,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
         [self.fileManager freeUrl:urlToFree];
         [self.trackPlayerDict removeObjectForKey:self.loop.tracks[indexPath.row]]; // does this deallocate the trackPlayerModel?
         [self.loop.tracks removeObjectAtIndex:indexPath.row];
+        [self setUpMixer];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self updateTrackCountLabel];
     }
@@ -173,67 +175,20 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 #pragma mark - Playback
 
 - (void)startMix {
-//    // TODO: looping playback
-//    [self.audioEngine stop];
-//    [self.audioEngine attachNode:self.mixerNode];
-//    [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
-//
-//    NSError *startError = nil;
-//    [self.audioEngine startAndReturnError:&startError];
-//
-//    if (startError != nil){
-//        NSLog(@"%@", startError.localizedDescription);
-//    } else{
-//        for (int section = 0; section < [self.trackTableView numberOfSections]; section++){
-//            for (int row = 0; row < [self.trackTableView numberOfRowsInSection:section]; row++){
-//                NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
-//                LoopTrackCell* cell = [self.trackTableView cellForRowAtIndexPath:cellPath];
-//                NSURL *trackUrl = [self getUrlFromTrack:cell.track];
-//                AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
-//                [self.audioEngine attachNode:playerNode];
-//                NSError *readingError = NULL;
-//                AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&readingError];
-//                [self.audioEngine connect:playerNode to:self.mixerNode format:file.processingFormat];
-//                [playerNode scheduleFile:file atTime:nil completionHandler:nil];
-//                [playerNode play];
-//            }
-//        }
-//    }
-    
-    
     [self.audioEngine stop];
-    
     [self.audioEngine startAndReturnError:nil];
     for (id key in self.trackPlayerDict) {
         TrackPlayerModel *tpModel = (TrackPlayerModel *) self.trackPlayerDict[key];
         [tpModel.player stop];
         [tpModel.player scheduleBuffer:tpModel.buffer atTime:nil options:AVAudioPlayerNodeBufferLoops completionHandler:nil];
         [tpModel.player play];
+        NSLog(@"%d", tpModel.player.isPlaying);
     }
 }
 
 - (void)startTrack:(NSURL *)trackUrl {
     [self.audioEngine stop];
     NSLog(@"Not refactored yet!");
-//    NSError *creationError = NULL;
-//    AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&creationError];
-//    if (creationError != nil){
-//        NSLog(@"Error initializing AVAudioFile when playing track");
-//    }
-//    else{
-//        AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
-//        [self.audioEngine attachNode:playerNode];
-//        [self.audioEngine connect:playerNode to:self.audioEngine.outputNode format:file.processingFormat];
-//        NSError *startError = NULL;
-//        [self.audioEngine startAndReturnError:&startError];
-//        [playerNode scheduleFile:file atTime:nil completionHandler:nil];
-//        if (startError != nil){
-//            NSLog(@"%@", startError.localizedDescription);
-//        }
-//        else{
-//            [playerNode play];
-//        }
-//    }
 }
 
 #pragma mark - Navigation
@@ -317,11 +272,6 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 # pragma mark - Helpers
 
-//- (NSURL *) getUrlFromTrack:(Track *)track{
-//    NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
-//    return [self.trackUrlDict objectForKey:trackValue];
-//}
-
 - (TrackPlayerModel *)getTPModelFromTrack:(Track *)track {
     NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
     return [self.trackPlayerDict objectForKey:trackValue];
@@ -331,16 +281,32 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     self.trackPlayerDict = [NSMutableDictionary new];
     [self.audioEngine attachNode:self.mixerNode];
     [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
+    NSMutableArray *frameCountArray = [NSMutableArray new];
+    NSMutableArray *audioObjectsArray = [NSMutableArray new];
+    // Initialize audiofiles and urls, get min frame count of audio for looping
     for (Track *track in self.loop.tracks){
         NSData *audioData = [track.audioFilePF getData];
         NSURL *trackUrl = [self.fileManager writeToAvailableUrl:audioData];
         AVAudioFile *audioFile = [[AVAudioFile alloc] initForReading:trackUrl error:nil];
-        AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:audioFile.processingFormat
-                                                                 frameCapacity:(UInt32)audioFile.length];
-        [audioFile readIntoBuffer:buffer error:nil];
+        NSNumber *frameCount = [NSNumber numberWithLongLong:audioFile.length];
+        [frameCountArray addObject:frameCount];
+        NSArray *audioObjects = @[audioFile, trackUrl, track];
+        [audioObjectsArray addObject:audioObjects];
+    }
+    // get min of Framecount, to loop audio of the same length
+    long long mixFrameCount = [self minOfPositiveNumArray:frameCountArray];
+    
+    // set up buffers and player nodes for each file
+    for (NSArray *audioObjects in audioObjectsArray){
+        AVAudioFile *file = audioObjects[0];
+        NSURL *trackUrl = audioObjects[1];
+        Track *track = audioObjects[2];
+        AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:file.processingFormat
+                                                                 frameCapacity:(UInt32)mixFrameCount];
+        [file readIntoBuffer:buffer error:nil];
         AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
         [self.audioEngine attachNode:playerNode];
-        [self.audioEngine connect:playerNode to:self.mixerNode format:audioFile.processingFormat];
+        [self.audioEngine connect:playerNode to:self.mixerNode format:file.processingFormat];
         // Set up trackPlayerDict
         TrackPlayerModel *trackPlayerModel = [[TrackPlayerModel alloc] init];
         trackPlayerModel.buffer = buffer;
@@ -349,7 +315,23 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
         NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
         [self.trackPlayerDict setObject:trackPlayerModel forKey:trackValue];
     }
-    [self.audioEngine prepare];
+    self.mixFrameCount = [self minOfPositiveNumArray:frameCountArray];
+}
+
+- (long long)minOfPositiveNumArray:(NSArray *)array {
+    long long min = -1;
+    for (NSNumber *nsNum in array){
+        NSLog(@"%@", nsNum);
+        long long num = [nsNum longLongValue];
+        if (min == -1) {
+            min = num;
+        }
+        else if (num < min){
+            min = num;
+        }
+    }
+    NSLog(@"%lld", min);
+    return min;
 }
 
 @end
