@@ -23,8 +23,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *trackTableView;
-@property (weak, nonatomic) IBOutlet PlayStopButton *playMixButton;
-@property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
+@property (weak, nonatomic) IBOutlet PlayStopButton *playStopMixButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *addTrackButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
@@ -71,10 +70,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     }
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
-    [self.playMixButton initWithColor:[UIColor blackColor]];
-    [self.playMixButton UIPlay];
-    [self.stopMixButton initWithColor:[UIColor blackColor]];
-    [self.stopMixButton UIStop];
+    [self.playStopMixButton initWithColor:[UIColor blackColor]];
+    [self.playStopMixButton UIPlay];
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
     self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
@@ -128,8 +125,15 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 #pragma mark - Button Actions
 
-- (IBAction)didTapPlayMix:(id)sender {
-    [self startMix];
+- (IBAction)didTapPlayStopMix:(id)sender {
+    if (self.audioEngine.isRunning){
+        [self.audioEngine stop];
+        [self.playStopMixButton UIPlay];
+    }
+    else {
+        [self startMix];
+        [self.playStopMixButton UIStop];
+    }
 }
 
 - (IBAction)didTapStopMix:(id)sender {
