@@ -29,14 +29,11 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *loopStatusLabel;
-
+/* mixing */
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
-
-/* track management*/
-@property (strong, nonatomic) TrackFileManager *fileManager;
-//@property (strong, nonatomic) NSMutableDictionary *trackUrlDict;
 @property (strong, nonatomic) NSMutableDictionary *trackPlayerDict;
+@property (strong, nonatomic) TrackFileManager *fileManager;
 @property long long mixFrameCount;
 /* For relooping*/
 @property BOOL editMode;
@@ -111,8 +108,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self stopMix];
         LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
-//        [self.fileManager freeUrl:[self getUrlFromTrack:cellToDelete.track]];
         NSURL *urlToFree = [self getTPModelFromTrack:cellToDelete.track].url;
         [self.fileManager freeUrl:urlToFree];
         [self.trackPlayerDict removeObjectForKey:self.loop.tracks[indexPath.row]]; // does this deallocate the trackPlayerModel?
@@ -127,18 +124,12 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (IBAction)didTapPlayStopMix:(id)sender {
     if (self.audioEngine.isRunning){
-        [self.audioEngine stop];
-        [self.playStopMixButton UIPlay];
+        [self stopMix];
     }
     else {
         [self startMix];
-        [self.playStopMixButton UIStop];
+        
     }
-}
-
-- (IBAction)didTapStopMix:(id)sender {
-    [self.audioEngine stop];
-    [self.audioEngine prepare];
 }
 
 - (IBAction)didTapAddTrack:(id)sender {
@@ -170,7 +161,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     }
 }
 
-// LoopTrack cell delegate method: called when LoopTrackCell button is pressed
+/* LoopTrack cell delegate method: called when LoopTrackCell button is pressed */
 - (void)playTrack:(Track *)track {
     [self.audioEngine stop];
     NSLog(@"Not refactored yet!");
@@ -188,6 +179,12 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
         [tpModel.player play];
         NSLog(@"%d", tpModel.player.isPlaying);
     }
+    [self.playStopMixButton UIStop];
+}
+
+- (void)stopMix {
+    [self.audioEngine stop];
+    [self.playStopMixButton UIPlay];
 }
 
 - (void)startTrack:(NSURL *)trackUrl {
@@ -229,7 +226,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)canEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
-    [self.audioEngine stop];
+    [self stopMix];
     [self setUpReloop];
     self.editMode = YES;
     [self.editButton setTitle:@"Cancel" forState:UIControlStateNormal];
@@ -240,7 +237,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)cancelEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
-    [self.audioEngine stop];
+    [self stopMix];
     [self discardReloop];
     self.editMode = NO;
     [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
@@ -325,7 +322,6 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 - (long long)minOfPositiveNumArray:(NSArray *)array {
     long long min = -1;
     for (NSNumber *nsNum in array){
-        NSLog(@"%@", nsNum);
         long long num = [nsNum longLongValue];
         if (min == -1) {
             min = num;
