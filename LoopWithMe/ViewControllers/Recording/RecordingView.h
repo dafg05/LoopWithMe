@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)initialState:(BOOL)recordingAvailable;
 - (void)countInState:(int)beats :(float)bpm;
-- (void)recordingState:(float)duration;
+- (void)recordingState:(float)duration :(BOOL)newLoop;
 - (void)playbackState:(float)duration;
 
 - (void)updateMagicLabelWithCountIn:(int)counter;

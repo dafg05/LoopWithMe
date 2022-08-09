@@ -39,6 +39,10 @@ static int const DEFAULT_BPM = 100;
     self.recordingManager.newLoop = YES;
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [self.recordingManager setViewToInitialState];
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

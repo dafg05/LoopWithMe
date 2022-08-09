@@ -18,7 +18,7 @@ static float const SECONDS_IN_MINUTE = 60;
 @interface RecordingView ()
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (strong, nonatomic) NSString *recordingState;
+@property (strong, nonatomic) NSString *state;
 
 @end
 
@@ -87,7 +87,7 @@ static float const SECONDS_IN_MINUTE = 60;
 #pragma mark - States
 
 - (void)initialState:(BOOL)recordingAvailable {
-    [self setRecordingState:INITIAL_STATE];
+    [self setState:INITIAL_STATE];
     self.doneButton.enabled = NO;
     self.magicLabel.text = @"";
     [self.progressAnimationView deleteAnimation];
@@ -105,21 +105,23 @@ static float const SECONDS_IN_MINUTE = 60;
 }
 
 - (void)countInState:(int)beats :(float)bpm {
-    [self setRecordingState:COUNTIN_STATE];
+    [self setState:COUNTIN_STATE];
     self.doneButton.enabled = NO;
     self.magicButton.enabled = NO;
     [self.progressAnimationView deleteAnimation];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-count-in"]];
     [self.progressAnimationView createAnimationWithDuration:SECONDS_IN_MINUTE/bpm];
-    [self.progressAnimationView startAnimation:beats - 1];
+    [self.progressAnimationView startAnimation:beats];
     [self.magicButton setImage:[UIImage systemImageNamed:@"square"] forState:UIControlStateNormal];
     [self.magicButton setTintColor:[UIColor colorNamed:@"animiation-color-count-in"]];
 }
 
-- (void)recordingState:(float)duration {
-    [self setRecordingState:RECORDING_STATE];
+- (void)recordingState:(float)duration :(BOOL)newLoop {
+    [self setState:RECORDING_STATE];
     self.doneButton.enabled = NO;
-    self.magicButton.enabled = YES;
+    if (newLoop) {
+        self.magicButton.enabled = YES;
+    }
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-recording"]];
     [self.progressAnimationView createAnimationWithDuration:duration];
     [self.progressAnimationView startAnimation:0];
@@ -128,8 +130,9 @@ static float const SECONDS_IN_MINUTE = 60;
 }
 
 - (void)playbackState:(float)duration {
-    [self setRecordingState:PLAYBACK_STATE];
+    [self setState:PLAYBACK_STATE];
     self.playStopButton.enabled = YES;
+    self.magicButton.enabled = YES;
     [self.playStopButton UIPause];
     self.doneButton.enabled = YES;
     self.magicLabel.text = @"";
@@ -161,15 +164,15 @@ static float const SECONDS_IN_MINUTE = 60;
 
 #pragma mark - Helpers
 
-- (void)setRecordingState:(NSString *)currentState {
+- (void)setState:(NSString *)currentState {
     if (![currentState isEqualToString:PLAYBACK_STATE]){
         self.playStopButton.enabled = NO;
     }
-    _recordingState = currentState;
+    _state = currentState;
 }
 
 - (NSString *)getCurrentState {
-    return _recordingState;
+    return _state;
 }
 
 - (void)playStopUI:(BOOL)play {

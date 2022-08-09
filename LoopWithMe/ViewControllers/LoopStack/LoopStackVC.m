@@ -71,10 +71,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
     [self.playStopMixButton initWithColor:[UIColor blackColor]];
     [self.playStopMixButton UIPlay];
-    self.audioEngine = [[AVAudioEngine alloc] init];
-    self.mixerNode = [[AVAudioMixerNode alloc] init];
     self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
-//    self.trackUrlDict = [NSMutableDictionary new];
     
     [self updateTrackCountLabel];
     [self setUpMixer];
@@ -112,11 +109,12 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self stopPlayback];
         LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
-        NSURL *urlToFree = [self getTPModelFromTrack:cellToDelete.track].url;
+        TrackPlayerModel *tpModelToDelete = [self getTPModelFromTrack:cellToDelete.track];
+        NSURL *urlToFree = tpModelToDelete.url;
         [self.fileManager freeUrl:urlToFree];
-        [self.trackPlayerDict removeObjectForKey:self.loop.tracks[indexPath.row]]; // does this deallocate the trackPlayerModel?
+        [self.audioEngine detachNode:tpModelToDelete.player];
+        [self deleteEntryFromTPDict:cellToDelete.track]; // does this deallocate the trackPlayerModel?
         [self.loop.tracks removeObjectAtIndex:indexPath.row];
-        [self setUpMixer];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self updateTrackCountLabel];
     }
@@ -136,12 +134,12 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (IBAction)didTapAddTrack:(id)sender {
     if ([self.loop.tracks count] < MAX_NUM_TRACKS){
-        [self.audioEngine stop];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         RecordingVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"RecordingVC"];
         UISheetPresentationController *sheet = vc.sheetPresentationController;
         sheet.detents = [NSArray arrayWithObject:[UISheetPresentationControllerDetent mediumDetent]];
         vc.loop = self.loop;
+        [self stopPlayback];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }
@@ -295,7 +293,14 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     return [self.trackPlayerDict objectForKey:trackValue];
 }
 
+- (void)deleteEntryFromTPDict:(Track *)track {
+    NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
+    [self.trackPlayerDict removeObjectForKey:trackValue];
+}
+
 - (void) setUpMixer{
+    self.audioEngine = [[AVAudioEngine alloc] init];
+    self.mixerNode = [[AVAudioMixerNode alloc] init];
     self.trackPlayerDict = [NSMutableDictionary new];
     [self.audioEngine attachNode:self.mixerNode];
     [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
@@ -347,7 +352,6 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
             min = num;
         }
     }
-    NSLog(@"%lld", min);
     return min;
 }
 

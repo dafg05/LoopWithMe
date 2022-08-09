@@ -27,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithRecordingView:(RecordingView *)recordingView;
 - (BOOL)recording;
+- (void)setViewToInitialState;
+
 @end
 
 NS_ASSUME_NONNULL_END

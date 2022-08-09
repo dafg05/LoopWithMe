@@ -35,6 +35,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 @property CFAbsoluteTime lastTick;
 @property int counter;
+@property BOOL permissionToRecord;
 
 @end
 
@@ -42,7 +43,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 #pragma mark - Initialization
 
-- (instancetype)initWithRecordingView:(RecordingView *)recordingView {
+- (instancetype)initWithRecordingView:(RecordingView *)recordingView  {
     self = [super init];
     if (self){
         self.recordingView = recordingView;
@@ -75,13 +76,20 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     [self.recordingSession requestRecordPermission:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (granted){
-                [self.recordingView initialState:YES];
+                self.permissionToRecord = YES;
+                [self.recordingView initialState:self.permissionToRecord];
                 [self setUpRecorder];
             } else{
                 [self.delegate recordingAlert:@"Make sure to enable recording via microphone on your System Settings."];
+                self.permissionToRecord = NO;
             }
         });
     }];
+}
+
+- (void)setViewToInitialState {
+    self.audioPlayer = nil;
+    [self.recordingView initialState:self.permissionToRecord];
 }
 
 #pragma mark - RecordingViewDelegate methods
@@ -171,7 +179,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     }
     @try {
         [self.audioRecorder recordForDuration:self.recordingDuration];
-        [self.recordingView recordingState:self.recordingDuration];
+        [self.recordingView recordingState:self.recordingDuration :self.newLoop];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateRecordingTimer)userInfo:nil repeats:YES];
     } @catch (NSException *exception) {
         NSLog(@"Didn't finish recording successfully");
@@ -195,7 +203,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
         [self initializeAudioPlayer];
         if (self.newLoop){
             self.recordingDuration = self.audioPlayer.duration;
-            NSLog(@"%fcbn", self.recordingDuration);
+
         }
     } else{
         [self.delegate recordingAlert:@"An error occurred while recording, try again"];
