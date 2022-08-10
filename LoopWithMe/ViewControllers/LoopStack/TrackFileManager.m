@@ -11,16 +11,18 @@
 @interface TrackFileManager ()
 
 @property NSMutableArray *freeUrlStack;
+@property (readwrite) NSMutableArray *allocatedUrlList;
 @property NSArray *allUrls;
 
 @end
 
 @implementation TrackFileManager
 
--(id)initWithPath:(NSString *)path withSize:(int)size {
+- (id)initWithPath:(NSString *)path withSize:(int)size {
     self = [super init];
     if (self){
         self.freeUrlStack = [NSMutableArray new];
+        self.allocatedUrlList = [NSMutableArray new];
         for (int i = 1; i <= size; i++){
             NSURL *url = [[NSURL alloc] initFileURLWithPath:[NSString stringWithFormat:@"%@/track%d.m4a", path, i]];
             [self.freeUrlStack addObject:url];
@@ -33,7 +35,7 @@
     }
 };
 
--(NSURL *)writeToAvailableUrl:(NSData *)data {
+- (NSURL *)writeToAvailableUrl:(NSData *)data {
     if (self.freeUrlStack == nil){
         [NSException raise:@"WritingToURLException" format:@"Uninitialized object"];
         return nil;
@@ -52,11 +54,12 @@
         [self.freeUrlStack addObject:url];
         return nil;
     }
-    NSLog(@"%d", _freeUrlStack.count);
+    [self.allocatedUrlList addObject:url];
+    NSLog(@"%@", self.allocatedUrlList);
     return url;
 }
 
--(void)freeUrl:(NSURL *)url {
+- (void)freeUrl:(NSURL *)url {
     if ([self.freeUrlStack containsObject:url]){
         [NSException raise:@"FreeURLException" format:@"Double free"];
     }
@@ -65,7 +68,6 @@
     }
     [self.freeUrlStack addObject:url];
 }
-
 
 
 @end

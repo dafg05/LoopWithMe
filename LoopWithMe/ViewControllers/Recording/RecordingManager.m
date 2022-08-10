@@ -11,6 +11,7 @@
 
 #import "Parse/Parse.h"
 #import "Track.h"
+#import "Loop.h"
 
 NSDate *pauseStart, *previousFireDate;
 
@@ -33,6 +34,11 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 @property (strong, nonatomic) NSURL *audioFileUrl;
 @property (strong, nonatomic) RecordingView *recordingView;
 
+// mixing
+@property AVAudioEngine *audioEngine;
+@property AVAudioMixerNode *mixerNode;
+
+// count-in
 @property CFAbsoluteTime lastTick;
 @property int counter;
 @property BOOL permissionToRecord;
@@ -43,10 +49,12 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 #pragma mark - Initialization
 
-- (instancetype)initWithRecordingView:(RecordingView *)recordingView  {
+- (instancetype)initWithRecordingView:(RecordingView *)recordingView withTrackFileManager:(TrackFileManager * _Nullable)fileManager isNewLoop:(BOOL)newLoop {
     self = [super init];
     if (self){
         self.recordingView = recordingView;
+        self.fileManager = fileManager;
+        self.newLoop = newLoop;
         [self customInit];
     }
     return self;
@@ -60,9 +68,12 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     self.countInPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
     [self.countInPlayer prepareToPlay];
     [self.recordingView updateMagicLabelWithCountIn:0];
-    
     if (!self.bpm) {
         self.bpm = DEFAULT_BPM;
+    }
+    if (!self.newLoop) {
+        NSAssert(self.fileManager, @"Need to set TrackFileManager for playback of full mix while recording");
+        [self setUpMixer];
     }
     
     // set up recording session
@@ -120,7 +131,6 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     Track *track = [self createTrack];
     [self.delegate doneRecording:track];
 }
-
 
 #pragma mark - Count-in
 
@@ -215,14 +225,22 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     [self.audioPlayer play];
 }
 
-- (void) initializeAudioPlayer {
+- (void)initializeAudioPlayer {
     NSAssert(self.audioFileUrl != nil, @"AudioFileUrl is null");
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:self.audioFileUrl error:nil];
     self.audioPlayer.delegate = self;
     self.audioPlayer.numberOfLoops = -1;
 }
 
-- (void) updateRecordingTimer{
+- (void)setUpMixer {
+    
+}
+
+- (void)playMix {
+    
+}
+
+- (void)updateRecordingTimer{
     [self.recordingView updateMagicLabelWithTimer:self.audioRecorder.currentTime];
 }
 - (NSURL *)getRecordingFileUrl {

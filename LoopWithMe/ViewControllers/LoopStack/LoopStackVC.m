@@ -138,6 +138,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
         UISheetPresentationController *sheet = vc.sheetPresentationController;
         sheet.detents = [NSArray arrayWithObject:[UISheetPresentationControllerDetent mediumDetent]];
         vc.loop = self.loop;
+        vc.fileManager = self.fileManager;
         [self stopPlayback];
         [self presentViewController:vc animated:YES completion:nil];
     }

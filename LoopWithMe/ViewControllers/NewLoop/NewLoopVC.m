@@ -31,12 +31,11 @@ static int const DEFAULT_BPM = 100;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
+    self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView withTrackFileManager:nil isNewLoop:YES];
     self.recordingManager.delegate = self;
     self.recordingManager.bpm = DEFAULT_BPM;
     self.bpmSlider.value = DEFAULT_BPM;
     self.bpmLabel.text = [NSString stringWithFormat:@"%d bpm", DEFAULT_BPM];
-    self.recordingManager.newLoop = YES;
 }
 
 -(void)viewDidDisappear:(BOOL)animated {

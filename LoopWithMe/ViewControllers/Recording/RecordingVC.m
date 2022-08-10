@@ -23,12 +23,11 @@
 - (void)viewDidLoad {
     NSAssert(self.presentingViewController != nil, @"This view controller must be presented");
     [super viewDidLoad];
-    self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView];
+    self.recordingManager = [[RecordingManager alloc] initWithRecordingView:self.recordingView withTrackFileManager:self.fileManager isNewLoop:NO];
     if (self.loop.bpm) {
         self.recordingManager.bpm = self.loop.bpm;
     }
     self.recordingManager.delegate = self;
-    self.recordingManager.newLoop = NO;
     self.recordingManager.recordingDuration = self.loop.duration;
 }
 
