@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet PlayStopButton *playStopButton;
 @property (weak, nonatomic) IBOutlet CircularAnimationView *progressAnimationView;
+@property (weak, nonatomic) IBOutlet UISwitch *metronomeSwitch;
 @property (weak, nonatomic) id<RecordingViewDelegate> delegate;
 
 

@@ -15,6 +15,7 @@
                 <outlet property="doneButton" destination="1L3-oC-Cjz" id="uxE-ri-vqC"/>
                 <outlet property="magicButton" destination="KJX-6w-F1J" id="wad-3g-r1H"/>
                 <outlet property="magicLabel" destination="UXM-gk-cmN" id="q41-el-oFV"/>
+                <outlet property="metronomeSwitch" destination="IFv-ua-81L" id="dgz-Mz-DaB"/>
                 <outlet property="playStopButton" destination="ChG-qN-4zS" id="dtu-KV-MEm"/>
                 <outlet property="progressAnimationView" destination="Pej-eb-f7Y" id="RLj-bY-3Ih"/>
             </connections>
@@ -66,16 +67,30 @@
                         <action selector="didTapPlayStop:" destination="-1" eventType="touchUpInside" id="HIv-kQ-ljC"/>
                     </connections>
                 </button>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IFv-ua-81L">
+                    <rect key="frame" x="15" y="15" width="51" height="31"/>
+                </switch>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Metronome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xxA-yA-9hB">
+                    <rect key="frame" x="74" y="21.5" width="79" height="18"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" name="custom text color"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="recording screen color"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Pej-eb-f7Y" secondAttribute="bottom" constant="40" id="5W8-XD-QuQ"/>
                 <constraint firstItem="ChG-qN-4zS" firstAttribute="centerX" secondItem="UXM-gk-cmN" secondAttribute="centerX" id="6OU-xj-xbq"/>
+                <constraint firstItem="1L3-oC-Cjz" firstAttribute="centerY" secondItem="IFv-ua-81L" secondAttribute="centerY" id="FA2-vW-DXn"/>
+                <constraint firstItem="xxA-yA-9hB" firstAttribute="centerY" secondItem="IFv-ua-81L" secondAttribute="centerY" id="Lhi-f4-Jy4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1L3-oC-Cjz" secondAttribute="trailing" constant="15" id="MGa-7U-h9o"/>
+                <constraint firstItem="IFv-ua-81L" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="Rmg-iW-YDN"/>
                 <constraint firstItem="ChG-qN-4zS" firstAttribute="top" secondItem="UXM-gk-cmN" secondAttribute="bottom" constant="5" id="X2O-Wx-aEg"/>
+                <constraint firstItem="IFv-ua-81L" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="jwO-61-Dm0"/>
                 <constraint firstItem="Pej-eb-f7Y" firstAttribute="top" secondItem="ChG-qN-4zS" secondAttribute="bottom" constant="5" id="mrx-Md-fDF"/>
                 <constraint firstItem="Pej-eb-f7Y" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="o5d-5g-mZM"/>
+                <constraint firstItem="xxA-yA-9hB" firstAttribute="leading" secondItem="IFv-ua-81L" secondAttribute="trailing" constant="10" id="qhM-3g-OMg"/>
                 <constraint firstItem="1L3-oC-Cjz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="qqe-t1-Vgk"/>
                 <constraint firstItem="Pej-eb-f7Y" firstAttribute="centerX" secondItem="UXM-gk-cmN" secondAttribute="centerX" id="w1b-Tk-fYS"/>
             </constraints>

@@ -89,10 +89,7 @@ static float const SECONDS_IN_MINUTE = 60;
 - (void)initialState:(BOOL)recordingAvailable {
     [self setState:INITIAL_STATE];
     self.doneButton.enabled = NO;
-    self.magicLabel.text = @"";
-    [self.progressAnimationView deleteAnimation];
-    [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-initial"]];
-    [self.magicButton setImage:[UIImage systemImageNamed:@"circle.fill"] forState:UIControlStateNormal];
+    self.metronomeSwitch.enabled = YES;
     if (recordingAvailable) {
         self.magicButton.enabled = YES;
         [self.magicButton setTintColor:[UIColor colorNamed:@"magic-button-initial"]];
@@ -102,11 +99,16 @@ static float const SECONDS_IN_MINUTE = 60;
         [self.magicButton setImage:[UIImage systemImageNamed:@"circle.fill"] forState:UIControlStateDisabled];
         [self.magicButton setTintColor:[UIColor colorNamed:@"animation-color-count-in"]];
     }
+    self.magicLabel.text = @"";
+    [self.progressAnimationView deleteAnimation];
+    [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-initial"]];
+    [self.magicButton setImage:[UIImage systemImageNamed:@"circle.fill"] forState:UIControlStateNormal];
 }
 
 - (void)countInState:(int)beats :(float)bpm {
     [self setState:COUNTIN_STATE];
     self.doneButton.enabled = NO;
+    self.metronomeSwitch.enabled = NO;
     self.magicButton.enabled = NO;
     [self.progressAnimationView deleteAnimation];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-count-in"]];
@@ -119,6 +121,7 @@ static float const SECONDS_IN_MINUTE = 60;
 - (void)recordingState:(float)duration :(BOOL)newLoop {
     [self setState:RECORDING_STATE];
     self.doneButton.enabled = NO;
+    self.metronomeSwitch.enabled = NO;
     if (newLoop) {
         self.magicButton.enabled = YES;
     }
@@ -131,11 +134,12 @@ static float const SECONDS_IN_MINUTE = 60;
 
 - (void)playbackState:(float)duration {
     [self setState:PLAYBACK_STATE];
-    self.playStopButton.enabled = YES;
-    self.magicButton.enabled = YES;
-    [self.playStopButton UIPause];
     self.doneButton.enabled = YES;
+    self.metronomeSwitch.enabled = YES;
+    self.magicButton.enabled = YES;
     self.magicLabel.text = @"";
+    self.playStopButton.enabled = YES;
+    [self.playStopButton UIPause];
     [self.progressAnimationView setCirleLayerColor:[UIColor colorNamed:@"animation-color-playback"]];
     [self.progressAnimationView createAnimationWithDuration:duration];
     // animation repeat count: infinity
