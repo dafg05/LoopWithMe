@@ -37,6 +37,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 // mixing
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
+@property NSMutableArray *fileAndPlayerArray;
 
 // count-in
 @property CFAbsoluteTime lastTick;
@@ -81,8 +82,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     // TODO: Handle errors
     NSError *setCategoryError = nil;
     NSError *setActiveError = nil;
-    [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
-    [self.recordingSession overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&setCategoryError];
     [self.recordingSession setActive:YES error:&setActiveError];
     [self.recordingSession requestRecordPermission:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -189,6 +189,9 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     }
     @try {
         [self.audioRecorder recordForDuration:self.recordingDuration];
+        if (!self.newLoop) {
+            [self playMix];
+        }
         [self.recordingView recordingState:self.recordingDuration :self.newLoop];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateRecordingTimer)userInfo:nil repeats:YES];
     } @catch (NSException *exception) {
@@ -206,6 +209,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 - (void)finishRecording:(BOOL)success {
     [self.audioRecorder stop];
+    [self.audioEngine stop];
     if (self.timer){
         [self.timer invalidate];
     }
@@ -233,11 +237,30 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 }
 
 - (void)setUpMixer {
-    
+    self.audioEngine = [[AVAudioEngine alloc] init];
+    self.mixerNode = [[AVAudioMixerNode alloc] init];
+    self.fileAndPlayerArray = [NSMutableArray new];
+    [self.audioEngine attachNode:self.mixerNode];
+    [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
+    for (NSURL *trackUrl in self.fileManager.allocatedUrlList) {
+        AVAudioFile *audioFile = [[AVAudioFile alloc] initForReading:trackUrl error:nil];
+        AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
+        [self.audioEngine attachNode:playerNode];
+        [self.audioEngine connect:playerNode to:self.mixerNode format:nil];
+        NSArray *fileAndPlayer = @[audioFile, playerNode];
+        [self.fileAndPlayerArray addObject:fileAndPlayer];
+    }
+    [self.audioEngine prepare];
 }
 
 - (void)playMix {
-    
+    [self.audioEngine startAndReturnError:nil];
+    for (NSArray *fileAndPlayer in self.fileAndPlayerArray){
+        AVAudioFile *file = fileAndPlayer[0];
+        AVAudioPlayerNode *player = fileAndPlayer[1];
+        [player scheduleFile:file atTime:nil completionHandler:nil];
+        [player play];
+    }
 }
 
 - (void)updateRecordingTimer{
