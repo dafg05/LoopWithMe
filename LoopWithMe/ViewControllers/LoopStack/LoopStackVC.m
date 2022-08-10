@@ -86,7 +86,9 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     cell.delegate = self;
     [cell.playStopTrackButton initWithColor:[UIColor blackColor]];
     [cell.playStopTrackButton UIPlay];
-    cell.trackNumberLabel.text = @"Track";
+    cell.trackDescLabel.text = @"Track recorded by:";
+    [cell.track.composer fetch];
+    cell.authorLabel.text = cell.track.composer.username;
     return cell;
 }
 

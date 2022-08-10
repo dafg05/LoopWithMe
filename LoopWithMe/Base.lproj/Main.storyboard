@@ -328,15 +328,15 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="674"/>
                                 <color key="backgroundColor" name="custom secondary bg color"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoopTrackCell" id="gTu-c5-Yht" customClass="LoopTrackCell">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LoopTrackCell" rowHeight="76" id="gTu-c5-Yht" customClass="LoopTrackCell">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gTu-c5-Yht" id="BJE-Fh-Aiw">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUy-VK-EfY" customClass="PlayStopButton">
-                                                    <rect key="frame" x="20" y="-2.5" width="50" height="48.5"/>
+                                                    <rect key="frame" x="20" y="14" width="50" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="Ng4-EY-6R5"/>
                                                     </constraints>
@@ -346,24 +346,37 @@
                                                         <action selector="didTapPlayTrack:" destination="gTu-c5-Yht" eventType="touchUpInside" id="EZx-lL-npf"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDB-93-5Vg">
-                                                    <rect key="frame" x="80" y="13" width="99.5" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                                                    <color key="textColor" name="custom background color"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="6G8-92-wfU">
+                                                    <rect key="frame" x="80" y="16" width="91.5" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Track Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDB-93-5Vg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="91.5" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" name="custom background color"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYH-2G-Uuq">
+                                                            <rect key="frame" x="0.0" y="21" width="85" height="23"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="YUy-VK-EfY" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="0fl-SZ-d6n"/>
-                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="leading" secondItem="YUy-VK-EfY" secondAttribute="trailing" constant="10" id="Jt2-Tm-mkN"/>
+                                                <constraint firstItem="6G8-92-wfU" firstAttribute="leading" secondItem="YUy-VK-EfY" secondAttribute="trailing" constant="10" id="AyV-sr-K9W"/>
+                                                <constraint firstItem="6G8-92-wfU" firstAttribute="top" secondItem="BJE-Fh-Aiw" secondAttribute="topMargin" constant="5" id="QeH-aj-GZ8"/>
                                                 <constraint firstItem="YUy-VK-EfY" firstAttribute="leading" secondItem="BJE-Fh-Aiw" secondAttribute="leading" constant="20" id="Vnr-PY-42E"/>
-                                                <constraint firstItem="gDB-93-5Vg" firstAttribute="centerY" secondItem="BJE-Fh-Aiw" secondAttribute="centerY" id="qaj-dx-N9S"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6G8-92-wfU" secondAttribute="bottom" constant="5" id="hUp-HK-ccC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="light blue"/>
                                         <connections>
+                                            <outlet property="authorLabel" destination="fYH-2G-Uuq" id="ui7-jy-35E"/>
                                             <outlet property="playStopTrackButton" destination="YUy-VK-EfY" id="FIx-Td-MMy"/>
-                                            <outlet property="trackNumberLabel" destination="gDB-93-5Vg" id="w7K-Sm-pII"/>
+                                            <outlet property="trackDescLabel" destination="gDB-93-5Vg" id="w7K-Sm-pII"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -482,7 +495,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RxC-Nn-5mE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2909" y="1605"/>
+            <point key="canvasLocation" x="2908.6956521739135" y="1604.4642857142856"/>
         </scene>
         <!--Profile-->
         <scene sceneID="1Dc-bn-RsD">
