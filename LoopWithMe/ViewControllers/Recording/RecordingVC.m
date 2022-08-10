@@ -54,4 +54,8 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [self.recordingManager setViewToInitialState];
+}
+
 @end

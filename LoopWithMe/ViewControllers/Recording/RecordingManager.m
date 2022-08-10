@@ -70,8 +70,7 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     // TODO: Handle errors
     NSError *setCategoryError = nil;
     NSError *setActiveError = nil;
-    [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord error:&setCategoryError];
-    [self.recordingSession overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    [self.recordingSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:&setCategoryError];
     [self.recordingSession setActive:YES error:&setActiveError];
     [self.recordingSession requestRecordPermission:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -89,6 +88,10 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 - (void)setViewToInitialState {
     self.audioPlayer = nil;
+    self.counter = 0;
+    if ([self recording]){
+        [self.audioRecorder stop];
+    }
     [self.recordingView initialState:self.permissionToRecord];
 }
 
@@ -135,16 +138,28 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
     CFAbsoluteTime elapsedTime = CFAbsoluteTimeGetCurrent() - self.lastTick;
     float targetTime = SECONDS_IN_MINUTE/[(NSNumber *)[timer.userInfo objectForKey:BPM_KEY] floatValue];
     if ((elapsedTime > targetTime) || (fabs(elapsedTime - targetTime) < TIMER_TOLERANCE)) {
-        if (self.counter > NUM_OF_COUNTIN_BEATS){
+        if (self.counter == -1){ // manually invalidate timer
             [timer invalidate];
+        } else if (self.counter > NUM_OF_COUNTIN_BEATS){
+            if (self.recordingView.metronomeSwitch.on) {
+                self.counter = 0; // done with count-in but keep timer for metronome
+            }
+            else {
+                [timer invalidate];
+            }
             [self.recordingView updateMagicLabelWithCountIn:0];
             [self countInDone];
         }
-        else{
+        else {
             self.lastTick = CFAbsoluteTimeGetCurrent();
             [self.countInPlayer play];
-            [self.recordingView updateMagicLabelWithCountIn:self.counter];
-            self.counter += 1;
+            if (self.counter > 0){ // if count-in is in progress
+                [self.recordingView updateMagicLabelWithCountIn:self.counter];
+                self.counter += 1;
+            }
+            else {
+                NSAssert(self.recordingView.metronomeSwitch.on, @"Metronome is off but metronome timer stil running after count-in");
+            }
         }
     }
 }
@@ -196,6 +211,9 @@ static float const DEFAULT_RECORDING_DURATION = 20.0;
 
 - (void)finishRecording:(BOOL)success {
     [self.audioRecorder stop];
+    if (self.recordingView.metronomeSwitch.on) {
+        self.counter = -1; // turn off metronome
+    }
     if (self.timer){
         [self.timer invalidate];
     }
