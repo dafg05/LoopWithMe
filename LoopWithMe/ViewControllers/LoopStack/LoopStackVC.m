@@ -34,7 +34,6 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 @property AVAudioMixerNode *mixerNode;
 @property (strong, nonatomic) NSMutableDictionary *trackPlayerDict;
 @property (strong, nonatomic) TrackFileManager *fileManager;
-@property long long mixFrameCount;
 @property LoopTrackCell *playingNowCell;
 @property BOOL isMixPlaying;
 /* For relooping*/
@@ -298,7 +297,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     [self.trackPlayerDict removeObjectForKey:trackValue];
 }
 
-- (void) setUpMixer{
+- (void)setUpMixer{
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.mixerNode = [[AVAudioMixerNode alloc] init];
     self.trackPlayerDict = [NSMutableDictionary new];
@@ -317,7 +316,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
         [audioObjectsArray addObject:audioObjects];
     }
     // get min of Framecount, to loop audio of the same length
-    long long mixFrameCount = [self minOfPositiveNumArray:frameCountArray];
+    long long mixFrameCount = [self minOfNumArray:frameCountArray];
     
     // set up buffers and player nodes for each file
     for (NSArray *audioObjects in audioObjectsArray){
@@ -338,17 +337,13 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
         NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
         [self.trackPlayerDict setObject:trackPlayerModel forKey:trackValue];
     }
-    self.mixFrameCount = [self minOfPositiveNumArray:frameCountArray];
 }
 
-- (long long)minOfPositiveNumArray:(NSArray *)array {
-    long long min = -1;
+- (long long)minOfNumArray:(NSArray *)array {
+    long long min = LONG_LONG_MAX;
     for (NSNumber *nsNum in array){
         long long num = [nsNum longLongValue];
-        if (min == -1) {
-            min = num;
-        }
-        else if (num < min){
+        if (num < min){
             min = num;
         }
     }
