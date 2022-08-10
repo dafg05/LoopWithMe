@@ -10,7 +10,7 @@
 @implementation LoopTrackCell
 
 - (IBAction)didTapPlayTrack:(id)sender {
-    [self.delegate playTrack:self.track];
+    [self.delegate playStopTrack:self];
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "PlayStopButton.h"
 #import "TrackFileManager.h"
 #import "RecordingView.h"
+#import "TrackPlayerModel.h"
 
 static int const MAX_NUM_TRACKS = 8;
 static NSString *const NEW_LOOP_STATUS = @"New Loop Mix";
@@ -22,20 +23,19 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
 @property (weak, nonatomic) IBOutlet UITableView *trackTableView;
-@property (weak, nonatomic) IBOutlet PlayStopButton *playMixButton;
-@property (weak, nonatomic) IBOutlet PlayStopButton *stopMixButton;
+@property (weak, nonatomic) IBOutlet PlayStopButton *playStopMixButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIButton *addTrackButton;
 @property (weak, nonatomic) IBOutlet UIButton *editButton;
 @property (weak, nonatomic) IBOutlet UILabel *trackCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *loopStatusLabel;
-
+/* mixing */
 @property AVAudioEngine *audioEngine;
 @property AVAudioMixerNode *mixerNode;
-
-/* track management*/
+@property (strong, nonatomic) NSMutableDictionary *trackPlayerDict;
 @property (strong, nonatomic) TrackFileManager *fileManager;
-@property (strong, nonatomic) NSMutableDictionary *trackUrlDict;
+@property LoopTrackCell *playingNowCell;
+@property BOOL isMixPlaying;
 /* For relooping*/
 @property BOOL editMode;
 @property (strong, nonatomic) Loop *parentLoop;
@@ -68,15 +68,12 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     }
     self.trackTableView.dataSource = self;
     self.trackTableView.allowsMultipleSelectionDuringEditing = NO;
-    [self.playMixButton initWithColor:[UIColor blackColor]];
-    [self.playMixButton UIPlay];
-    [self.stopMixButton initWithColor:[UIColor blackColor]];
-    [self.stopMixButton UIStop];
-    self.audioEngine = [[AVAudioEngine alloc] init];
-    self.mixerNode = [[AVAudioMixerNode alloc] init];
+    [self.playStopMixButton initWithColor:[UIColor blackColor]];
+    [self.playStopMixButton UIPlay];
     self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
-    self.trackUrlDict = [NSMutableDictionary new];
+    
     [self updateTrackCountLabel];
+    [self setUpMixer];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -87,12 +84,9 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     cell.layer.cornerRadius = 5;
     cell.track = self.loop.tracks[indexPath.row];
     cell.delegate = self;
-    [cell.playTrackButton initWithColor:[UIColor blackColor]];
-    [cell.playTrackButton UIPlay];
+    [cell.playStopTrackButton initWithColor:[UIColor blackColor]];
+    [cell.playStopTrackButton UIPlay];
     cell.trackNumberLabel.text = @"Track";
-    NSData *audioData = [cell.track.audioFilePF getData];
-    NSValue *trackValue = [NSValue valueWithNonretainedObject:cell.track];
-    [self.trackUrlDict setObject:[self.fileManager writeToAvailableUrl:audioData] forKey:trackValue];
     return cell;
 }
 
@@ -112,8 +106,13 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self stopPlayback];
         LoopTrackCell *cellToDelete =  [tableView cellForRowAtIndexPath:indexPath];
-        [self.fileManager freeUrl:[self getUrlFromTrack:cellToDelete.track]];
+        TrackPlayerModel *tpModelToDelete = [self getTPModelFromTrack:cellToDelete.track];
+        NSURL *urlToFree = tpModelToDelete.url;
+        [self.fileManager freeUrl:urlToFree];
+        [self.audioEngine detachNode:tpModelToDelete.player];
+        [self deleteEntryFromTPDict:cellToDelete.track]; // does this deallocate the trackPlayerModel?
         [self.loop.tracks removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         [self updateTrackCountLabel];
@@ -122,22 +121,24 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 #pragma mark - Button Actions
 
-- (IBAction)didTapPlayMix:(id)sender {
-    [self startMix];
-}
-
-- (IBAction)didTapStopMix:(id)sender {
-    [self.audioEngine stop];
+- (IBAction)didTapPlayStopMix:(id)sender {
+    if (self.audioEngine.isRunning && self.playingNowCell == nil){
+        NSAssert(self.audioEngine.isRunning, @"Stopping mix playback but the audio engine isn't running");
+        [self stopPlayback];
+    }
+    else {
+        [self startMix];
+    }
 }
 
 - (IBAction)didTapAddTrack:(id)sender {
     if ([self.loop.tracks count] < MAX_NUM_TRACKS){
-        [self.audioEngine stop];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         RecordingVC *vc = [storyboard instantiateViewControllerWithIdentifier:@"RecordingVC"];
         UISheetPresentationController *sheet = vc.sheetPresentationController;
         sheet.detents = [NSArray arrayWithObject:[UISheetPresentationControllerDetent mediumDetent]];
         vc.loop = self.loop;
+        [self stopPlayback];
         [self presentViewController:vc animated:YES completion:nil];
     }
 }
@@ -159,65 +160,52 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     }
 }
 
-/* LoopTrack cell delegate method: called when LoopTrackCell button is pressed*/
-- (void)playTrack:(Track *)track {
-    [self startTrack:[self getUrlFromTrack:track]];
+/* LoopTrack cell delegate method: called when LoopTrackCell button is pressed */
+- (void)playStopTrack:(LoopTrackCell *)cell {
+    if (self.audioEngine.isRunning && self.playingNowCell == cell){
+        [self stopPlayback];
+    }
+    else {
+        self.isMixPlaying = FALSE;
+        [self startTrack:cell];
+    }
 }
 
 #pragma mark - Playback
 
 - (void)startMix {
-    // TODO: looping playback
-    [self.audioEngine stop];
-    [self.audioEngine attachNode:self.mixerNode];
-    [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
-
-    NSError *startError = nil;
-    [self.audioEngine startAndReturnError:&startError];
-
-    if (startError != nil){
-        NSLog(@"%@", startError.localizedDescription);
-    } else{
-        for (int section = 0; section < [self.trackTableView numberOfSections]; section++){
-            for (int row = 0; row < [self.trackTableView numberOfRowsInSection:section]; row++){
-                NSIndexPath* cellPath = [NSIndexPath indexPathForRow:row inSection:section];
-                LoopTrackCell* cell = [self.trackTableView cellForRowAtIndexPath:cellPath];
-                NSURL *trackUrl = [self getUrlFromTrack:cell.track];
-                AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
-                [self.audioEngine attachNode:playerNode];
-                NSError *readingError = NULL;
-                AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&readingError];
-                [self.audioEngine connect:playerNode to:self.mixerNode format:file.processingFormat];
-                [playerNode scheduleFile:file atTime:nil completionHandler:nil];
-                [playerNode play];
-            }
-        }
+    [self stopPlayback];
+    [self.audioEngine startAndReturnError:nil];
+    for (id key in self.trackPlayerDict) {
+        TrackPlayerModel *tpModel = (TrackPlayerModel *) self.trackPlayerDict[key];
+        [tpModel.player scheduleBuffer:tpModel.buffer atTime:nil options:AVAudioPlayerNodeBufferLoops completionHandler:nil];
+        [tpModel.player play];
     }
+    [self.playStopMixButton UIStop];
 }
 
-- (void)startTrack:(NSURL *)trackUrl {
-    [self.audioEngine stop];
-    NSError *creationError = NULL;
-    AVAudioFile *file = [[AVAudioFile alloc] initForReading:trackUrl.absoluteURL error:&creationError];
-    if (creationError != nil){
-        NSLog(@"Error initializing AVAudioFile when playing track");
-    }
-    else{
-        AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
-        [self.audioEngine attachNode:playerNode];
-        [self.audioEngine connect:playerNode to:self.audioEngine.outputNode format:file.processingFormat];
-        NSError *startError = NULL;
-        [self.audioEngine startAndReturnError:&startError];
-        [playerNode scheduleFile:file atTime:nil completionHandler:nil];
-        if (startError != nil){
-            NSLog(@"%@", startError.localizedDescription);
-        }
-        else{
-            [playerNode play];
-        }
-    }
+- (void)startTrack:(LoopTrackCell *)cell{
+    [self stopPlayback];
+    [self.audioEngine startAndReturnError:nil];
+    TrackPlayerModel *tpModel = [self getTPModelFromTrack:cell.track];
+    [tpModel.player scheduleBuffer:tpModel.buffer atTime:nil options:AVAudioPlayerNodeBufferLoops completionHandler:nil];
+    [tpModel.player play];
+    self.playingNowCell = cell;
+    [cell.playStopTrackButton UIStop];
 }
 
+- (void)stopPlayback {
+    [self.audioEngine stop];
+    for (id key in self.trackPlayerDict) {
+        TrackPlayerModel *tpModel = (TrackPlayerModel *) self.trackPlayerDict[key];
+        [tpModel.player stop];
+    }
+    [self.playStopMixButton UIPlay];
+    if (self.playingNowCell){
+        [self.playingNowCell.playStopTrackButton UIPlay];
+        self.playingNowCell = nil;
+    }
+}
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -245,13 +233,14 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
+    [self setUpMixer];
 }
 
 #pragma mark - Relooping
 
 - (void)canEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
-    [self.audioEngine stop];
+    [self stopPlayback];
     [self setUpReloop];
     self.editMode = YES;
     [self.editButton setTitle:@"Cancel" forState:UIControlStateNormal];
@@ -262,7 +251,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 - (void)cancelEditLoop {
     NSAssert(!self.newLoop, @"Edit mode is not mutable in newLoop");
-    [self.audioEngine stop];
+    [self stopPlayback];
     [self discardReloop];
     self.editMode = NO;
     [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
@@ -298,9 +287,67 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 
 # pragma mark - Helpers
 
-- (NSURL *) getUrlFromTrack:(Track *)track{
+- (TrackPlayerModel *)getTPModelFromTrack:(Track *)track {
     NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
-    return [self.trackUrlDict objectForKey:trackValue];
+    return [self.trackPlayerDict objectForKey:trackValue];
+}
+
+- (void)deleteEntryFromTPDict:(Track *)track {
+    NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
+    [self.trackPlayerDict removeObjectForKey:trackValue];
+}
+
+- (void)setUpMixer{
+    self.audioEngine = [[AVAudioEngine alloc] init];
+    self.mixerNode = [[AVAudioMixerNode alloc] init];
+    self.trackPlayerDict = [NSMutableDictionary new];
+    [self.audioEngine attachNode:self.mixerNode];
+    [self.audioEngine connect:self.mixerNode to:self.audioEngine.outputNode format:nil];
+    NSMutableArray *frameCountArray = [NSMutableArray new];
+    NSMutableArray *audioObjectsArray = [NSMutableArray new];
+    // Initialize audiofiles and urls, get min frame count of audio for looping
+    for (Track *track in self.loop.tracks){
+        NSData *audioData = [track.audioFilePF getData];
+        NSURL *trackUrl = [self.fileManager writeToAvailableUrl:audioData];
+        AVAudioFile *audioFile = [[AVAudioFile alloc] initForReading:trackUrl error:nil];
+        NSNumber *frameCount = [NSNumber numberWithLongLong:audioFile.length];
+        [frameCountArray addObject:frameCount];
+        NSArray *audioObjects = @[audioFile, trackUrl, track];
+        [audioObjectsArray addObject:audioObjects];
+    }
+    // get min of Framecount, to loop audio of the same length
+    long long mixFrameCount = [self minOfNumArray:frameCountArray];
+    
+    // set up buffers and player nodes for each file
+    for (NSArray *audioObjects in audioObjectsArray){
+        AVAudioFile *file = audioObjects[0];
+        NSURL *trackUrl = audioObjects[1];
+        Track *track = audioObjects[2];
+        AVAudioPCMBuffer *buffer = [[AVAudioPCMBuffer alloc] initWithPCMFormat:file.processingFormat
+                                                                 frameCapacity:(UInt32)mixFrameCount];
+        [file readIntoBuffer:buffer error:nil];
+        AVAudioPlayerNode *playerNode = [[AVAudioPlayerNode alloc] init];
+        [self.audioEngine attachNode:playerNode];
+        [self.audioEngine connect:playerNode to:self.mixerNode format:file.processingFormat];
+        // Set up trackPlayerDict
+        TrackPlayerModel *trackPlayerModel = [[TrackPlayerModel alloc] init];
+        trackPlayerModel.buffer = buffer;
+        trackPlayerModel.player = playerNode;
+        trackPlayerModel.url = trackUrl;
+        NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
+        [self.trackPlayerDict setObject:trackPlayerModel forKey:trackValue];
+    }
+}
+
+- (long long)minOfNumArray:(NSArray *)array {
+    long long min = LONG_LONG_MAX;
+    for (NSNumber *nsNum in array){
+        long long num = [nsNum longLongValue];
+        if (num < min){
+            min = num;
+        }
+    }
+    return min;
 }
 
 @end
