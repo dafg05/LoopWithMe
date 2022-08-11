@@ -17,18 +17,35 @@
 
 @implementation ColorManager
 
-- (instancetype)initWithColorNameArray:(NSArray *)colors {
+- (instancetype)initWithColorNameArray:(NSArray *)colorNames {
     if (self) {
+        self.freeColorStack = [NSMutableArray arrayWithArray:colorNames];
+        self.allColors = [NSArray arrayWithArray:colorNames];
+        return self;
+    } else {
+        return nil;
     }
-    return self;
 }
 
-- (NSString *)reserveAvailableColor {
-    return @"";
+- (NSString *)reserveAvailableColorName {
+    if ([self.freeColorStack count] == 0){
+        [NSException raise:@"ReserveColorsException" format:@"No free colors left"];
+        return nil;
+    }
+    uint32_t rnd = arc4random_uniform((uint32_t)[self.freeColorStack count]);
+    NSString *randomColorName = [self.freeColorStack objectAtIndex:rnd];
+    [self.freeColorStack removeObject:randomColorName];
+    return randomColorName;
 }
 
-- (void)freeColor:(NSString *)colorName {
-    
+- (void)freeColorName:(NSString *)colorName {
+    if ([self.freeColorStack containsObject:colorName]){
+        [NSException raise:@"FreeColorException" format:@"Double free"];
+    }
+    if (![self.allColors containsObject:colorName]){
+        [NSException raise:@"FreeColorException" format:@"Trying to free a non-allocated color name"];
+    }
+    [self.freeColorStack addObject:colorName];
 }
 
 @end

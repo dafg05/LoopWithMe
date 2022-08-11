@@ -14,11 +14,13 @@
 #import "TrackFileManager.h"
 #import "RecordingView.h"
 #import "TrackPlayerModel.h"
+#import "ColorManager.h"
 
 static int const MAX_NUM_TRACKS = 8;
 static NSString *const NEW_LOOP_STATUS = @"New Loop Mix";
 static NSString *const OTHER_LOOP_STATUS = @"Loop Mix";
 static NSString *const RELOOP_STATUS = @"Reloop mix";
+static NSString *const COLOR_PREFIX = @"loop-stack-";
 
 @interface LoopStackVC () <UITableViewDataSource, LoopTrackCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *loopNameLabel;
@@ -40,6 +42,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
 @property BOOL editMode;
 @property (strong, nonatomic) Loop *parentLoop;
 @property (strong, nonatomic) Loop *cachedReloop;
+/* colors */
+@property (strong, nonatomic) ColorManager *colorManager;
 
 @end
 
@@ -74,6 +78,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     
     [self updateTrackCountLabel];
     [self setUpMixer];
+    [self setUpColorManager];
 }
 
 #pragma mark - UITableViewDataSource methods
@@ -89,6 +94,7 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     cell.trackDescLabel.text = @"Track recorded by:";
     [cell.track.composer fetch];
     cell.authorLabel.text = cell.track.composer.username;
+    cell.backgroundColor = [UIColor colorNamed:[self.colorManager reserveAvailableColorName]];
     return cell;
 }
 
@@ -233,6 +239,8 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
     // need to reinitialize the file manager because every cell is being reloaded
     self.fileManager = nil;
     self.fileManager = [[TrackFileManager alloc] initWithPath:NSTemporaryDirectory() withSize:MAX_NUM_TRACKS];
+    self.colorManager = nil;
+    [self setUpColorManager];
     [self updateTrackCountLabel];
     [self.trackTableView reloadData];
     [self setUpMixer];
@@ -339,6 +347,15 @@ static NSString *const RELOOP_STATUS = @"Reloop mix";
         NSValue *trackValue = [NSValue valueWithNonretainedObject:track];
         [self.trackPlayerDict setObject:trackPlayerModel forKey:trackValue];
     }
+}
+
+- (void)setUpColorManager {
+    NSMutableArray *colorNames = [NSMutableArray new];
+    for (int i = 1; i <= 8; i++) {
+        NSString *colorName = [NSString stringWithFormat:@"%@%d",COLOR_PREFIX, i];
+        [colorNames addObject:colorName];
+    }
+    self.colorManager = [[ColorManager alloc] initWithColorNameArray:colorNames];
 }
 
 - (long long)minOfNumArray:(NSArray *)array {

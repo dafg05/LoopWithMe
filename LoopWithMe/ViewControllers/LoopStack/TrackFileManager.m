@@ -52,7 +52,6 @@
         [self.freeUrlStack addObject:url];
         return nil;
     }
-    NSLog(@"%d", _freeUrlStack.count);
     return url;
 }
 

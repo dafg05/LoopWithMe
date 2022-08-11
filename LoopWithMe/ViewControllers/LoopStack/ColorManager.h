@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ColorManager : NSObject
 
 - (instancetype)initWithColorNameArray:(NSArray *)colors;
-- (NSString *)reserveAvailableColor;
-- (void)freeColor:(NSString *)colorName;
+- (NSString *)reserveAvailableColorName;
+- (void)freeColorName:(NSString *)colorName;
 
 
 @end
