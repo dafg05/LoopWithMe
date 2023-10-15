@@ -1,6 +1,6 @@
 # LoopWithMe
 
-[Link to project plan](https://github.com/dafg05/LoopWithMePlanning)
+[Link to project plan](https://hackmd.io/C6D8OCWnTZydM8Y33Xz3hA?view)
 
 Before building:
 
